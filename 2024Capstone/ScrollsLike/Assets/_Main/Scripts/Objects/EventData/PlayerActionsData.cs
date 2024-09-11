@@ -10,10 +10,10 @@ public class PlayerActionsData : ScriptableObject
     public UnityEvent<Vector2> PlayerMoveEvent;
     public UnityEvent<Vector2> PlayerLookEvent;
 
-    public UnityEvent PlayerStartAttackEvent;
-    public UnityEvent PlayerEndAttackEvent;
+    public UnityEvent PlayerAttackEvent;
+    public UnityEvent PlayerEndActionEvent;
 
-    public UnityEvent PLayerStartBlockEvent;
+    public UnityEvent PLayerBlockEvent;
     public UnityEvent PLayerEndBlockEvent;
     #endregion
 
@@ -21,9 +21,9 @@ public class PlayerActionsData : ScriptableObject
     public void HandlePlayerMovement(Vector2 movement) => PlayerMoveEvent.Invoke(movement);
     public void HandlePlayerLook(Vector2 look) => PlayerLookEvent.Invoke(look);
 
-    public void HandlePlayerAttack() => PlayerStartAttackEvent.Invoke();
-    public void HandlePlayerEndAttack() => PlayerEndAttackEvent.Invoke();
-    public void HandlePlayerBlock() => PLayerStartBlockEvent.Invoke();
+    public void HandlePlayerAttack() => PlayerAttackEvent.Invoke();
+    public void HandlePlayerEndAction() => PlayerEndActionEvent.Invoke();
+    public void HandlePlayerBlock() => PLayerBlockEvent.Invoke();
     public void HandlePlayerEndBlock() => PLayerEndBlockEvent.Invoke();
     #endregion
 }
