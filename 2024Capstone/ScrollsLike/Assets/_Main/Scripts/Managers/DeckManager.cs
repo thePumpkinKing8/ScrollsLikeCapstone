@@ -6,9 +6,15 @@ using System.Linq;
 public class DeckManager : MonoBehaviour
 {
     public List<CardData> Deck {get{ return _deck; }}
-    private List<CardData> _deck;
+    [SerializeField] private List<CardData> _deck;
+    [SerializeField] private int _testDraw = 4;
 
-   
+    private void Start()
+    {
+        Shuffle();
+        for(int i = 0; i < _testDraw; i++)
+            CardGameEventManager.Instance.HandleCardDraw(DrawCard());
+    }
     public void Shuffle()
     {
         _deck = _deck.OrderBy(x => Random.value).ToList();

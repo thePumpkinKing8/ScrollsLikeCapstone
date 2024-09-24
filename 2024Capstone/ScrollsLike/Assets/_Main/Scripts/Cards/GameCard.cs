@@ -6,7 +6,7 @@ using TMPro;
 
 public class GameCard : MonoBehaviour
 {
-    public CardData TestCard;
+    //public CardData TestCard;
     public CardData ReferenceCardData 
     { 
         get
@@ -38,7 +38,7 @@ public class GameCard : MonoBehaviour
 
     private void Awake()
     {
-        ReferenceCardData = TestCard;
+       // ReferenceCardData = TestCard;
     }
     // Start is called before the first frame update
     void Start()
