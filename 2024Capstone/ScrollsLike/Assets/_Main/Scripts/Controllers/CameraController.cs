@@ -60,7 +60,7 @@ public class CameraController : MonoBehaviour
         _cameraTransform.Rotate(Vector3.right * (_cameraVerticalRotation == -90 || _cameraVerticalRotation == 90 ? 0 : _yAxis));
         
         Debug.Log($"{_cameraVerticalRotation}");
-       // _cameraTransform.localEulerAngles = Vector3.right * _cameraVerticalRotation; //this method is making the cameras vertical rotation feel choppy
+      
         //dont like manually setting the camera angle but its the only way i could figure out how to clamp the rotation
 
         //rotate the player horizontally
