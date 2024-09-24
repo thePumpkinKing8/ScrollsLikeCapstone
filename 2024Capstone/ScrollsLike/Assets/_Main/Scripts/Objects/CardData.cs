@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 [CreateAssetMenu(fileName = "CardData", menuName = "Card")]
 public class CardData : ScriptableObject
 {
+
+    public string CardName { get { return _cardName; } }
+    public CardType CardType { get { return _cardType; } }
+    public Texture CardImage { get { return _cardImage; } }
+    public string CardDescription { get { return _cardDescription; } }
+
     [SerializeField] private string _cardName;
     [SerializeField] private CardType _cardType;
-    [SerializeField] private Sprite _cardSprite;
+    [SerializeField] private Texture _cardImage;
     [SerializeField] private string _cardDescription;
     public List<CardEffect> CardResolutionEffects { get { return _cardResolutionEffects; } }
     [SerializeField] private List<CardEffect> _cardResolutionEffects;

@@ -14,18 +14,28 @@ public class DeckManager : MonoBehaviour
         _deck = _deck.OrderBy(x => Random.value).ToList();
     }
 
-    public void AddCardToPositon(int position = 0)
+    public void AddCardToPositon(CardData card, int position = 0)
     {
-
+        _deck.Insert(position, card);
     }
 
     public void ShuffleCardsIn(List<CardData> cardsToShuffle)
     {
-
+        foreach(CardData card in cardsToShuffle)
+        {
+            _deck.Add(card);
+        }
+        Shuffle();
     }
 
-    public void DrawCard()
+    /// <summary>
+    /// returns the top card of the deck and removes it from the deck
+    /// </summary>
+    /// <returns></returns>
+    public CardData DrawCard()
     {
-
+        var drawnCard = _deck[0];
+        _deck.Remove(drawnCard);
+        return drawnCard;
     }
 }
