@@ -61,7 +61,6 @@ public class GameCard : MonoBehaviour
     public void OnHover()
     {
         transform.localScale = Vector3.one * _hoverSizeIncrease;
-        Debug.Log("Size increase");
     }
 
     public void HoverExit()

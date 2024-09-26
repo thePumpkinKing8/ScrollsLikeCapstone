@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HandController : MonoBehaviour
 {
     [SerializeField] private GameObject CardPrefab;
+    private List<GameCard> _cardsInHand = new List<GameCard>();
 
     private void Awake()
     {
@@ -14,8 +15,7 @@ public class HandController : MonoBehaviour
     public void CardDrawn(CardData drawnCard)
     {
         GameCard newCard = Instantiate(CardPrefab).GetComponent<GameCard>();
-        newCard.transform.SetParent(gameObject.GetComponentInChildren<HorizontalLayoutGroup>().transform, true);
-        newCard.ReferenceCardData = drawnCard;
-       
+        newCard.transform.SetParent(transform, true);
+        newCard.ReferenceCardData = drawnCard;       
     }
 }
