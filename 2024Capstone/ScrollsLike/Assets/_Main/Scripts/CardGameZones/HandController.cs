@@ -9,14 +9,13 @@ public class HandController : MonoBehaviour
 
     private void Awake()
     {
-        CardGameEventManager.Instance.CardDrawnEvent.AddListener(DrawACard);
+        CardGameManager.Instance.Events.CardDrawnEvent.AddListener(CardDrawn);
     }
-    public void DrawACard(CardData drawnCard)
+    public void CardDrawn(CardData drawnCard)
     {
         GameCard newCard = Instantiate(CardPrefab).GetComponent<GameCard>();
         newCard.transform.SetParent(gameObject.GetComponentInChildren<HorizontalLayoutGroup>().transform, true);
         newCard.ReferenceCardData = drawnCard;
-        Debug.Log("dadw");
        
     }
 }

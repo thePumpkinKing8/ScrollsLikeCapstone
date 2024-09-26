@@ -5,15 +5,22 @@ using System.Linq;
 
 public class DeckManager : MonoBehaviour
 {
+    [SerializeField] private PlayerDeck _deckData;
     public List<CardData> Deck {get{ return _deck; }}
-    [SerializeField] private List<CardData> _deck;
+    private List<CardData> _deck;
     [SerializeField] private int _testDraw = 4;
 
     private void Start()
     {
+        _deckData.Initialize();//normally done by a different script at the start of a run but done like this for now
+        ShuffleCardsIn(_deckData.Deck);
+
+        #region events
+        CardGameManager.Instance.Events.ShuffleCardsToDeck.AddListener(ShuffleCardsIn);
+        #endregion
         Shuffle();
         for(int i = 0; i < _testDraw; i++)
-            CardGameEventManager.Instance.HandleCardDraw(DrawCard());
+            CardGameManager.Instance.Events.HandleCardDraw(DrawCard());
     }
     public void Shuffle()
     {

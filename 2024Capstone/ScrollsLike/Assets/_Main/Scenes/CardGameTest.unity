@@ -731,6 +731,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2058746812}
   - component: {fileID: 2058746813}
+  - component: {fileID: 2058746815}
   - component: {fileID: 2058746814}
   m_Layer: 0
   m_Name: '[CardManager]'
@@ -766,17 +767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ece71bd2642e1d4db169deaf41c414c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deck:
-  - {fileID: 11400000, guid: 76ca46010c43ff6499fa04bf4bbb5d3c, type: 2}
-  - {fileID: 11400000, guid: 1bdb33b0f34bbf0428a22eb03e263b6b, type: 2}
-  - {fileID: 11400000, guid: 81e86533647431c46b2d7fdf79cfa2fc, type: 2}
-  - {fileID: 11400000, guid: 235a6b0369422aa44b59e31ed0438984, type: 2}
-  - {fileID: 11400000, guid: 76ca46010c43ff6499fa04bf4bbb5d3c, type: 2}
-  - {fileID: 11400000, guid: 1bdb33b0f34bbf0428a22eb03e263b6b, type: 2}
-  - {fileID: 11400000, guid: 81e86533647431c46b2d7fdf79cfa2fc, type: 2}
-  - {fileID: 11400000, guid: 235a6b0369422aa44b59e31ed0438984, type: 2}
-  - {fileID: 11400000, guid: c57c0023a25781e4aa91b9c2efe7a56a, type: 2}
-  - {fileID: 11400000, guid: 1bdb33b0f34bbf0428a22eb03e263b6b, type: 2}
+  _deckData: {fileID: 11400000, guid: 3604ab3c9d763694298deec54df5e405, type: 2}
   _testDraw: 8
 --- !u!114 &2058746814
 MonoBehaviour:
@@ -787,12 +778,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 2058746811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8551c62c7ff52e4680d9caee0f89b9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f2de1cee729f17499ba0980e23d2ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardDrawnEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  _cardEventData: {fileID: 11400000, guid: 8b91a1c7913a69a4cb70de4c1ef30b26, type: 2}
+--- !u!114 &2058746815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058746811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a9f0157444cbb4fb06a00a011276c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
