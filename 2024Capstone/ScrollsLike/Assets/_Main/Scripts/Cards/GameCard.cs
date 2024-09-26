@@ -61,10 +61,12 @@ public class GameCard : MonoBehaviour
     public void OnHover()
     {
         transform.localScale = Vector3.one * _hoverSizeIncrease;
+        GetComponent<Canvas>().sortingOrder += 1;
     }
 
     public void HoverExit()
     {
         transform.localScale = Vector3.one;
+        GetComponent<Canvas>().sortingOrder -= 1;
     }
 }
