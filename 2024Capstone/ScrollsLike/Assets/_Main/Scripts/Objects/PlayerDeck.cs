@@ -17,7 +17,6 @@ public class PlayerDeck : ScriptableObject
         {
             _deck.Add(card);
         }
-        Debug.Log(_deck.Count);
     }
     public void AddCardToDeck(CardData card)
     {

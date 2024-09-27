@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PhaseManager : MonoBehaviour
 {
+   
     private void Start()
     {
         CardGameManager.Instance.Events.DrawPhaseStartEvent.AddListener(DrawPhaseStart);
@@ -40,6 +41,8 @@ public class PhaseManager : MonoBehaviour
 
     IEnumerator DrawPhase()
     {
+        //handle any effects that happen here
+        CardGameManager.Instance.DrawPhaseEnd();
         yield return null;
     }
 

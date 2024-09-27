@@ -20,7 +20,7 @@ public class DiscardPile : MonoBehaviour
     {
         var cards = _discardedCards;
         _discardedCards.Clear();
-        CardGameManager.Instance.Events.HandleShuffleToDeck(cards);
+        CardGameManager.Instance.HandleShuffleToDeck(cards);
     }
 
     public void RemoveACard(CardData chosenCard)

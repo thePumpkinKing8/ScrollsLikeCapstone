@@ -8,10 +8,10 @@ public class DeckManager : MonoBehaviour
     [SerializeField] private PlayerDeck _deckData;
     public List<CardData> Deck {get{ return _deck; }}
     private List<CardData> _deck = new List<CardData>();
-    [SerializeField] private int _testDraw = 4;
     private void Awake()
     {
         _deckData.Initialize();//normally done by a different script at the start of a run but done like this for now
+        CardGameManager.Instance.Events.DrawCardEvent.AddListener(DrawCard);
     }
 
     private void Start()
@@ -23,8 +23,7 @@ public class DeckManager : MonoBehaviour
         CardGameManager.Instance.Events.ShuffleCardsToDeck.AddListener(ShuffleCardsIn);
         #endregion
         Shuffle();
-        for(int i = 0; i < _testDraw; i++)
-           CardGameManager.Instance.Events.HandleCardDraw(DrawCard());
+        
     }
     public void Shuffle()
     {
@@ -40,7 +39,7 @@ public class DeckManager : MonoBehaviour
     {
         foreach(CardData card in cardsToShuffle)
         {
-            Debug.Log(card.name);
+
             _deck.Add(card);
         }
         Shuffle();
@@ -50,11 +49,11 @@ public class DeckManager : MonoBehaviour
     /// returns the top card of the deck and removes it from the deck
     /// </summary>
     /// <returns></returns>
-    public CardData DrawCard()
+    public void DrawCard()
     {
         var drawnCard = _deck[0];
         _deck.Remove(drawnCard);
-        return drawnCard;
+        CardGameManager.Instance.HandleCardDraw(drawnCard);
     }
 
     private void OnApplicationQuit() //clears added cards from the decks data. this will only be done by starting a new run or by losing in the full game

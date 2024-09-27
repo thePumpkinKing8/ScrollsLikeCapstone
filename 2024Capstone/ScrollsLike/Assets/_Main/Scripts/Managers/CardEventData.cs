@@ -28,20 +28,6 @@ public class CardEventData : ScriptableObject
     public UnityEvent CleanupPhaseEndEvent;
     #endregion
 
-    public void HandleCardDraw(CardData card) => CardDrawnEvent.Invoke(card);
-    public void HandleCardDiscard(CardData card) => CardDiscardedEvent.Invoke(card);
-    public void DrawFromDeckFailed() => DrawFailed.Invoke();
-    public void HandleShuffleToDeck(List<CardData> cards) => ShuffleCardsToDeck.Invoke(cards);
-    public void DrawCard() => DrawCardEvent.Invoke();
-    public void DrawPhaseStart() => DrawPhaseStartEvent.Invoke();
-    public void DrawPhaseEnd() => DrawPhaseEndEvent.Invoke();
-    public void PrepPhaseStart() => PrepPhaseStartEvent.Invoke();
-    public void PrepPhaseEnd() => PrepPhaseEndEvent.Invoke();
-    public void PlayPhaseStart() => PlayPhaseStartEvent.Invoke();
-    public void PlayPhaseEnd() => PlayPhaseEndEvent.Invoke();
-    public void ResolutionPhaseStart() => ResolutionPhaseStartEvent.Invoke();
-    public void ResolutionPhaseEnd() => ResolutionPhaseEndEvent.Invoke();
-    public void CleanupPhaseStart() => CleanupPhaseStartEvent.Invoke();
-    public void CleanupPhaseEnd() => CleanupPhaseEndEvent.Invoke();
+    
     
 }
