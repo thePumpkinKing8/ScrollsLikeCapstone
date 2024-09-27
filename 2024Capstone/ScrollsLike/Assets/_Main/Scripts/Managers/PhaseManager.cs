@@ -4,15 +4,62 @@ using UnityEngine;
 
 public class PhaseManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        CardGameManager.Instance.Events.DrawPhaseStartEvent.AddListener(DrawPhaseStart);
+        CardGameManager.Instance.Events.PrepPhaseStartEvent.AddListener(PrepPhaseStart);
+        CardGameManager.Instance.Events.PlayPhaseStartEvent.AddListener(PlayPhaseStart);
+        CardGameManager.Instance.Events.ResolutionPhaseStartEvent.AddListener(ResolutionPhaseStart);
+        CardGameManager.Instance.Events.CleanupPhaseStartEvent.AddListener(CleanupPhaseStart);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DrawPhaseStart()
     {
-        
+        StartCoroutine(DrawPhase());
+    }
+
+    public void PrepPhaseStart()
+    {
+        StartCoroutine(PrepPhase());
+    }
+
+    public void PlayPhaseStart()
+    {
+        StartCoroutine(PlayPhase());
+    }
+
+    public void ResolutionPhaseStart()
+    {
+        StartCoroutine(ResolutionPhase());
+    }
+
+    public void CleanupPhaseStart()
+    {
+        StartCoroutine(CleanupPhase());
+    }
+
+    IEnumerator DrawPhase()
+    {
+        yield return null;
+    }
+
+    IEnumerator PrepPhase()
+    {
+        yield return null;
+    }
+
+    IEnumerator PlayPhase()
+    {
+        yield return null;
+    }
+
+    IEnumerator ResolutionPhase()
+    {
+        yield return null;
+    }
+
+    IEnumerator CleanupPhase()
+    {
+        yield return null;
     }
 }
