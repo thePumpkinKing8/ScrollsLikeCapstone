@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
   m_Name: TestCard5
   m_EditorClassIdentifier: 
-  _cardName: Test5
+  _cardName: Strike2
   _cardType: 0
   _cardImage: {fileID: 2800000, guid: db9013da176a18241bd695e65375526e, type: 3}
   _cardDescription: This is a test card for testing card systems

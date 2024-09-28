@@ -19,13 +19,16 @@ public class HandController : MonoBehaviour
     {
         CardGameManager.Instance.Events.CardDrawnEvent.AddListener(CardDrawn);
         CardGameManager.Instance.Events.DrawPhaseEndEvent.AddListener(DrawPhase);
+        CardGameManager.Instance.Events.AddCardToHand.AddListener(AddCard);
     }
     public void CardDrawn(CardData drawnCard)
     {
-        GameCard newCard = Instantiate(CardPrefab).GetComponent<GameCard>();
+        GameCard newCard = PoolManager.Instance.Spawn("Card").GetComponent<GameCard>();
         newCard.transform.SetParent(transform, true);
         newCard.ReferenceCardData = drawnCard;       
         _cardsInHand.Add(newCard);
+        newCard.InHand = true;
+        newCard.InTimeSlot = false;
     }
 
     public void DrawPhase()
@@ -34,6 +37,11 @@ public class HandController : MonoBehaviour
         {
             StartCoroutine(DrawCards(_minCardsInHand - _cardsInHand.Count));
         }
+    }
+
+    public void AddCard(GameCard card)
+    {
+        CardDrawn(card.ReferenceCardData);
     }
 
     IEnumerator DrawCards(int numberOfCards)

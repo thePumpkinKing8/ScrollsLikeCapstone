@@ -10,7 +10,6 @@ public class PlayerDeck : ScriptableObject
     public List<CardData> Deck { get { return _deck; } }
     private List<CardData> _deck;
 
-
     public void Initialize()
     {
         foreach (var card in _startingCards)

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GameCard : MonoBehaviour
+public class GameCard : PoolObject
 {
     //public CardData TestCard;
     public CardData ReferenceCardData 
@@ -35,6 +35,10 @@ public class GameCard : MonoBehaviour
     [Header("UI intereaction settings")]
     [SerializeField] private float _hoverSizeIncrease = 1.25f;
 
+     public bool InHand;
+    [HideInInspector] public bool InTimeSlot;
+    
+
 
     private void Awake()
     {
@@ -60,13 +64,36 @@ public class GameCard : MonoBehaviour
 
     public void OnHover()
     {
-        transform.localScale = Vector3.one * _hoverSizeIncrease;
-        GetComponent<Canvas>().sortingOrder += 1;
+        if (InHand)
+        {
+            transform.localScale = Vector3.one * _hoverSizeIncrease;
+            GetComponent<Canvas>().sortingOrder += 1;
+        }      
     }
 
     public void HoverExit()
     {
-        transform.localScale = Vector3.one;
-        GetComponent<Canvas>().sortingOrder -= 1;
+        if (InHand)
+        {
+            transform.localScale = Vector3.one;
+            GetComponent<Canvas>().sortingOrder -= 1;
+        }       
+    }
+
+    public void OnCLick()
+    {
+        Debug.Log(CardGameManager.Instance.CurrentPhase);
+        if(CardGameManager.Instance.CurrentPhase == Phase.PlayPhase)
+        {
+            if(InHand)
+            {
+                CardGameManager.Instance.PlayCard(this);
+                transform.localScale = Vector3.one;
+            }
+            else if(InTimeSlot)
+            {
+                GetComponentInParent<TimeSlot>().RemoveCard();
+            }
+        }
     }
 }

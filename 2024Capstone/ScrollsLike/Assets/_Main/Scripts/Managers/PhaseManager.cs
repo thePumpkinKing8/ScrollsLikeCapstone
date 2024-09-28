@@ -16,53 +16,31 @@ public class PhaseManager : MonoBehaviour
 
     public void DrawPhaseStart()
     {
-        StartCoroutine(DrawPhase());
+        CardGameManager.Instance.DrawPhaseEnd();
     }
 
     public void PrepPhaseStart()
     {
-        StartCoroutine(PrepPhase());
+        CardGameManager.Instance.PrepPhaseEnd();
+        CardGameManager.Instance.PlayPhaseStart();
     }
 
     public void PlayPhaseStart()
     {
-        StartCoroutine(PlayPhase());
+        Debug.Log("PlayPhase");
+        CardGameManager.Instance.PlayPhaseEnd();
     }
 
     public void ResolutionPhaseStart()
     {
-        StartCoroutine(ResolutionPhase());
+        CardGameManager.Instance.ResolutionPhaseEnd();
+        CardGameManager.Instance.CleanupPhaseStart();
     }
 
     public void CleanupPhaseStart()
     {
-        StartCoroutine(CleanupPhase());
+        CardGameManager.Instance.CleanupPhaseEnd();
     }
 
-    IEnumerator DrawPhase()
-    {
-        //handle any effects that happen here
-        CardGameManager.Instance.DrawPhaseEnd();
-        yield return null;
-    }
-
-    IEnumerator PrepPhase()
-    {
-        yield return null;
-    }
-
-    IEnumerator PlayPhase()
-    {
-        yield return null;
-    }
-
-    IEnumerator ResolutionPhase()
-    {
-        yield return null;
-    }
-
-    IEnumerator CleanupPhase()
-    {
-        yield return null;
-    }
+    
 }

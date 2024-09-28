@@ -14,6 +14,7 @@ public class CardEventData : ScriptableObject
     public UnityEvent<CardData> CardDiscardedEvent;
     public UnityEvent DrawFailed;
     public UnityEvent<List<CardData>> ShuffleCardsToDeck;
+    public UnityEvent<GameCard> AddCardToHand;
 
     //phase events
     public UnityEvent DrawPhaseStartEvent;
@@ -26,6 +27,9 @@ public class CardEventData : ScriptableObject
     public UnityEvent ResolutionPhaseEndEvent;
     public UnityEvent CleanupPhaseStartEvent;
     public UnityEvent CleanupPhaseEndEvent;
+
+    //input events
+    public UnityEvent<GameCard> PlayCard;
     #endregion
 
     

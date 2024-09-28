@@ -481,7 +481,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6824694843023468002}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4043616271554817695}
+        m_TargetAssemblyTypeName: GameCard, Assembly-CSharp
+        m_MethodName: OnCLick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &9076014679940646491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +556,8 @@ MonoBehaviour:
   _cardType: {fileID: 9125127196233500678}
   _image: {fileID: 3729403853336409188}
   _hoverSizeIncrease: 1.25
+  InHand: 0
+  InTimeSlot: 0
 --- !u!114 &6884405459870051511
 MonoBehaviour:
   m_ObjectHideFlags: 0

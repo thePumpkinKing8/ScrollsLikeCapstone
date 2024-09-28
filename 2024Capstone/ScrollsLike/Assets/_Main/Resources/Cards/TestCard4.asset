@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
   m_Name: TestCard4
   m_EditorClassIdentifier: 
-  _cardName: Test4
-  _cardType: 0
+  _cardName: Stance2
+  _cardType: 3
   _cardImage: {fileID: 2800000, guid: f96d95aa7f394bd43abe67d5a444ef37, type: 3}
   _cardDescription: This is a test card for testing card systems
   _cardResolutionEffects: []
