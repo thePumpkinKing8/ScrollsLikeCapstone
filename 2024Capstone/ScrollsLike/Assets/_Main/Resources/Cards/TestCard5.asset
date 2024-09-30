@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cardName: Strike2
   _cardType: 0
-  _cardImage: {fileID: 2800000, guid: db9013da176a18241bd695e65375526e, type: 3}
+  _cardImage: {fileID: 2800000, guid: 157048ab342e824409af202224960e30, type: 3}
   _cardDescription: This is a test card for testing card systems
   _cardResolutionEffects: []
   _cardOnDrawEffects: []
