@@ -22,7 +22,6 @@ public class PhaseManager : MonoBehaviour
     public void PrepPhaseStart()
     {
         CardGameManager.Instance.PrepPhaseEnd();
-        CardGameManager.Instance.PlayPhaseStart();
     }
 
     public void PlayPhaseStart()
@@ -34,7 +33,7 @@ public class PhaseManager : MonoBehaviour
     public void ResolutionPhaseStart()
     {
         CardGameManager.Instance.ResolutionPhaseEnd();
-        CardGameManager.Instance.CleanupPhaseStart();
+        
     }
 
     public void CleanupPhaseStart()

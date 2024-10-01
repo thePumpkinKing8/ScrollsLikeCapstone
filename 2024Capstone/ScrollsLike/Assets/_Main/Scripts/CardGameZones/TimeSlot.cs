@@ -17,19 +17,9 @@ public class TimeSlot : MonoBehaviour
         } 
     }
     private GameCard _playersCard;
-    public GameCard EnemyCard { get; private set; } //placeholder for what the enemy will actually use
+    public CardData EnemyCard { get; private set; } //placeholder for what the enemy will actually use
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void AddCard(GameCard card)
     {
@@ -38,6 +28,7 @@ public class TimeSlot : MonoBehaviour
         card.transform.position = this.transform.position;
         card.InHand = false;
         card.InTimeSlot = true;
+        card.transform.localScale = Vector3.zero;
     }
 
     public void RemoveCard()
@@ -48,22 +39,20 @@ public class TimeSlot : MonoBehaviour
        
     }
 
-    public void AddEnemyEffect()
+    public void AddEnemyEffect(CardData card)
     {
-
+        EnemyCard = card;
+       
     }
 
     public void ResolvePlayerEffects()
     {
-        foreach(CardEffect effect in PlayersCard.ReferenceCardData.CardResolutionEffects)
-        {
-            //activate effect.
-        }
+        EffectManager.Instance.ActivateEffect(PlayersCard.ReferenceCardData.CardResolutionEffects);
     }
 
     public void ResolveEnemyEffects()
     {
-        foreach (CardEffect effect in EnemyCard.ReferenceCardData.CardResolutionEffects)
+        foreach (CardEffect effect in EnemyCard.CardResolutionEffects)
         {
             //activate effect.
         }

@@ -49,6 +49,8 @@ public class CardGameManager : Singleton<CardGameManager>
     }
     public void CleanupPhaseEnd() => Events.CleanupPhaseEndEvent.Invoke();
     public void PlayCard(GameCard  card) => Events.PlayCard.Invoke(card);
+    public void EffectActivate(List<CardEffect> effects) => Events.EffectPlayed.Invoke(effects);
+    public void EffectDone() => Events.EffectEnded.Invoke();
     #endregion
 
     private void Start()

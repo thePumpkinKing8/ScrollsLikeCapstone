@@ -17,10 +17,10 @@ public class CardData : ScriptableObject
     [SerializeField] private string _cardDescription;
     public List<CardEffect> CardResolutionEffects { get { return _cardResolutionEffects; } }
     [SerializeField] private List<CardEffect> _cardResolutionEffects;
-    public List<CardEffect> CardOnDrawEffects { get { return _cardOnDrawEffects; } }
-    [SerializeField] private List<CardEffect> _cardOnDrawEffects;
-    public List<CardEffect> CardOnDiscardEffects { get { return _cardOnDiscardEffects; } }
-    [SerializeField] private List<CardEffect> _cardOnDiscardEffects;
+    //public List<CardEffect> CardOnDrawEffects { get { return _cardOnDrawEffects; } }
+    //[SerializeField] private List<CardEffect> _cardOnDrawEffects;
+   // public List<CardEffect> CardOnDiscardEffects { get { return _cardOnDiscardEffects; } }
+    //[SerializeField] private List<CardEffect> _cardOnDiscardEffects;
 }
 
 
