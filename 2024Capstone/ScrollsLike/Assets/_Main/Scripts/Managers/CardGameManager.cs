@@ -8,7 +8,11 @@ public class CardGameManager : Singleton<CardGameManager>
     public Phase CurrentPhase { get; private set; }
     public CardEventData Events { get { return _cardEventData; } }
     [SerializeField] private CardEventData _cardEventData;
-
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
     #region EventFunctions
     public void HandleCardDraw(CardData card) => Events.CardDrawnEvent.Invoke(card);
     public void HandleCardDiscard(CardData card) => Events.CardDiscardedEvent.Invoke(card);
@@ -57,7 +61,7 @@ public class CardGameManager : Singleton<CardGameManager>
 
     private void Start()
     {
-        Invoke("LateStart", Time.deltaTime);
+        Invoke("LateStart", 1);
     }
 
     private void LateStart()

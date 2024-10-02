@@ -13,7 +13,7 @@ public class TimeSlotController : MonoBehaviour
         CardGameManager.Instance.Events.PrepPhaseEndEvent.AddListener(AddEnemyToTimeSlots);
         CardGameManager.Instance.Events.ResolutionPhaseEndEvent.AddListener(ResolveEffects);
         CardGameManager.Instance.Events.EffectEnded.AddListener(CardResolved);
-        CardGameManager.Instance.Events.CleanupPhaseEndEvent.AddListener(ClearText);
+        CardGameManager.Instance.Events.CleanupPhaseEndEvent.AddListener(ClearSlots);
     }
     // Start is called before the first frame update
     void Start()
@@ -26,13 +26,20 @@ public class TimeSlotController : MonoBehaviour
     {
         
     }
-    //clears enemy text
-    public void ClearText()
+    //clears board during cleanup phase
+    public void ClearSlots()
     {
         foreach(TextMeshProUGUI text in _enemyText)
         {
             text.text = "";
         }
+
+        foreach(TimeSlot slot in _timeSlots)
+        {
+            CardGameManager.Instance.HandleCardDiscard(slot.PlayersCard.ReferenceCardData);
+            slot.DiscardCard();   
+        }
+        CardGameManager.Instance.DrawPhaseStart();
     }
     public void CardResolved()
     {

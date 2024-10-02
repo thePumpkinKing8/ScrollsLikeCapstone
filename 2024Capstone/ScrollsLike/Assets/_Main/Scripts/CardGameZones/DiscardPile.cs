@@ -7,6 +7,10 @@ public class DiscardPile : MonoBehaviour
     public List<CardData> DiscardedCards { get { return _discardedCards; } }
     private List<CardData> _discardedCards;
 
+    private void Awake()
+    {
+  
+    }
     private void Start()
     {
         CardGameManager.Instance.Events.DrawFailed.AddListener(ShuffleCardsToDeck);

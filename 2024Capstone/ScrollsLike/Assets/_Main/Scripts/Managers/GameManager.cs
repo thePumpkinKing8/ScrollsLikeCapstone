@@ -8,7 +8,7 @@ public class GameManager : Singleton<GameManager>
     private Transform _player;
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
     // Start is called before the first frame update
     void Start()

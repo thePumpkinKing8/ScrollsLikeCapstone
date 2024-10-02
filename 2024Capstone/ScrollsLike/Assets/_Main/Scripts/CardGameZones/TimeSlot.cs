@@ -39,6 +39,13 @@ public class TimeSlot : MonoBehaviour
        
     }
 
+    public void DiscardCard()
+    {
+        CardGameManager.Instance.HandleCardDiscard(PlayersCard.ReferenceCardData);
+        _playersCard.OnDeSpawn();
+        _playersCard = null;
+    }
+
     public void AddEnemyEffect(CardData card)
     {
         EnemyCard = card;

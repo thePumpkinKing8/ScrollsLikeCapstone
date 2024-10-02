@@ -14,7 +14,7 @@ public class DeckManager : MonoBehaviour
         CardGameManager.Instance.Events.DrawCardEvent.AddListener(DrawCard);
     }
 
-    private void Start()
+    void Start()
     {
         
         ShuffleCardsIn(_deckData.Deck);

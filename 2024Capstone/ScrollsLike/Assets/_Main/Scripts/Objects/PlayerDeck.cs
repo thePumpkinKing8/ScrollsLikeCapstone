@@ -8,7 +8,7 @@ public class PlayerDeck : ScriptableObject
 {
     [SerializeField] private List<CardData> _startingCards; //the cards the player will start with at the beginning of the game
     public List<CardData> Deck { get { return _deck; } }
-    private List<CardData> _deck;
+    private List<CardData> _deck = new List<CardData>();
 
     public void Initialize()
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class HealthManager : Singleton<HealthManager>
 {
     [SerializeField] private int _startingHealth; //will be set by seperate script later
@@ -34,13 +35,15 @@ public class HealthManager : Singleton<HealthManager>
             if (Wounds <= 0)
             {
                 Debug.Log("Lose");
+                
             }
             else
                 PlayerHealth = _startingHealth;
         }
         else if (EnemyHealth <= 0)
         {
-            Debug.Log("Win");
+            StartCoroutine(EndGame("Lose"));
+
         }
 
         _text.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()}";
@@ -70,5 +73,13 @@ public class HealthManager : Singleton<HealthManager>
             EnemyHealth -= Mathf.RoundToInt(damage / 2);
         }
             
+    }
+
+    IEnumerator EndGame(string message)
+    {
+        _enemyHealthText.text = $"You {message}!";
+        yield return new WaitForSeconds(4);
+        SceneManager.LoadScene("ControlGym");
+        yield return null;
     }
 }

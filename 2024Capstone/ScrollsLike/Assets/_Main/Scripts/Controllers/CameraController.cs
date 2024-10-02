@@ -59,7 +59,6 @@ public class CameraController : MonoBehaviour
         _cameraVerticalRotation = Mathf.Clamp(_cameraVerticalRotation, -90f, 90f);
         _cameraTransform.localEulerAngles = Vector3.right * _cameraVerticalRotation;
         
-        Debug.Log($"{_cameraVerticalRotation}");
       
         //dont like manually setting the camera angle but its the only way i could figure out how to clamp the rotation
 
