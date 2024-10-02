@@ -18,7 +18,6 @@ public class LevelEditor : EditorWindow
     {
         Color.black,
         Color.white,
-        Color.blue,
         Color.red
     };
 
@@ -26,7 +25,6 @@ public class LevelEditor : EditorWindow
     {
         "Floor",
         "Wall",
-        "Player",
         "Boss"
     };
 
