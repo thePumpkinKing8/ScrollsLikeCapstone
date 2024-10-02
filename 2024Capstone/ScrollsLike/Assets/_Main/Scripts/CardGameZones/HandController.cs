@@ -20,6 +20,7 @@ public class HandController : MonoBehaviour
         CardGameManager.Instance.Events.CardDrawnEvent.AddListener(CardDrawn);
         CardGameManager.Instance.Events.DrawPhaseEndEvent.AddListener(DrawPhase);
         CardGameManager.Instance.Events.AddCardToHand.AddListener(AddCard);
+        CardGameManager.Instance.Events.PlayCard.AddListener(RemoveCard);
     }
     public void CardDrawn(CardData drawnCard)
     {
@@ -39,6 +40,11 @@ public class HandController : MonoBehaviour
         }
     }
 
+    public void RemoveCard(GameCard card)
+    {
+        _cardsInHand.Remove(card);
+    }
+
     public void AddCard(GameCard card)
     {
         CardDrawn(card.ReferenceCardData);
@@ -49,6 +55,7 @@ public class HandController : MonoBehaviour
         Debug.Log(numberOfCards);
         for(int i = 0; i < numberOfCards; i++)
         {
+            Debug.Log("turn");
             CardGameManager.Instance.DrawCard();
             yield return new WaitForSeconds(_drawDelay);
         }

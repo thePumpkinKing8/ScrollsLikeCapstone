@@ -16,6 +16,7 @@ public class PhaseManager : MonoBehaviour
 
     public void DrawPhaseStart()
     {
+        
         CardGameManager.Instance.DrawPhaseEnd();
     }
 

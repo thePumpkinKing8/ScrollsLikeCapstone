@@ -79,7 +79,7 @@ public class HealthManager : Singleton<HealthManager>
     {
         _enemyHealthText.text = $"You {message}!";
         yield return new WaitForSeconds(4);
-        SceneManager.LoadScene("ControlGym");
+        SceneManager.LoadScene("AnnaGym");
         yield return null;
     }
 }

@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
-    
+    private void Start()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+    }
 
     // Update is called once per frame
     void Update()
