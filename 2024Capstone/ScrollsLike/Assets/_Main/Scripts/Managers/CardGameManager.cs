@@ -51,6 +51,8 @@ public class CardGameManager : Singleton<CardGameManager>
     public void PlayCard(GameCard  card) => Events.PlayCard.Invoke(card);
     public void EffectActivate(List<CardEffect> effects) => Events.EffectPlayed.Invoke(effects);
     public void EffectDone() => Events.EffectEnded.Invoke();
+    public void PlayerHit(int damage) => Events.PlayerHit.Invoke(damage);
+    public void EnemyHit(int damage) => Events.EnemyHit.Invoke(damage);
     #endregion
 
     private void Start()
