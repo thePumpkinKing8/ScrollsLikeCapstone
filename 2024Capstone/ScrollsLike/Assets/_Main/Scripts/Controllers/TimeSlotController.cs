@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class TimeSlotController : MonoBehaviour
 {
     [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[4];
+    [SerializeField] private TextMeshProUGUI[] _enemyText = new TextMeshProUGUI[4];
     private bool _isPlaying = false;
     private void Awake()
     {
@@ -12,6 +13,7 @@ public class TimeSlotController : MonoBehaviour
         CardGameManager.Instance.Events.PrepPhaseEndEvent.AddListener(AddEnemyToTimeSlots);
         CardGameManager.Instance.Events.ResolutionPhaseEndEvent.AddListener(ResolveEffects);
         CardGameManager.Instance.Events.EffectEnded.AddListener(CardResolved);
+        CardGameManager.Instance.Events.CleanupPhaseEndEvent.AddListener(ClearText);
     }
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,14 @@ public class TimeSlotController : MonoBehaviour
     void Update()
     {
         
+    }
+    //clears enemy text
+    public void ClearText()
+    {
+        foreach(TextMeshProUGUI text in _enemyText)
+        {
+            text.text = "";
+        }
     }
     public void CardResolved()
     {
@@ -53,10 +63,13 @@ public class TimeSlotController : MonoBehaviour
 
     IEnumerator EnemyEffects()
     {
+        int loop = 0;
         foreach(TimeSlot slot in _timeSlots)
         {
             slot.AddEnemyEffect(EnemyManager.Instance.PlayAbility());
+            _enemyText[loop].text = $"Enemy is {slot.EnemyCard.CardType.ToString()}ing";
             yield return new WaitForSeconds(2);
+            loop++; 
         }
         CardGameManager.Instance.PlayPhaseStart();
         yield return null;

@@ -20,7 +20,7 @@ public class EnemyManager : Singleton<EnemyManager>
     public CardData PlayAbility()
     {
         Debug.Log("fjahd");
-        CardData card = _enemyDeck.Deck[0];//Random.Range(0, _enemyDeck.Deck.Count)];
+        CardData card = _enemyDeck.Deck[Random.Range(0, _enemyDeck.Deck.Count)];
         return card;
     }
 }
