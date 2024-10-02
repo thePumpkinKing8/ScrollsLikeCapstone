@@ -52,9 +52,13 @@ public class TimeSlot : MonoBehaviour
 
     public void ResolveEnemyEffects()
     {
-        foreach (CardEffect effect in EnemyCard.CardResolutionEffects)
+        if(EnemyCard.CardType == CardType.Strike)
         {
-            //activate effect.
+            CardGameManager.Instance.PlayerHit(8);
+        }
+        else
+        {
+            HealthManager.Instance.EnemyBlock = true;
         }
     }
 

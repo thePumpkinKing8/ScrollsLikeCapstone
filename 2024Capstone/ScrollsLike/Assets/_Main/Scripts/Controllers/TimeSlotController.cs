@@ -81,8 +81,10 @@ public class TimeSlotController : MonoBehaviour
         {
             _isPlaying = true;
             slot.ResolvePlayerEffects();
-            yield return new WaitUntil(() => _isPlaying == false);   
+            yield return new WaitUntil(() => _isPlaying == false);
+            slot.ResolveEnemyEffects();
         }
+       
         CardGameManager.Instance.CleanupPhaseStart();
         yield return null;
     }
