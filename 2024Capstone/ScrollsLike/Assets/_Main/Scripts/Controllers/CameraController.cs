@@ -38,12 +38,12 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Look();
     }
 
     private void FixedUpdate()
     {
-        Look();
+        
     }
 
     public void HandleLook(Vector2 axis)
@@ -57,9 +57,8 @@ public class CameraController : MonoBehaviour
         //rotate camera vertically
         _cameraVerticalRotation += _yAxis;
         _cameraVerticalRotation = Mathf.Clamp(_cameraVerticalRotation, -90f, 90f);
-        _cameraTransform.Rotate(Vector3.right * (_cameraVerticalRotation == -90 || _cameraVerticalRotation == 90 ? 0 : _yAxis));
+        _cameraTransform.localEulerAngles = Vector3.right * _cameraVerticalRotation;
         
-        Debug.Log($"{_cameraVerticalRotation}");
       
         //dont like manually setting the camera angle but its the only way i could figure out how to clamp the rotation
 

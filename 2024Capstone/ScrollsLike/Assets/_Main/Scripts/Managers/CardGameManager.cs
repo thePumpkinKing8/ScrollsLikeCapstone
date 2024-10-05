@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class CardGameManager : Singleton<CardGameManager>
@@ -8,7 +7,11 @@ public class CardGameManager : Singleton<CardGameManager>
     public Phase CurrentPhase { get; private set; }
     public CardEventData Events { get { return _cardEventData; } }
     [SerializeField] private CardEventData _cardEventData;
-
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
     #region EventFunctions
     public void HandleCardDraw(CardData card) => Events.CardDrawnEvent.Invoke(card);
     public void HandleCardDiscard(CardData card) => Events.CardDiscardedEvent.Invoke(card);
@@ -49,11 +52,15 @@ public class CardGameManager : Singleton<CardGameManager>
     }
     public void CleanupPhaseEnd() => Events.CleanupPhaseEndEvent.Invoke();
     public void PlayCard(GameCard  card) => Events.PlayCard.Invoke(card);
+    public void EffectActivate(List<CardEffect> effects) => Events.EffectPlayed.Invoke(effects);
+    public void EffectDone() => Events.EffectEnded.Invoke();
+    public void PlayerHit(int damage) => Events.PlayerHit.Invoke(damage);
+    public void EnemyHit(int damage) => Events.EnemyHit.Invoke(damage);
     #endregion
 
     private void Start()
     {
-        Invoke("LateStart", Time.deltaTime);
+        Invoke("LateStart", 1);
     }
 
     private void LateStart()

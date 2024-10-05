@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
   m_Name: TestCard3
   m_EditorClassIdentifier: 
-  _cardName: Stance
-  _cardType: 3
+  _cardName: Tactical BackStep
+  _cardType: 2
   _cardImage: {fileID: 2800000, guid: 2d70ca6d74dca854b9df4ee5373bacc2, type: 3}
-  _cardDescription: This is a test card for testing card systems
-  _cardResolutionEffects: []
-  _cardOnDrawEffects: []
-  _cardOnDiscardEffects: []
+  _cardDescription: Heal 5
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: 045411310837e844bab1f3052f3e166f, type: 2}

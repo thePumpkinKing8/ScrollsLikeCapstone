@@ -30,8 +30,15 @@ public class CardEventData : ScriptableObject
 
     //input events
     public UnityEvent<GameCard> PlayCard;
+
+    //effect events
+    public UnityEvent<List<CardEffect>> EffectPlayed;
+    public UnityEvent EffectEnded;
+
+    public UnityEvent<int> PlayerHit;
+    public UnityEvent<int> EnemyHit;
     #endregion
 
-    
-    
+
+
 }

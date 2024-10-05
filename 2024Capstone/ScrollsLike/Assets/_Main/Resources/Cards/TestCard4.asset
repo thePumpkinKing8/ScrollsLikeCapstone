@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
   m_Name: TestCard4
   m_EditorClassIdentifier: 
-  _cardName: Stance2
+  _cardName: Strike Of Wrath
   _cardType: 3
   _cardImage: {fileID: 2800000, guid: f96d95aa7f394bd43abe67d5a444ef37, type: 3}
-  _cardDescription: This is a test card for testing card systems
-  _cardResolutionEffects: []
-  _cardOnDrawEffects: []
-  _cardOnDiscardEffects: []
+  _cardDescription: Take 4, Deal 11
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: fe7ba743538484d4c84b5f1b7abed50f, type: 2}

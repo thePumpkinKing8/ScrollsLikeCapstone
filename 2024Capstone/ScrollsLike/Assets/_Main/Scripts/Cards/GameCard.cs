@@ -87,8 +87,10 @@ public class GameCard : PoolObject
         {
             if(InHand)
             {
+                
                 CardGameManager.Instance.PlayCard(this);
                 transform.localScale = Vector3.one;
+                
             }
             else if(InTimeSlot)
             {

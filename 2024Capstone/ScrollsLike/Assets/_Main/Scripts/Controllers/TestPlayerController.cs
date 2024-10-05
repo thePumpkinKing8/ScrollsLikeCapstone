@@ -15,6 +15,10 @@ public class TestPlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _actions.PlayerMoveEvent.AddListener(HandleMovment);
     }
+    private void Start()
+    {
+        GameManager.Instance.Player = transform;
+    }
 
     // Update is called once per frame
     void Update()

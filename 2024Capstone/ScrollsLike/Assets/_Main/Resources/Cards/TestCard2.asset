@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
   m_Name: TestCard2
   m_EditorClassIdentifier: 
-  _cardName: Strike
+  _cardName: Slash
   _cardType: 0
   _cardImage: {fileID: 2800000, guid: db9013da176a18241bd695e65375526e, type: 3}
-  _cardDescription: This is a test card for testing card systems
-  _cardResolutionEffects: []
-  _cardOnDrawEffects: []
-  _cardOnDiscardEffects: []
+  _cardDescription: 'Deal 8 damage '
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: fcc286ab713723c448bc5ced9578d157, type: 2}
