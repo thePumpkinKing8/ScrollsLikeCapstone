@@ -9,7 +9,7 @@ public class DiscardPile : MonoBehaviour
 
     private void Awake()
     {
-  
+        CardGameManager.Instance.Events.DrawFailed.AddListener(ShuffleCardsToDeck);
     }
     private void Start()
     {

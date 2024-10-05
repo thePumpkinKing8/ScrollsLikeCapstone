@@ -12,18 +12,12 @@ public class DeckManager : MonoBehaviour
     {
         _deckData.Initialize();//normally done by a different script at the start of a run but done like this for now
         CardGameManager.Instance.Events.DrawCardEvent.AddListener(DrawCard);
+        CardGameManager.Instance.Events.ShuffleCardsToDeck.AddListener(ShuffleCardsIn);
     }
 
     void Start()
     {
-        
-        ShuffleCardsIn(_deckData.Deck);
-
-        #region events
-        CardGameManager.Instance.Events.ShuffleCardsToDeck.AddListener(ShuffleCardsIn);
-        #endregion
-        Shuffle();
-        
+        ShuffleCardsIn(_deckData.Deck);   
     }
     public void Shuffle()
     {
@@ -39,7 +33,6 @@ public class DeckManager : MonoBehaviour
     {
         foreach(CardData card in cardsToShuffle)
         {
-
             _deck.Add(card);
         }
         Shuffle();
@@ -51,6 +44,10 @@ public class DeckManager : MonoBehaviour
     /// <returns></returns>
     public void DrawCard()
     {
+        if(_deck.Count > 1)
+        {
+            CardGameManager.Instance.DrawFromDeckFailed();
+        }
         var drawnCard = _deck[0];
         _deck.Remove(drawnCard);
         CardGameManager.Instance.HandleCardDraw(drawnCard);

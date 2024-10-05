@@ -16,7 +16,6 @@ public class PhaseManager : MonoBehaviour
 
     public void DrawPhaseStart()
     {
-        
         CardGameManager.Instance.DrawPhaseEnd();
     }
 
@@ -33,14 +32,11 @@ public class PhaseManager : MonoBehaviour
 
     public void ResolutionPhaseStart()
     {
-        CardGameManager.Instance.ResolutionPhaseEnd();
-        
+        CardGameManager.Instance.ResolutionPhaseEnd();       
     }
 
     public void CleanupPhaseStart()
     {
         CardGameManager.Instance.CleanupPhaseEnd();
-    }
-
-    
+    }  
 }

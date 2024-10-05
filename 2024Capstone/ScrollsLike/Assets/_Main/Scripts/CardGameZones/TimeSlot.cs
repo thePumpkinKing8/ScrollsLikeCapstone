@@ -7,7 +7,7 @@ public class TimeSlot : MonoBehaviour
     public GameCard PlayersCard 
     { 
         get { return _playersCard; } 
-        private set 
+        private set //if the player has already placed a card in this slot and attempts to place a new one. the old one will be returned to the players hand
         {
             if(_playersCard != null)
             {
@@ -20,7 +20,7 @@ public class TimeSlot : MonoBehaviour
     public CardData EnemyCard { get; private set; } //placeholder for what the enemy will actually use
 
 
-
+    //adds a card to the timeslot 
     public void AddCard(GameCard card)
     {
         PlayersCard = card;
@@ -57,6 +57,7 @@ public class TimeSlot : MonoBehaviour
         EffectManager.Instance.ActivateEffect(PlayersCard.ReferenceCardData.CardResolutionEffects);
     }
 
+    //plays activates an ability based on the card type. in the future enemies will have a similar system to the players cards
     public void ResolveEnemyEffects()
     {
         if(EnemyCard.CardType == CardType.Strike)
@@ -69,10 +70,12 @@ public class TimeSlot : MonoBehaviour
         }
     }
 
+    //discards the played card
     public void CleanUpPhase()
     {
         CardGameManager.Instance.HandleCardDiscard(PlayersCard.ReferenceCardData);
         PlayersCard.OnDeSpawn();
+        PlayersCard = null;
         CardGameManager.Instance.DrawPhaseStart();
     }
 }

@@ -22,6 +22,8 @@ public class HandController : MonoBehaviour
         CardGameManager.Instance.Events.AddCardToHand.AddListener(AddCard);
         CardGameManager.Instance.Events.PlayCard.AddListener(RemoveCard);
     }
+    
+    //spawns a card in the players hand
     public void CardDrawn(CardData drawnCard)
     {
         GameCard newCard = PoolManager.Instance.Spawn("Card").GetComponent<GameCard>();
@@ -40,6 +42,12 @@ public class HandController : MonoBehaviour
         }
     }
 
+    public void GameStart()
+    {
+        StartCoroutine(DrawCards(_startingHandSize));
+    }
+
+
     public void RemoveCard(GameCard card)
     {
         _cardsInHand.Remove(card);
@@ -50,6 +58,7 @@ public class HandController : MonoBehaviour
         CardDrawn(card.ReferenceCardData);
     }
 
+    //draws the player multiple cards at the start if the draw phase
     IEnumerator DrawCards(int numberOfCards)
     {
         Debug.Log(numberOfCards);
