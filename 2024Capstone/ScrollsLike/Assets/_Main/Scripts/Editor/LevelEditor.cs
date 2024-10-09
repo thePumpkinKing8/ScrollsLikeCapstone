@@ -18,14 +18,16 @@ public class LevelEditor : EditorWindow
     {
         Color.black,
         Color.white,
-        Color.red
+        Color.red,
+        Color.blue
     };
 
     string[] names =
     {
-        "Floor",
+        "Blank",
         "Wall",
-        "Boss"
+        "Boss",
+        "Player"
     };
 
     private LevelData myData;
