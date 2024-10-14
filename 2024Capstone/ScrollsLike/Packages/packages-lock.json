@@ -160,6 +160,12 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "com.unity.uiextensions": {
+      "version": "file:C:/Users/annav/Downloads/unity-ui-extensions-release/unity-ui-extensions-release",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.visualscripting": {
       "version": "1.9.4",
       "depth": 0,
