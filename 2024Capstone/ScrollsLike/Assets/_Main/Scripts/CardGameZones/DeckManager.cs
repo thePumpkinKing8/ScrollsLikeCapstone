@@ -44,7 +44,7 @@ public class DeckManager : MonoBehaviour
     /// <returns></returns>
     public void DrawCard()
     {
-        if(_deck.Count > 1)
+        if(_deck.Count < 1)
         {
             CardGameManager.Instance.DrawFromDeckFailed();
         }

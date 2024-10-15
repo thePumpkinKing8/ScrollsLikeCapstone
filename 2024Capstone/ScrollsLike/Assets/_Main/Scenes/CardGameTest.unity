@@ -2614,6 +2614,8 @@ MonoBehaviour:
   _startingHealth: 14
   Wounds: 3
   _enemyHealthText: {fileID: 501549115}
+  PlayerBlock: 0
+  EnemyBlock: 0
 --- !u!114 &1944978580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2763,7 +2765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e38338fa790cb04fb9b5ba9faf62123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDeck: {fileID: 11400000, guid: bd7a0430872952148b03a87f1ab3abf4, type: 2}
+  OpponentsDeck: {fileID: 11400000, guid: 2c2afdb94a398d943b0a60211a05757c, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
