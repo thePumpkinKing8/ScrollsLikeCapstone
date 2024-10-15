@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    [SerializeField] private PlayerDeck _enemyDeck;
+    public EnemyDeck OpponentsDeck;
     // Start is called before the first frame update
     void Start()
     {
-        _enemyDeck.Initialize();
+        
     }
 
     // Update is called once per frame
@@ -17,10 +17,10 @@ public class EnemyManager : Singleton<EnemyManager>
         
     }
 
-    public CardData PlayAbility()
+    public EnemyCardData PlayAbility()
     {
         Debug.Log("fjahd");
-        CardData card = _enemyDeck.Deck[Random.Range(0, _enemyDeck.Deck.Count)];
+        EnemyCardData card = OpponentsDeck.Deck[Random.Range(0,OpponentsDeck.Deck.Count)];
         return card;
     }
 }

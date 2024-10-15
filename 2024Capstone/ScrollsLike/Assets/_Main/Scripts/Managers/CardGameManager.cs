@@ -61,6 +61,7 @@ public class CardGameManager : Singleton<CardGameManager>
 
     private void Start()
     {
+        GameManager.Instance.CardGameStart();
         Invoke("LateStart", 1);
     }
 
