@@ -50,7 +50,13 @@ public class DungeonLevelLoader : MonoBehaviour
             for (int j = 0; j < levelData.levelHeight; j++)
             {
                 int objectType = levelData.grid[i, j]; // The grid value
-                if (objectType != -1) // -1 is an empty space
+                if (objectType == 3)
+                {
+                    Vector3 spawnPosition = new Vector3(i, 1, j);
+                    // Instantiate the object 
+                    Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity);
+                }
+                else if (objectType != -1) // -1 is an empty space
                 {
                     Vector3 spawnPosition = new Vector3(i, 0, j); 
                     // Instantiate the object 

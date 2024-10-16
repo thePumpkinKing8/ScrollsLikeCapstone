@@ -40,7 +40,7 @@ public class LevelEditor : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label("Pacbear Level Editor", EditorStyles.boldLabel);
+        GUILayout.Label("Level Editor", EditorStyles.boldLabel);
 
         // Load or initialize level data
         if (myData == null)
