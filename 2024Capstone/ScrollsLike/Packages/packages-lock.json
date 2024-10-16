@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.unity.burst": {
-      "version": "1.8.16",
+      "version": "1.8.17",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -159,12 +159,6 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
-    },
-    "com.unity.uiextensions": {
-      "version": "file:C:/Users/annav/Downloads/unity-ui-extensions-release/unity-ui-extensions-release",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
     },
     "com.unity.visualscripting": {
       "version": "1.9.4",
