@@ -21,6 +21,6 @@ public class GameManager : Singleton<GameManager>
     
     public void CardGameStart()
     {
-        EnemyManager.Instance.OpponentsDeck = _opponent;
+      //  EnemyManager.Instance.OpponentsDeck = _opponent;
     }
 }

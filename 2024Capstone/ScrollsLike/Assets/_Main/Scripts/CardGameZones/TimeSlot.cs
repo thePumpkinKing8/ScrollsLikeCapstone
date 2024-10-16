@@ -17,7 +17,7 @@ public class TimeSlot : MonoBehaviour
         } 
     }
     private GameCard _playersCard;
-    public EnemyCardData EnemyCard { get; private set; } 
+    public CardData EnemyCard { get; private set; } 
 
 
     //adds a card to the timeslot 
@@ -46,7 +46,7 @@ public class TimeSlot : MonoBehaviour
         _playersCard = null;
     }
 
-    public void AddEnemyEffect(EnemyCardData card)
+    public void AddEnemyEffect(CardData card)
     {
         EnemyCard = card;     
     }

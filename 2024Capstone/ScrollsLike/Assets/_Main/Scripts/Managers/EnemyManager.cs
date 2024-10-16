@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    public EnemyDeck OpponentsDeck;
+    public PlayerDeck OpponentsDeck;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +17,10 @@ public class EnemyManager : Singleton<EnemyManager>
         
     }
 
-    public EnemyCardData PlayAbility()
+    public CardData PlayAbility()
     {
         Debug.Log("fjahd");
-        EnemyCardData card = OpponentsDeck.Deck[Random.Range(0,OpponentsDeck.Deck.Count)];
+        CardData card = OpponentsDeck.Deck[Random.Range(0,OpponentsDeck.Deck.Count)];
         return card;
     }
 }
