@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3840772584645129253}
   - component: {fileID: 1165802936573679774}
   - component: {fileID: 4960546213994153756}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8501558255633685572}
-  m_Layer: 0
+  - component: {fileID: 4464543234740963999}
+  m_Layer: 6
   m_Name: WallPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,6 +141,27 @@ Transform:
   - {fileID: 4812663806187860139}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4464543234740963999
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4160559209280494497}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5786514580038815014
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +174,7 @@ GameObject:
   - component: {fileID: 6305529490361235010}
   - component: {fileID: 8294803930390999863}
   - component: {fileID: 4777942502895226441}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +279,7 @@ GameObject:
   - component: {fileID: 1853691517204631133}
   - component: {fileID: 750252701877907397}
   - component: {fileID: 3444206379136709942}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +384,7 @@ GameObject:
   - component: {fileID: 3874835491436846970}
   - component: {fileID: 9201545435612005827}
   - component: {fileID: 7418865874451908639}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -7,7 +7,7 @@ public class DungeonLevelLoader : MonoBehaviour
     public GameObject[] objectPrefabs;
     public GameObject roofPrefab;
     public GameObject groundPrefab; 
-    private LevelData levelData;
+    public LevelData levelData;
 
     void Start()
     {
