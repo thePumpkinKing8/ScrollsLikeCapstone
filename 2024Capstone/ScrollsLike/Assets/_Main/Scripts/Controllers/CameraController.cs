@@ -49,22 +49,14 @@ public class CameraController : MonoBehaviour
     public void HandleLook(Vector2 axis)
     {
         _xAxis = axis.x * _sensitivity;
-        _yAxis = -axis.y * _sensitivity;
+        //_yAxis = -axis.y * _sensitivity;
     }
 
     private void Look()
     {
-        //rotate camera vertically
-        _cameraVerticalRotation += _yAxis;
-        _cameraVerticalRotation = Mathf.Clamp(_cameraVerticalRotation, -90f, 90f);
-        _cameraTransform.localEulerAngles = Vector3.right * _cameraVerticalRotation;
-        
-      
-        //dont like manually setting the camera angle but its the only way i could figure out how to clamp the rotation
-
         //rotate the player horizontally
         transform.Rotate(Vector3.up * _xAxis);
-        _yAxis = 0;
+        //_yAxis = 0;
         _xAxis = 0;
     }
 
