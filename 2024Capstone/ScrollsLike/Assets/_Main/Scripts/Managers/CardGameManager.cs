@@ -57,6 +57,7 @@ public class CardGameManager : Singleton<CardGameManager>
     public void PlayerHit(int damage) => Events.PlayerHit.Invoke(damage);
     public void EnemyHit(int damage) => Events.EnemyHit.Invoke(damage);
     public void StanceResolved(CardData data) => Events.StanceResolved.Invoke(data);
+    public void PlayerBlock(int block) => Events.PlayerGainsBlock.Invoke(block);
     #endregion
 
     private void Start()

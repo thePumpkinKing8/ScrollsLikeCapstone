@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+
+//Should probably be changed to player manager
 public class HealthManager : Singleton<HealthManager>
 {
     [SerializeField] private int _startingHealth; //will be set by seperate script later
@@ -13,14 +15,14 @@ public class HealthManager : Singleton<HealthManager>
     private TextMeshProUGUI _text;
     [SerializeField] private TextMeshProUGUI _enemyHealthText;
 
-    [HideInInspector] public bool PlayerBlock;
-    [HideInInspector] public bool EnemyBlock;
+    [HideInInspector] public int PlayerBlock { get; private set; }
+    //[HideInInspector] public bool EnemyBlock;
 
     // Start is called before the first frame update
     void Awake()
     {
         CardGameManager.Instance.Events.PlayerHit.AddListener(PlayerHit);
-        CardGameManager.Instance.Events.EnemyHit.AddListener(EnemyHit);
+        //CardGameManager.Instance.Events.EnemyHit.AddListener(EnemyHit);
         PlayerHealth = _startingHealth;
         EnemyHealth = _startingHealth;
         _text = GetComponentInChildren<TextMeshProUGUI>();
@@ -63,23 +65,28 @@ public class HealthManager : Singleton<HealthManager>
     //deals health damage to the player
     public void PlayerHit(int damage)
     {
-        if(!PlayerBlock)
-            PlayerHealth -= damage;
-        else
-            PlayerBlock = false;
-    }
-
-    //deals damage to the enemy
-    public void EnemyHit(int damage)
-    {
-        if (!EnemyBlock)
-            EnemyHealth -= damage;
+        if(PlayerBlock >= 0)
+        {
+            if(damage > PlayerBlock)
+            {
+                int remainder = damage - PlayerBlock;
+                PlayerBlock = 0;
+                PlayerHealth -= remainder;
+            }
+            else
+            {
+                PlayerBlock -= damage;
+            }
+        }
         else
         {
-            EnemyBlock = false;
-            EnemyHealth -= Mathf.RoundToInt(damage / 2);
+            PlayerHealth -= damage;
         }
-            
+    }
+
+    public void GainBlock(int amount)
+    {
+        PlayerBlock += amount;
     }
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
