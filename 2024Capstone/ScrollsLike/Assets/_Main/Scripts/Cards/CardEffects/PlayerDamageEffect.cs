@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamageEffect : MonoBehaviour
+[CreateAssetMenu(fileName = "Attack Effect", menuName = "Effects/Attack Effect")]
+public class PlayerDamageEffect : CardEffect
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int _damage;
+    public override void Effect()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.Effect();
+        CardGameManager.Instance.PlayerHit(_damage);
     }
 }

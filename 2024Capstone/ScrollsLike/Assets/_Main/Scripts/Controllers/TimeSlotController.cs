@@ -10,6 +10,7 @@ public class TimeSlotController : MonoBehaviour
     private void Awake()
     {
         CardGameManager.Instance.Events.PlayCard.AddListener(AddCardToTimeSlot);
+        CardGameManager.Instance.Events.PlayPhaseEndEvent.AddListener(StartPlayPhase);
         CardGameManager.Instance.Events.PrepPhaseEndEvent.AddListener(AddEnemyToTimeSlots);
         CardGameManager.Instance.Events.ResolutionPhaseEndEvent.AddListener(ResolveEffects);
         CardGameManager.Instance.Events.EffectEnded.AddListener(CardResolved);
@@ -69,6 +70,11 @@ public class TimeSlotController : MonoBehaviour
         StartCoroutine(EnemyEffects());
     }
 
+    public void StartPlayPhase()
+    {
+        StartCoroutine(PlayPhase());
+    }
+
     //adds enemy abilities to each timeslot
     IEnumerator EnemyEffects()
     {
@@ -96,6 +102,11 @@ public class TimeSlotController : MonoBehaviour
         }
        
         CardGameManager.Instance.CleanupPhaseStart();
+        yield return null;
+    }
+
+    IEnumerator PlayPhase()
+    {
         yield return null;
     }
 }

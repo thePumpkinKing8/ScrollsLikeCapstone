@@ -19,6 +19,12 @@ public class TimeSlot : MonoBehaviour
     private GameCard _playersCard;
     public EnemyCardData EnemyCard { get; private set; } 
 
+    private bool _active = false;
+    
+    public void ToggleActive()
+    {
+        _active = !_active;
+    }
 
     //adds a card to the timeslot 
     public void AddCard(GameCard card)
