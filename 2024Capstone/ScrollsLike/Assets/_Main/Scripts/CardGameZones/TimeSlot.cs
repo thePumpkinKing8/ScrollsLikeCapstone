@@ -11,11 +11,18 @@ public class TimeSlot : MonoBehaviour
         {
             if(_playersCard != null)
             {
-                RemoveCard();
+               // RemoveCard();
             }
             _playersCard = value;
         } 
     }
+
+    public List<GameCard> PlayerCards
+    {
+        get { return _playersCards; }
+        private set { _playersCards = value; }
+    }
+    private List<GameCard> _playersCards = new List<GameCard>();
     private GameCard _playersCard;
     public EnemyCardData EnemyCard { get; private set; } 
 
@@ -29,7 +36,7 @@ public class TimeSlot : MonoBehaviour
     //adds a card to the timeslot 
     public void AddCard(GameCard card)
     {
-        PlayersCard = card;
+        PlayerCards.Add(card);
         card.transform.SetParent(transform, true);
         card.transform.position = this.transform.position;
         card.InHand = false;
@@ -37,11 +44,12 @@ public class TimeSlot : MonoBehaviour
         card.transform.localScale = Vector3.zero;
     }
 
-    public void RemoveCard()
+    public void RemoveCard(GameCard card)
     {
         CardGameManager.Instance.AddCardToHand(PlayersCard);
-        _playersCard.OnDeSpawn();
-        _playersCard = null;
+        GameCard removedCard = PlayerCards.Find( x => x == card);
+        removedCard.OnDeSpawn();
+        PlayerCards.Remove(removedCard);
        
     }
 
