@@ -14,6 +14,7 @@ public class HealthManager : Singleton<HealthManager>
     public int EnemyHealth { get; private set; }
     private TextMeshProUGUI _text;
     [SerializeField] private TextMeshProUGUI _enemyHealthText;
+    public int Energy { get; private set; }
 
     [HideInInspector] public int PlayerBlock { get; private set; }
     //[HideInInspector] public bool EnemyBlock;
@@ -22,7 +23,7 @@ public class HealthManager : Singleton<HealthManager>
     void Awake()
     {
         CardGameManager.Instance.Events.PlayerHit.AddListener(PlayerHit);
-        //CardGameManager.Instance.Events.EnemyHit.AddListener(EnemyHit);
+        Energy = 0;
         PlayerHealth = _startingHealth;
         EnemyHealth = _startingHealth;
         _text = GetComponentInChildren<TextMeshProUGUI>();

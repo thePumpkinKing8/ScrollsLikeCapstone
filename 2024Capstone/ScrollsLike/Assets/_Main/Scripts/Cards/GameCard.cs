@@ -80,6 +80,18 @@ public class GameCard : PoolObject
         }       
     }
 
+    public void OnRightClick()
+    {
+        if (CardGameManager.Instance.CurrentPhase == Phase.PlayPhase)
+        {
+            if (InHand)
+            {
+                CardGameManager.Instance.EnergyGain(1);
+                CardGameManager.Instance.HandleCardDiscard(this.ReferenceCardData);
+                OnDeSpawn();
+            }
+        }
+    }
     //what the card does when its clicked
     public void OnCLick()
     {
@@ -95,7 +107,7 @@ public class GameCard : PoolObject
             }
             else if(InTimeSlot)
             {
-                GetComponentInParent<TimeSlot>().RemoveCard();
+                //GetComponentInParent<TimeSlot>().RemoveCard();
             }
         }
     }

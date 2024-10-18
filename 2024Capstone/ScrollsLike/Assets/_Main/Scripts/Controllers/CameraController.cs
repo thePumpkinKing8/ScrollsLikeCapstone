@@ -16,20 +16,17 @@ public class CameraController : MonoBehaviour
             return Mathf.Abs(_sensitivity);
         }
     }
-    //cameras vertical rotation in degrees relative to the direction its been rotated
-    private float _cameraVerticalRotation = 0;
+ 
     void Awake()
     {
         _actions = InputManager.Instance.ActionsData;
         _actions.PlayerLookEvent.AddListener(HandleLook);
         _cameraTransform = GetComponentInChildren<Camera>().transform; 
-        _cameraVerticalRotation = 0;
         _cameraTransform.localEulerAngles = Vector3.zero;
     }
 
     private void Start()
     {
-        _cameraVerticalRotation = 0;
         _cameraTransform.localEulerAngles = Vector3.zero;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
