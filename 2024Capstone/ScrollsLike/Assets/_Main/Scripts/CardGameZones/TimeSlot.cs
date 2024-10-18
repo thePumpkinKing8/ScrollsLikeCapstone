@@ -7,7 +7,7 @@ public class TimeSlot : MonoBehaviour
     public GameCard PlayersCard 
     { 
         get { return _playersCard; } 
-        private set 
+        private set //if the player has already placed a card in this slot and attempts to place a new one. the old one will be returned to the players hand
         {
             if(_playersCard != null)
             {
@@ -17,10 +17,10 @@ public class TimeSlot : MonoBehaviour
         } 
     }
     private GameCard _playersCard;
-    public CardData EnemyCard { get; private set; } //placeholder for what the enemy will actually use
+    public EnemyCardData EnemyCard { get; private set; } 
 
 
-
+    //adds a card to the timeslot 
     public void AddCard(GameCard card)
     {
         PlayersCard = card;
@@ -46,10 +46,9 @@ public class TimeSlot : MonoBehaviour
         _playersCard = null;
     }
 
-    public void AddEnemyEffect(CardData card)
+    public void AddEnemyEffect(EnemyCardData card)
     {
-        EnemyCard = card;
-       
+        EnemyCard = card;     
     }
 
     public void ResolvePlayerEffects()
@@ -57,22 +56,18 @@ public class TimeSlot : MonoBehaviour
         EffectManager.Instance.ActivateEffect(PlayersCard.ReferenceCardData.CardResolutionEffects);
     }
 
+    //plays activates an ability based on the card type. in the future enemies will have a similar system to the players cards
     public void ResolveEnemyEffects()
     {
-        if(EnemyCard.CardType == CardType.Strike)
-        {
-            CardGameManager.Instance.PlayerHit(8);
-        }
-        else
-        {
-            HealthManager.Instance.EnemyBlock = true;
-        }
+        EffectManager.Instance.ActivateEffect(EnemyCard.CardResolutionEffects);
     }
 
+    //discards the played card
     public void CleanUpPhase()
     {
         CardGameManager.Instance.HandleCardDiscard(PlayersCard.ReferenceCardData);
         PlayersCard.OnDeSpawn();
+        PlayersCard = null;
         CardGameManager.Instance.DrawPhaseStart();
     }
 }

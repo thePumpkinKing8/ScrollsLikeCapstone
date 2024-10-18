@@ -56,13 +56,16 @@ public class CardGameManager : Singleton<CardGameManager>
     public void EffectDone() => Events.EffectEnded.Invoke();
     public void PlayerHit(int damage) => Events.PlayerHit.Invoke(damage);
     public void EnemyHit(int damage) => Events.EnemyHit.Invoke(damage);
+    public void StanceResolved(CardData data) => Events.StanceResolved.Invoke(data);
     #endregion
 
     private void Start()
     {
+        GameManager.Instance.CardGameStart();
         Invoke("LateStart", 1);
     }
 
+    //wait for all scripts to get their start and awake functions finished before starting the game
     private void LateStart()
     {
         DrawPhaseStart();

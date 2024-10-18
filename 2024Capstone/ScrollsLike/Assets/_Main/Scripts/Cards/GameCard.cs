@@ -42,7 +42,7 @@ public class GameCard : PoolObject
 
     private void Awake()
     {
-       // ReferenceCardData = TestCard;
+       
     }
     // Start is called before the first frame update
     void Start()
@@ -80,6 +80,7 @@ public class GameCard : PoolObject
         }       
     }
 
+    //what the card does when its clicked
     public void OnCLick()
     {
         Debug.Log(CardGameManager.Instance.CurrentPhase);

@@ -35,14 +35,19 @@ public class HealthManager : Singleton<HealthManager>
             if (Wounds <= 0)
             {
                 Debug.Log("Lose");
-                
+                StartCoroutine(EndGame("Lose"));
             }
             else
+            {
+                var overDamage = PlayerHealth; //the damage that knocked the player below 0
                 PlayerHealth = _startingHealth;
+                PlayerHealth -= overDamage;
+            }
+                
         }
         else if (EnemyHealth <= 0)
         {
-            StartCoroutine(EndGame("Lose"));
+            StartCoroutine(EndGame("Win"));
 
         }
 
@@ -55,7 +60,7 @@ public class HealthManager : Singleton<HealthManager>
         }
         
     }
-
+    //deals health damage to the player
     public void PlayerHit(int damage)
     {
         if(!PlayerBlock)
@@ -63,6 +68,8 @@ public class HealthManager : Singleton<HealthManager>
         else
             PlayerBlock = false;
     }
+
+    //deals damage to the enemy
     public void EnemyHit(int damage)
     {
         if (!EnemyBlock)
@@ -74,12 +81,12 @@ public class HealthManager : Singleton<HealthManager>
         }
             
     }
-
+    //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
     {
         _enemyHealthText.text = $"You {message}!";
         yield return new WaitForSeconds(4);
-        SceneManager.LoadScene("AnnaGym");
+        SceneManager.LoadScene("Anna_Gym");
         yield return null;
     }
 }
