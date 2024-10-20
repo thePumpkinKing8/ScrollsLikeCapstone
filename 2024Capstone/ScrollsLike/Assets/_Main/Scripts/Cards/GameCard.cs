@@ -25,6 +25,8 @@ public class GameCard : PoolObject
             }              
         }
     }
+
+    private HandController _handController;
     private CardData _cardData;
 
     [SerializeField] private TextMeshProUGUI _description;
@@ -62,6 +64,11 @@ public class GameCard : PoolObject
         
     }
 
+    public void SetHandParent(HandController hand)
+    {
+        _handController = hand;
+    }
+
     public void OnHover()
     {
         if (InHand)
@@ -88,6 +95,7 @@ public class GameCard : PoolObject
             {
                 CardGameManager.Instance.EnergyGain(1);
                 CardGameManager.Instance.HandleCardDiscard(this.ReferenceCardData);
+                _handController.RemoveCard(this);
                 OnDeSpawn();
                 Debug.Log("right");
             }
