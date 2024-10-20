@@ -89,6 +89,7 @@ public class GameCard : PoolObject
                 CardGameManager.Instance.EnergyGain(1);
                 CardGameManager.Instance.HandleCardDiscard(this.ReferenceCardData);
                 OnDeSpawn();
+                Debug.Log("right");
             }
         }
     }

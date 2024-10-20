@@ -2614,8 +2614,6 @@ MonoBehaviour:
   _startingHealth: 14
   Wounds: 3
   _enemyHealthText: {fileID: 501549115}
-  PlayerBlock: 0
-  EnemyBlock: 0
 --- !u!114 &1944978580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2669,6 +2667,7 @@ GameObject:
   - component: {fileID: 2058746816}
   - component: {fileID: 2058746818}
   - component: {fileID: 2058746817}
+  - component: {fileID: 2058746819}
   m_Layer: 0
   m_Name: '[CardManager]'
   m_TagString: Untagged
@@ -2766,6 +2765,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OpponentsDeck: {fileID: 11400000, guid: 2c2afdb94a398d943b0a60211a05757c, type: 2}
+--- !u!114 &2058746819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058746811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ccbbc57d3fa9a45b472f34cec76827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

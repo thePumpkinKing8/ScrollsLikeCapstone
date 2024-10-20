@@ -530,6 +530,7 @@ GameObject:
   - component: {fileID: 10347522442612430}
   - component: {fileID: 9076014679940646491}
   - component: {fileID: 4043616271554817695}
+  - component: {fileID: 7114376997264550892}
   - component: {fileID: 6884405459870051511}
   - component: {fileID: -7075395140741367346}
   - component: {fileID: 1231707456599338237}
@@ -720,6 +721,39 @@ MonoBehaviour:
   _hoverSizeIncrease: 1.25
   InHand: 0
   InTimeSlot: 0
+--- !u!114 &7114376997264550892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7955819338273808490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2f9397cb5bab34aa9d1f5eaef6466c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onRight:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4043616271554817695}
+        m_TargetAssemblyTypeName: GameCard, Assembly-CSharp
+        m_MethodName: OnRightClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onMiddle:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6884405459870051511
 MonoBehaviour:
   m_ObjectHideFlags: 0

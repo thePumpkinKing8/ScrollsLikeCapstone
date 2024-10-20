@@ -67,7 +67,8 @@ public class TimeSlotController : MonoBehaviour
 
     public void AddEnemyToTimeSlots()
     {
-        StartCoroutine(EnemyEffects());
+        // StartCoroutine(EnemyEffects());
+        CardGameManager.Instance.PlayPhaseStart();
     }
 
     public void StartPlayPhase()
