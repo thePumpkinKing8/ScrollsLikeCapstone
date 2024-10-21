@@ -85,14 +85,13 @@ public class EnemyController : MonoBehaviour
 
     bool IsWalkable(Vector2Int position)
     {
-        // Ensure the position is within the grid bounds
         if (position.x < 0 || position.x >= dungeonLevelLoader.levelData.levelWidth ||
             position.y < 0 || position.y >= dungeonLevelLoader.levelData.levelHeight)
         {
             return false; // Out of bounds
         }
 
-        // Check if the tile at 'position' in the grid is not a wall ( 1 is a wall)
+        // Check if the tile in the grid is not a wall (1 is a wall)
         return dungeonLevelLoader.levelData.grid[position.x, position.y] != 1;
     }
 }

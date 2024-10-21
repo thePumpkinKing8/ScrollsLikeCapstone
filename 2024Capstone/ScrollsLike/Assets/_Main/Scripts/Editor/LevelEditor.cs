@@ -31,7 +31,7 @@ public class LevelEditor : EditorWindow
     };
 
     private LevelData myData;
-    private string levelFileName = "Level.txt"; // New field for the filename
+    private string levelFileName = "Level.txt"; 
 
     [MenuItem("Window/Level Editor")]
     public static void ShowWindow()
@@ -43,7 +43,6 @@ public class LevelEditor : EditorWindow
     {
         GUILayout.Label("Level Editor", EditorStyles.boldLabel);
 
-        // Load or initialize level data
         if (myData == null)
         {
             LoadLevelData();
@@ -52,7 +51,6 @@ public class LevelEditor : EditorWindow
         myData.levelWidth = EditorGUILayout.IntField("Level Width", myData.levelWidth);
         myData.levelHeight = EditorGUILayout.IntField("Level Height", myData.levelHeight);
 
-        // Input field for filename
         levelFileName = EditorGUILayout.TextField("Level File Name", levelFileName);
 
         // Reset button
@@ -89,7 +87,6 @@ public class LevelEditor : EditorWindow
             EditorGUI.DrawRect(r, options[i]);
         }
 
-        // Draw the grid and handle mouse input for setting object types
         for (int i = 0; i < myData.grid.GetLength(0); i++)
         {
             for (int j = 0; j < myData.grid.GetLength(1); j++)

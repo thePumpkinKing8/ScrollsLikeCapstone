@@ -9,7 +9,6 @@ public class Tile
 }
 public class PathFinder : Singleton<PathFinder>
 {
-    // Start is called before the first frame update
     private Tile[,] tiles;
     private Queue<Tile> frontier;
     private List<Tile> surroundingTiles;
@@ -22,9 +21,8 @@ public class PathFinder : Singleton<PathFinder>
             {
                 Tile t = new Tile(); ;
                 t.pos = new Vector2Int(i, j);
-                //Walkable if not a wall
 
-                //1 = wall, 6 = cone
+                //1 = wall, 
                 t.isWalkable = grid[i, j] != 1;
 
                 tiles[i, j] = t;
@@ -32,7 +30,7 @@ public class PathFinder : Singleton<PathFinder>
         }
     }
 
-    public Stack<Vector2Int> GetPath(Vector2Int startPos, Vector2Int destination) //we start at a position and want to get to the end
+    public Stack<Vector2Int> GetPath(Vector2Int startPos, Vector2Int destination)
     {
         //since this is a new path, let's clear all of the previous tile values for a search
         foreach (Tile t in tiles)
@@ -87,7 +85,6 @@ public class PathFinder : Singleton<PathFinder>
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 
