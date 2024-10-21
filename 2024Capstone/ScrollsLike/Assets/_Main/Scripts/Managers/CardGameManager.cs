@@ -52,6 +52,7 @@ public class CardGameManager : Singleton<CardGameManager>
     }
     public void CleanupPhaseEnd() => Events.CleanupPhaseEndEvent.Invoke();
     public void PlayCard(GameCard  card) => Events.PlayCard.Invoke(card);
+    public void MoveToNext() => Events.MoveToNextSlot.Invoke();
     public void EffectActivate(List<CardEffect> effects) => Events.EffectPlayed.Invoke(effects);
     public void EffectDone() => Events.EffectEnded.Invoke();
     public void EnergyGain(int energyGained) => Events.EnergyGain.Invoke(energyGained);

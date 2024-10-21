@@ -51,7 +51,6 @@ public class HealthManager : Singleton<HealthManager>
         else if (EnemyHealth <= 0)
         {
             StartCoroutine(EndGame("Win"));
-
         }
 
         _text.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()}";

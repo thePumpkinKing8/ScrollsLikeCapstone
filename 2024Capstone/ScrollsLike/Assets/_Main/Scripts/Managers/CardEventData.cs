@@ -30,6 +30,7 @@ public class CardEventData : ScriptableObject
 
     //input events
     public UnityEvent<GameCard> PlayCard;
+    public UnityEvent MoveToNextSlot;
 
     //effect events
     public UnityEvent<List<CardEffect>> EffectPlayed;
