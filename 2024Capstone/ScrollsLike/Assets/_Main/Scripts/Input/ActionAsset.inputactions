@@ -131,7 +131,7 @@
             "id": "97438ab9-897c-4841-8984-2eacb32a4177",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "PauseGame",
                     "type": "Button",
                     "id": "29da060b-57af-462e-b759-23e700972fa3",
                     "expectedControlType": "Button",
@@ -144,11 +144,11 @@
                 {
                     "name": "",
                     "id": "3ed79081-dde7-427d-9ca7-2f041d3a823d",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "Keyboard",
+                    "action": "PauseGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
