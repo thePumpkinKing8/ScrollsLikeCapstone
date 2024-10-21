@@ -6,6 +6,10 @@ public class LimitMinimap : MonoBehaviour
 {
     public GameObject player;
 
+    private void Start()
+    {
+        player = GameManager.Instance.Player.gameObject;
+    }
     private void LateUpdate()
     {
         transform.position = new Vector3(player.transform.position.x, 10, player.transform.position.z);

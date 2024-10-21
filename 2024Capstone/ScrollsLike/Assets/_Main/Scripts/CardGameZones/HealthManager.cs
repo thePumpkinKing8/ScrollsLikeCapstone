@@ -23,6 +23,8 @@ public class HealthManager : Singleton<HealthManager>
     void Awake()
     {
         CardGameManager.Instance.Events.PlayerHit.AddListener(PlayerHit);
+        CardGameManager.Instance.Events.PlayerGainsBlock.AddListener(GainBlock);
+        CardGameManager.Instance.Events.EnergyChange.AddListener(ChangeEnergy);
         Energy = 0;
         PlayerHealth = _startingHealth;
         EnemyHealth = _startingHealth;
@@ -87,6 +89,11 @@ public class HealthManager : Singleton<HealthManager>
     public void GainBlock(int amount)
     {
         PlayerBlock += amount;
+    }
+
+    public void ChangeEnergy(int amount)
+    {
+        Energy += amount;
     }
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)

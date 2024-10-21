@@ -39,12 +39,13 @@ public class GameCard : PoolObject
 
      public bool InHand;
     [HideInInspector] public bool InTimeSlot;
+    private int _energyCost;
     
 
 
     private void Awake()
     {
-       
+        _energyCost = ReferenceCardData.EnergyCost;
     }
     // Start is called before the first frame update
     void Start()
@@ -93,7 +94,7 @@ public class GameCard : PoolObject
         {
             if (InHand)
             {
-                CardGameManager.Instance.EnergyGain(1);
+                CardGameManager.Instance.EnergyChange(1);
                 CardGameManager.Instance.HandleCardDiscard(this.ReferenceCardData);
                 _handController.RemoveCard(this);
                 OnDeSpawn();
@@ -109,7 +110,6 @@ public class GameCard : PoolObject
         {
             if(InHand)
             {
-                
                 CardGameManager.Instance.PlayCard(this);
                 transform.localScale = Vector3.one;
                 
@@ -119,5 +119,17 @@ public class GameCard : PoolObject
                 //GetComponentInParent<TimeSlot>().RemoveCard();
             }
         }
+    }
+
+    public void PlayCard()
+    {
+        if(_energyCost > 0)
+        {
+            if(HealthManager.Instance.Energy < _energyCost)
+            {
+                CardGameManager.Instance.EnergyChange(-_energyCost);
+            }
+        }
+        CardGameManager.Instance.PlayCard(this);
     }
 }

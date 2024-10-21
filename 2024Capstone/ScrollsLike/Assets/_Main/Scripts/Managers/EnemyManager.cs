@@ -10,7 +10,7 @@ public class EnemyManager : Singleton<EnemyManager>
     private void Awake()
     {
         CardGameManager.Instance.Events.EnemyHit.AddListener(EnemyHit);
-        CardGameManager.Instance.Events.EnergyGain.AddListener(EnemyHeal);
+        CardGameManager.Instance.Events.EnemyHeal.AddListener(EnemyHeal);
     }
 
     // Update is called once per frame

@@ -14,13 +14,11 @@ public class DungeonLevelLoader : MonoBehaviour
 
     void Start()
     {
+        currentLevelIndex = GameManager.Instance.LevelIndex;
         LoadLevel(levelFiles[currentLevelIndex]); 
-        InstantiateGround();
-        InstantiateObjects();
-        InstantiateRoof();
     }
 
-    void LoadLevel(string fileName)
+    public void LoadLevel(string fileName)
     {
         string path = Path.Combine("Assets", fileName);
         if (File.Exists(path))
@@ -32,6 +30,9 @@ public class DungeonLevelLoader : MonoBehaviour
         {
             Debug.LogError("Level file not found at: " + path);
         }
+        InstantiateGround();
+        InstantiateObjects();
+        InstantiateRoof();
     }
 
     void InstantiateGround()

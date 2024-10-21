@@ -9,7 +9,7 @@ public class HandController : MonoBehaviour
     [Header("draw settings")]
     [Tooltip("time between cards drawn to hand")][SerializeField] private float _drawDelay;
     [SerializeField] private int _maxCardsInHand = 12;
-    [SerializeField] private int _minCardsInHand = 5;
+    [SerializeField] private int _cardsDrawnPerTurn = 3;
     [SerializeField] private int _startingHandSize = 8;
 
     private List<GameCard> _cardsInHand = new List<GameCard>(); 
@@ -36,9 +36,9 @@ public class HandController : MonoBehaviour
 
     public void DrawPhase()
     {
-        if(_cardsInHand.Count < _minCardsInHand)
+        if(_cardsInHand.Count < _maxCardsInHand)
         {
-            StartCoroutine(DrawCards(_minCardsInHand - _cardsInHand.Count));
+            StartCoroutine(DrawCards(_cardsDrawnPerTurn));
         }
     }
 
@@ -65,8 +65,13 @@ public class HandController : MonoBehaviour
         for(int i = 0; i < numberOfCards; i++)
         {
             Debug.Log("turn");
-            CardGameManager.Instance.DrawCard();
-            yield return new WaitForSeconds(_drawDelay);
+            if (_cardsInHand.Count < _maxCardsInHand)
+            {
+                CardGameManager.Instance.DrawCard();
+                yield return new WaitForSeconds(_drawDelay);
+            }
+            else
+                break;
         }
         CardGameManager.Instance.PrepPhaseStart();
         yield return null;

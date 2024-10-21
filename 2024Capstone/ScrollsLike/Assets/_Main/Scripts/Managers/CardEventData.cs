@@ -36,10 +36,11 @@ public class CardEventData : ScriptableObject
     public UnityEvent<List<CardEffect>> EffectPlayed;
     public UnityEvent EffectEnded;
 
-    public UnityEvent<int> EnergyGain;
+    public UnityEvent<int> EnergyChange;
 
     public UnityEvent<int> PlayerHit;
     public UnityEvent<int> EnemyHit;
+    public UnityEvent<int> EnemyHeal;
     public UnityEvent<CardData> StanceResolved;
     public UnityEvent<int> PlayerGainsBlock;
     #endregion

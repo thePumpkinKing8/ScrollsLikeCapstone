@@ -707,17 +707,17 @@ PrefabInstance:
     - target: {fileID: 146858966499919364, guid: 930ee6029d5c9f947b6b6a8260918bc9,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1614291095514673744, guid: 930ee6029d5c9f947b6b6a8260918bc9,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1614291095514673744, guid: 930ee6029d5c9f947b6b6a8260918bc9,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2418615411863421222, guid: 930ee6029d5c9f947b6b6a8260918bc9,
         type: 3}
@@ -819,10 +819,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2655768600943996071, guid: 930ee6029d5c9f947b6b6a8260918bc9,
+        type: 3}
+      propertyPath: m_text
+      value: CONTINUE
+      objectReference: {fileID: 0}
+    - target: {fileID: 2655768600943996071, guid: 930ee6029d5c9f947b6b6a8260918bc9,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3031481556031372808, guid: 930ee6029d5c9f947b6b6a8260918bc9,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8887847531971189000, guid: 930ee6029d5c9f947b6b6a8260918bc9,
         type: 3}
@@ -832,7 +842,7 @@ PrefabInstance:
     - target: {fileID: 8887847531971189000, guid: 930ee6029d5c9f947b6b6a8260918bc9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
