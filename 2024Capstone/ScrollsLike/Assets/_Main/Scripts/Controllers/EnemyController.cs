@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour
         dungeonLevelLoader = FindObjectOfType<DungeonLevelLoader>();
 
         currentDirection = directions[Random.Range(0, directions.Length)];
-        nextPosInGrid = Vector2Int.FloorToInt(transform.position); 
+        nextPosInGrid = Vector2Int.FloorToInt(new Vector2(transform.position.x, transform.position.z));
         targetPosition = transform.position; 
     }
 
