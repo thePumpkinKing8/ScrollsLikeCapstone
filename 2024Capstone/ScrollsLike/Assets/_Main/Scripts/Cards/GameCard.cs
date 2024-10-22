@@ -41,6 +41,8 @@ public class GameCard : PoolObject
      public bool InHand;
     [HideInInspector] public bool InTimeSlot;
     private int _energyCost;
+
+    private int _slotSortOrder = 1;
     
     // Start is called before the first frame update
     void Start()
@@ -52,6 +54,8 @@ public class GameCard : PoolObject
         {
             _image.texture = _cardData.CardImage;
         }
+
+        GetComponent<Canvas>().sortingOrder = _slotSortOrder;
     }
 
     // Update is called once per frame
@@ -70,17 +74,20 @@ public class GameCard : PoolObject
         if (InHand)
         {
             transform.localScale = Vector3.one * _hoverSizeIncrease;
-            GetComponent<Canvas>().sortingOrder += 1;
-        }      
+            
+        }
+        SetOrder(6);
     }
 
     public void HoverExit()
     {
         if (InHand)
         {
-            transform.localScale = Vector3.one;
-            GetComponent<Canvas>().sortingOrder -= 1;
-        }       
+            transform.localScale = Vector3.one;         
+        }
+        SetOrder(_slotSortOrder);
+        
+        //GetComponent<Canvas>().sortingOrder = _slotSortOrder;
     }
 
     public void OnRightClick()
@@ -111,7 +118,8 @@ public class GameCard : PoolObject
             }
             else if(InTimeSlot)
             {
-                //GetComponentInParent<TimeSlot>().RemoveCard();
+                GetComponentInParent<TimeSlot>().RemoveCard(this);
+                SetOrder(1, true);
             }
         }
     }
@@ -126,5 +134,14 @@ public class GameCard : PoolObject
             }
         }
         CardGameManager.Instance.PlayCard(this);
+    }
+
+    public void SetOrder(int num, bool changeDefault = false)
+    {
+        GetComponent<Canvas>().sortingOrder = num;
+        if(changeDefault)
+        {
+            _slotSortOrder = num;
+        }
     }
 }

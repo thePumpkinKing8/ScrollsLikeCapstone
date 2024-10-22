@@ -33,16 +33,6 @@ public class TimeSlotController : MonoBehaviour
     //clears board during cleanup phase
     public void ClearSlots()
     {
-        foreach(TextMeshProUGUI text in _enemyText)
-        {
-            text.text = "";
-        }
-
-        foreach(TimeSlot slot in _timeSlots)
-        {
-            CardGameManager.Instance.HandleCardDiscard(slot.PlayersCard.ReferenceCardData);
-            slot.DiscardCard();   
-        }
         CardGameManager.Instance.DrawPhaseStart();
     }
     public void CardResolved()
