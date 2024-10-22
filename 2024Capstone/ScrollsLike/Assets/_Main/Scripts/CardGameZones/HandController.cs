@@ -19,6 +19,7 @@ public class HandController : MonoBehaviour
     {
         CardGameManager.Instance.Events.CardDrawnEvent.AddListener(CardDrawn);
         CardGameManager.Instance.Events.DrawPhaseEndEvent.AddListener(DrawPhase);
+        CardGameManager.Instance.Events.GameStartEvent.AddListener(GameStart);
         CardGameManager.Instance.Events.AddCardToHand.AddListener(AddCard);
         CardGameManager.Instance.Events.PlayCard.AddListener(RemoveCard);
     }
@@ -34,6 +35,11 @@ public class HandController : MonoBehaviour
         newCard.InTimeSlot = false;
     }
 
+    public void GameStart()
+    {
+        StartCoroutine(DrawCards(_startingHandSize));
+    }
+
     public void DrawPhase()
     {
         if(_cardsInHand.Count < _maxCardsInHand)
@@ -41,12 +47,6 @@ public class HandController : MonoBehaviour
             StartCoroutine(DrawCards(_cardsDrawnPerTurn));
         }
     }
-
-    public void GameStart()
-    {
-        StartCoroutine(DrawCards(_startingHandSize));
-    }
-
 
     public void RemoveCard(GameCard card)
     {
@@ -64,7 +64,7 @@ public class HandController : MonoBehaviour
         Debug.Log(numberOfCards);
         for(int i = 0; i < numberOfCards; i++)
         {
-            Debug.Log("turn");
+
             if (_cardsInHand.Count < _maxCardsInHand)
             {
                 CardGameManager.Instance.DrawCard();

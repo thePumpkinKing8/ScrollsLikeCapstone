@@ -20,8 +20,9 @@ public class HealthManager : Singleton<HealthManager>
     //[HideInInspector] public bool EnemyBlock;
 
     // Start is called before the first frame update
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         CardGameManager.Instance.Events.PlayerHit.AddListener(PlayerHit);
         CardGameManager.Instance.Events.PlayerGainsBlock.AddListener(GainBlock);
         CardGameManager.Instance.Events.EnergyChange.AddListener(ChangeEnergy);

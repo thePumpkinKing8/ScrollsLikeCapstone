@@ -7,8 +7,9 @@ public class CardGameManager : Singleton<CardGameManager>
     public Phase CurrentPhase { get; private set; }
     public CardEventData Events { get { return _cardEventData; } }
     [SerializeField] private CardEventData _cardEventData;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -19,6 +20,8 @@ public class CardGameManager : Singleton<CardGameManager>
     public void HandleShuffleToDeck(List<CardData> cards) => Events.ShuffleCardsToDeck.Invoke(cards);
     public void DrawCard() => Events.DrawCardEvent.Invoke();
     public void AddCardToHand(GameCard card) => Events.AddCardToHand.Invoke(card);
+
+    public void GameStart() => Events.GameStartEvent.Invoke();
     public void DrawPhaseStart()
     {
         CurrentPhase = Phase.DrawPhase;
@@ -73,7 +76,7 @@ public class CardGameManager : Singleton<CardGameManager>
     //wait for all scripts to get their start and awake functions finished before starting the game
     private void LateStart()
     {
-        DrawPhaseStart();
+        GameStart();
     }
 }
 

@@ -7,8 +7,9 @@ public class EnemyManager : Singleton<EnemyManager>
     public EnemyDeck OpponentsDeck;
     public int EnemyHealth { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         CardGameManager.Instance.Events.EnemyHit.AddListener(EnemyHit);
         CardGameManager.Instance.Events.EnemyHeal.AddListener(EnemyHeal);
     }

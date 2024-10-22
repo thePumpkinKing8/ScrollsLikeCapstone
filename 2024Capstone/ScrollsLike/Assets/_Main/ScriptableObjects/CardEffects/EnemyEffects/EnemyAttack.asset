@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb865fe6187bf1142a9f175bace11476, type: 3}
-  m_Name: EnemyDeckData
+  m_Script: {fileID: 11500000, guid: 5c0467eda97e7cf449c7a74e1ddd3d87, type: 3}
+  m_Name: EnemyAttack
   m_EditorClassIdentifier: 
-  _startingCards:
-  - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
-  _enemyDifficulty: 0
+  _damage: 5

@@ -18,6 +18,7 @@ public class GameCard : PoolObject
             if (_cardData == null)
             {
                 _cardData = value;
+                _energyCost = ReferenceCardData.EnergyCost;
             }
             else
             {
@@ -41,12 +42,6 @@ public class GameCard : PoolObject
     [HideInInspector] public bool InTimeSlot;
     private int _energyCost;
     
-
-
-    private void Awake()
-    {
-        _energyCost = ReferenceCardData.EnergyCost;
-    }
     // Start is called before the first frame update
     void Start()
     {

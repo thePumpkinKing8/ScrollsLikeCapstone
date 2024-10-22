@@ -17,6 +17,7 @@ public class CardEventData : ScriptableObject
     public UnityEvent<GameCard> AddCardToHand;
 
     //phase events
+    public UnityEvent GameStartEvent;
     public UnityEvent DrawPhaseStartEvent;
     public UnityEvent DrawPhaseEndEvent;
     public UnityEvent PrepPhaseStartEvent;

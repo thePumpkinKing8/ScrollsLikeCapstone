@@ -10,13 +10,13 @@ public class DeckManager : MonoBehaviour
     private List<CardData> _deck = new List<CardData>();
     private void Awake()
     {
-        _deckData.Initialize();//normally done by a different script at the start of a run but done like this for now
         CardGameManager.Instance.Events.DrawCardEvent.AddListener(DrawCard);
         CardGameManager.Instance.Events.ShuffleCardsToDeck.AddListener(ShuffleCardsIn);
     }
 
     void Start()
     {
+        _deckData = GameManager.Instance.PlayersDeck;
         ShuffleCardsIn(_deckData.Deck);   
     }
     public void Shuffle()

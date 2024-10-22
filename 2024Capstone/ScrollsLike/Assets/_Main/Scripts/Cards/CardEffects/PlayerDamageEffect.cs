@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Attack Effect", menuName = "Effects/Attack Effect")]
-public class PlayerDamageEffect : CardEffect
+[CreateAssetMenu(fileName = "EnemyAttack", menuName = "Enemies/Effects/EnemyAttack")]
+public class EnemyDamageEffect : CardEffect
 {
     [SerializeField] private int _damage;
     public override void Effect()

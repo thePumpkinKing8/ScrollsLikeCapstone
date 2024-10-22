@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         DontDestroyOnLoad(this);
+        PlayersDeck.Initialize();
     }
 
     public void GoToCombat(EnemyDeck opponent)
