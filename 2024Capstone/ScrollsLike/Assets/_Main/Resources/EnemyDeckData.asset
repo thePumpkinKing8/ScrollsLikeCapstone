@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyDeckData
   m_EditorClassIdentifier: 
   _startingCards:
-  - {fileID: 11400000, guid: 76ca46010c43ff6499fa04bf4bbb5d3c, type: 2}
+  - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
   _enemyDifficulty: 0

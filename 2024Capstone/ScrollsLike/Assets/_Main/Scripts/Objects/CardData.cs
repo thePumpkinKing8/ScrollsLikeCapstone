@@ -11,6 +11,8 @@ public class CardData : ScriptableObject
     public Texture CardImage { get { return _cardImage; } }
     public string CardDescription { get { return _cardDescription; } }
 
+    public int EnergyCost { get { return _energyCost; } }
+    [SerializeField] private int _energyCost;
     [SerializeField] private string _cardName;
     [SerializeField] private CardType _cardType;
     [SerializeField] private Texture _cardImage;

@@ -18,6 +18,7 @@ public class GameCard : PoolObject
             if (_cardData == null)
             {
                 _cardData = value;
+                _energyCost = ReferenceCardData.EnergyCost;
             }
             else
             {
@@ -25,6 +26,8 @@ public class GameCard : PoolObject
             }              
         }
     }
+
+    private HandController _handController;
     private CardData _cardData;
 
     [SerializeField] private TextMeshProUGUI _description;
@@ -37,13 +40,10 @@ public class GameCard : PoolObject
 
      public bool InHand;
     [HideInInspector] public bool InTimeSlot;
+    private int _energyCost;
+
+    private int _slotSortOrder = 1;
     
-
-
-    private void Awake()
-    {
-       
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +54,8 @@ public class GameCard : PoolObject
         {
             _image.texture = _cardData.CardImage;
         }
+
+        GetComponent<Canvas>().sortingOrder = _slotSortOrder;
     }
 
     // Update is called once per frame
@@ -62,24 +64,46 @@ public class GameCard : PoolObject
         
     }
 
+    public void SetHandParent(HandController hand)
+    {
+        _handController = hand;
+    }
+
     public void OnHover()
     {
         if (InHand)
         {
             transform.localScale = Vector3.one * _hoverSizeIncrease;
-            GetComponent<Canvas>().sortingOrder += 1;
-        }      
+            
+        }
+        SetOrder(6);
     }
 
     public void HoverExit()
     {
         if (InHand)
         {
-            transform.localScale = Vector3.one;
-            GetComponent<Canvas>().sortingOrder -= 1;
-        }       
+            transform.localScale = Vector3.one;         
+        }
+        SetOrder(_slotSortOrder);
+        
+        //GetComponent<Canvas>().sortingOrder = _slotSortOrder;
     }
 
+    public void OnRightClick()
+    {
+        if (CardGameManager.Instance.CurrentPhase == Phase.PlayPhase)
+        {
+            if (InHand)
+            {
+                CardGameManager.Instance.EnergyChange(1);
+                CardGameManager.Instance.HandleCardDiscard(this.ReferenceCardData);
+                _handController.RemoveCard(this);
+                OnDeSpawn();
+                Debug.Log("right");
+            }
+        }
+    }
     //what the card does when its clicked
     public void OnCLick()
     {
@@ -88,15 +112,36 @@ public class GameCard : PoolObject
         {
             if(InHand)
             {
-                
                 CardGameManager.Instance.PlayCard(this);
                 transform.localScale = Vector3.one;
                 
             }
             else if(InTimeSlot)
             {
-                GetComponentInParent<TimeSlot>().RemoveCard();
+                GetComponentInParent<TimeSlot>().RemoveCard(this);
+                SetOrder(1, true);
             }
+        }
+    }
+
+    public void PlayCard()
+    {
+        if(_energyCost > 0)
+        {
+            if(HealthManager.Instance.Energy < _energyCost)
+            {
+                CardGameManager.Instance.EnergyChange(-_energyCost);
+            }
+        }
+        CardGameManager.Instance.PlayCard(this);
+    }
+
+    public void SetOrder(int num, bool changeDefault = false)
+    {
+        GetComponent<Canvas>().sortingOrder = num;
+        if(changeDefault)
+        {
+            _slotSortOrder = num;
         }
     }
 }

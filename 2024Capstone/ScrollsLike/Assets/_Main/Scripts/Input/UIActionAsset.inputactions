@@ -1,0 +1,34 @@
+{
+    "name": "UIActionAsset",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "05d62751-3cc0-4a75-a43c-c9f8c978dd83",
+            "actions": [
+                {
+                    "name": "PointerClick",
+                    "type": "Button",
+                    "id": "27743e3b-fadc-4805-b66a-411fb9c729c4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bcdd92b4-7605-42bd-bc54-09c06a84a47a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PointerClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

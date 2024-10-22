@@ -19,6 +19,6 @@ public class PlayPhaseButton : MonoBehaviour
 
     public void Clicked()
     {
-        CardGameManager.Instance.ResolutionPhaseStart();
+        CardGameManager.Instance.MoveToNext();
     }
 }

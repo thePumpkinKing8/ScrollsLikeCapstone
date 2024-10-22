@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using TMPro;
 public class TimeSlotController : MonoBehaviour
@@ -7,13 +7,17 @@ public class TimeSlotController : MonoBehaviour
     [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[4];
     [SerializeField] private TextMeshProUGUI[] _enemyText = new TextMeshProUGUI[4];
     private bool _isPlaying = false; //prevents Resolve() from continuing throught the loop until the current effect is finished Playing
+
+    private TimeSlot _activeSlot;
     private void Awake()
     {
         CardGameManager.Instance.Events.PlayCard.AddListener(AddCardToTimeSlot);
+        CardGameManager.Instance.Events.PlayPhaseEndEvent.AddListener(StartPlayPhase);
         CardGameManager.Instance.Events.PrepPhaseEndEvent.AddListener(AddEnemyToTimeSlots);
         CardGameManager.Instance.Events.ResolutionPhaseEndEvent.AddListener(ResolveEffects);
         CardGameManager.Instance.Events.EffectEnded.AddListener(CardResolved);
         CardGameManager.Instance.Events.CleanupPhaseEndEvent.AddListener(ClearSlots);
+        //CardGameManager.Instance.Events.MoveToNextSlot.AddListener();
     }
     // Start is called before the first frame update
     void Start()
@@ -29,16 +33,6 @@ public class TimeSlotController : MonoBehaviour
     //clears board during cleanup phase
     public void ClearSlots()
     {
-        foreach(TextMeshProUGUI text in _enemyText)
-        {
-            text.text = "";
-        }
-
-        foreach(TimeSlot slot in _timeSlots)
-        {
-            CardGameManager.Instance.HandleCardDiscard(slot.PlayersCard.ReferenceCardData);
-            slot.DiscardCard();   
-        }
         CardGameManager.Instance.DrawPhaseStart();
     }
     public void CardResolved()
@@ -53,20 +47,18 @@ public class TimeSlotController : MonoBehaviour
     //adds a card to the earliest empty slot
     public void AddCardToTimeSlot(GameCard card)
     {
-        foreach(TimeSlot slot in _timeSlots)
-        {
-            if(slot.PlayersCard == null)
-            {
-                slot.AddCard(card);
-                return;
-            }
-        }
-        Debug.Log("no open slots");
+        _activeSlot.AddCard(card);
     }
 
     public void AddEnemyToTimeSlots()
     {
-        StartCoroutine(EnemyEffects());
+        // StartCoroutine(EnemyEffects());
+        CardGameManager.Instance.PlayPhaseStart();
+    }
+
+    public void StartPlayPhase()
+    {
+        StartCoroutine(PlayPhase());
     }
 
     //adds enemy abilities to each timeslot
@@ -98,4 +90,21 @@ public class TimeSlotController : MonoBehaviour
         CardGameManager.Instance.CleanupPhaseStart();
         yield return null;
     }
+
+    IEnumerator PlayPhase()
+    {
+        var trigger = false;
+        Action action = () => trigger = true;
+        CardGameManager.Instance.Events.MoveToNextSlot.AddListener(action.Invoke);
+        foreach(TimeSlot slot in _timeSlots)
+        {
+            _activeSlot = slot;
+            yield return new WaitUntil(() => trigger);
+        }
+        
+        CardGameManager.Instance.Events.MoveToNextSlot.RemoveListener(action.Invoke);
+        yield return null;
+    }
+
+    
 }

@@ -9,7 +9,7 @@ public class HandController : MonoBehaviour
     [Header("draw settings")]
     [Tooltip("time between cards drawn to hand")][SerializeField] private float _drawDelay;
     [SerializeField] private int _maxCardsInHand = 12;
-    [SerializeField] private int _minCardsInHand = 5;
+    [SerializeField] private int _cardsDrawnPerTurn = 3;
     [SerializeField] private int _startingHandSize = 8;
 
     private List<GameCard> _cardsInHand = new List<GameCard>(); 
@@ -19,6 +19,7 @@ public class HandController : MonoBehaviour
     {
         CardGameManager.Instance.Events.CardDrawnEvent.AddListener(CardDrawn);
         CardGameManager.Instance.Events.DrawPhaseEndEvent.AddListener(DrawPhase);
+        CardGameManager.Instance.Events.GameStartEvent.AddListener(GameStart);
         CardGameManager.Instance.Events.AddCardToHand.AddListener(AddCard);
         CardGameManager.Instance.Events.PlayCard.AddListener(RemoveCard);
     }
@@ -34,19 +35,18 @@ public class HandController : MonoBehaviour
         newCard.InTimeSlot = false;
     }
 
-    public void DrawPhase()
-    {
-        if(_cardsInHand.Count < _minCardsInHand)
-        {
-            StartCoroutine(DrawCards(_minCardsInHand - _cardsInHand.Count));
-        }
-    }
-
     public void GameStart()
     {
         StartCoroutine(DrawCards(_startingHandSize));
     }
 
+    public void DrawPhase()
+    {
+        if(_cardsInHand.Count < _maxCardsInHand)
+        {
+            StartCoroutine(DrawCards(_cardsDrawnPerTurn));
+        }
+    }
 
     public void RemoveCard(GameCard card)
     {
@@ -64,9 +64,14 @@ public class HandController : MonoBehaviour
         Debug.Log(numberOfCards);
         for(int i = 0; i < numberOfCards; i++)
         {
-            Debug.Log("turn");
-            CardGameManager.Instance.DrawCard();
-            yield return new WaitForSeconds(_drawDelay);
+
+            if (_cardsInHand.Count < _maxCardsInHand)
+            {
+                CardGameManager.Instance.DrawCard();
+                yield return new WaitForSeconds(_drawDelay);
+            }
+            else
+                break;
         }
         CardGameManager.Instance.PrepPhaseStart();
         yield return null;
