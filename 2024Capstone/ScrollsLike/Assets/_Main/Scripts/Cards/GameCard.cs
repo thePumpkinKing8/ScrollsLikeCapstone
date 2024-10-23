@@ -18,7 +18,7 @@ public class GameCard : PoolObject
             if (_cardData == null)
             {
                 _cardData = value;
-                _energyCost = ReferenceCardData.EnergyCost;
+                EnergyCost = ReferenceCardData.EnergyCost;
             }
             else
             {
@@ -40,7 +40,7 @@ public class GameCard : PoolObject
 
      public bool InHand;
     [HideInInspector] public bool InTimeSlot;
-    private int _energyCost;
+    public int EnergyCost { get; private set; }
 
     private int _slotSortOrder = 1;
     
@@ -96,7 +96,7 @@ public class GameCard : PoolObject
         {
             if (InHand)
             {
-                CardGameManager.Instance.EnergyChange(1);
+                CardGameManager.Instance.DiscardForEnergy(this);
                 CardGameManager.Instance.HandleCardDiscard(this.ReferenceCardData);
                 _handController.RemoveCard(this);
                 OnDeSpawn();
@@ -126,11 +126,11 @@ public class GameCard : PoolObject
 
     public void PlayCard()
     {
-        if(_energyCost > 0)
+        if(EnergyCost > 0)
         {
-            if(HealthManager.Instance.Energy < _energyCost)
+            if(HealthManager.Instance.Energy < EnergyCost)
             {
-                CardGameManager.Instance.EnergyChange(-_energyCost);
+                CardGameManager.Instance.EnergyChange(-EnergyCost);
             }
         }
         CardGameManager.Instance.PlayCard(this);

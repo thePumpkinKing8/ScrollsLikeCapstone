@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HandController : MonoBehaviour
+public class HandController : Singleton<HandController>
 {
     [SerializeField] private GameObject CardPrefab;
     [Header("draw settings")]
@@ -15,8 +15,9 @@ public class HandController : MonoBehaviour
     private List<GameCard> _cardsInHand = new List<GameCard>(); 
     
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         CardGameManager.Instance.Events.CardDrawnEvent.AddListener(CardDrawn);
         CardGameManager.Instance.Events.DrawPhaseEndEvent.AddListener(DrawPhase);
         CardGameManager.Instance.Events.GameStartEvent.AddListener(GameStart);

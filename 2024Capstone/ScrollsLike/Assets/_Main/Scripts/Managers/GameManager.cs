@@ -7,6 +7,9 @@ public class GameManager : Singleton<GameManager>
 {
     public Transform Player { get { return _player; } set { _player = value;}}
     private Transform _player;
+
+    public int WoundsRemaining { get; private set; }
+    [SerializeField] private int _maxWounds = 3;
     public PlayerDeck PlayersDeck { get { return _playerDeck; } }
     [SerializeField] private PlayerDeck _playerDeck;
     private EnemyDeck _opponent;
@@ -17,6 +20,7 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(this);
         PlayersDeck.Initialize();
+        WoundsRemaining = 3;
     }
 
     public void GoToCombat(EnemyDeck opponent)

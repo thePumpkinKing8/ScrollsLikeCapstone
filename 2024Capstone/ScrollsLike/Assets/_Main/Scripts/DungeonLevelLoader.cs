@@ -42,7 +42,7 @@ public class DungeonLevelLoader : MonoBehaviour
             for (int j = 0; j < levelData.levelHeight; j++)
             {
                 Vector3 groundPosition = new Vector3(i, 0, j);
-                Instantiate(groundPrefab, groundPosition, Quaternion.identity);
+                Instantiate(groundPrefab, groundPosition, Quaternion.identity, transform);
             }
         }
     }

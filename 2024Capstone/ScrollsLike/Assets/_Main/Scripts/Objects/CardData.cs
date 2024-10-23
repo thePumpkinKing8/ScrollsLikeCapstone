@@ -12,7 +12,7 @@ public class CardData : ScriptableObject
     public string CardDescription { get { return _cardDescription; } }
 
     public int EnergyCost { get { return _energyCost; } }
-    [SerializeField] private int _energyCost;
+    [SerializeField] private int _energyCost = 1;
     [SerializeField] private string _cardName;
     [SerializeField] private CardType _cardType;
     [SerializeField] private Texture _cardImage;

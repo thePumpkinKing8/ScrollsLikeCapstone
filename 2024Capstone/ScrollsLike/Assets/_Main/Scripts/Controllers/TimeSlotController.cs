@@ -8,7 +8,7 @@ public class TimeSlotController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] _enemyText = new TextMeshProUGUI[4];
     private bool _isPlaying = false; //prevents Resolve() from continuing throught the loop until the current effect is finished Playing
 
-    private TimeSlot _activeSlot;
+    private int _activeSlot;
     private void Awake()
     {
         CardGameManager.Instance.Events.PlayCard.AddListener(AddCardToTimeSlot);
@@ -47,7 +47,7 @@ public class TimeSlotController : MonoBehaviour
     //adds a card to the earliest empty slot
     public void AddCardToTimeSlot(GameCard card)
     {
-        _activeSlot.AddCard(card);
+        _timeSlots[_activeSlot].AddCard(card);
     }
 
     public void AddEnemyToTimeSlots()
@@ -98,7 +98,6 @@ public class TimeSlotController : MonoBehaviour
         CardGameManager.Instance.Events.MoveToNextSlot.AddListener(action.Invoke);
         foreach(TimeSlot slot in _timeSlots)
         {
-            _activeSlot = slot;
             yield return new WaitUntil(() => trigger);
         }
         
