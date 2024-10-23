@@ -38,11 +38,15 @@ public class DungeonLevelLoader : MonoBehaviour
     void InstantiateGround()
     {
         for (int i = 0; i < levelData.levelWidth; i++)
-        {
+            {
             for (int j = 0; j < levelData.levelHeight; j++)
             {
-                Vector3 groundPosition = new Vector3(i, 0, j);
-                Instantiate(groundPrefab, groundPosition, Quaternion.identity, transform);
+                int objectType = levelData.grid[i, j];
+                if (objectType != 1) // Tile is not a wall
+                {
+                    Vector3 groundPosition = new Vector3(i, 0, j);
+                    Instantiate(groundPrefab, groundPosition, Quaternion.identity);
+                }                    
             }
         }
     }
