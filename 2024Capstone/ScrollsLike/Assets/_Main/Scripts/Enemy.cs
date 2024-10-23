@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private EnemyDeck _enemyDeck;
+    public EnemyDeck EnemiesDeck { get { return _enemyDeck; } }
     private void Start()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
@@ -18,6 +20,6 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        SceneManager.LoadScene("CardGameTest");
+        GameManager.Instance.GoToCombat(EnemiesDeck);
     }
 }

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16dc365ed7f5464ab0a5bec7d148aa6, type: 3}
   m_Name: Block Effect
   m_EditorClassIdentifier: 
+  _blockGain: 6

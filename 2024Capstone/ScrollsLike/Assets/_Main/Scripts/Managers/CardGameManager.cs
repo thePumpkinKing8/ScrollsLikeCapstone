@@ -7,8 +7,9 @@ public class CardGameManager : Singleton<CardGameManager>
     public Phase CurrentPhase { get; private set; }
     public CardEventData Events { get { return _cardEventData; } }
     [SerializeField] private CardEventData _cardEventData;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -19,6 +20,8 @@ public class CardGameManager : Singleton<CardGameManager>
     public void HandleShuffleToDeck(List<CardData> cards) => Events.ShuffleCardsToDeck.Invoke(cards);
     public void DrawCard() => Events.DrawCardEvent.Invoke();
     public void AddCardToHand(GameCard card) => Events.AddCardToHand.Invoke(card);
+
+    public void GameStart() => Events.GameStartEvent.Invoke();
     public void DrawPhaseStart()
     {
         CurrentPhase = Phase.DrawPhase;
@@ -52,20 +55,28 @@ public class CardGameManager : Singleton<CardGameManager>
     }
     public void CleanupPhaseEnd() => Events.CleanupPhaseEndEvent.Invoke();
     public void PlayCard(GameCard  card) => Events.PlayCard.Invoke(card);
+    public void MoveToNext() => Events.MoveToNextSlot.Invoke();
     public void EffectActivate(List<CardEffect> effects) => Events.EffectPlayed.Invoke(effects);
     public void EffectDone() => Events.EffectEnded.Invoke();
+   
     public void PlayerHit(int damage) => Events.PlayerHit.Invoke(damage);
     public void EnemyHit(int damage) => Events.EnemyHit.Invoke(damage);
+    public void EnemyHeal(int heal) => Events.EnemyHeal.Invoke(heal);
+    public void StanceResolved(CardData data) => Events.StanceResolved.Invoke(data);
+    public void PlayerBlock(int block) => Events.PlayerGainsBlock.Invoke(block);
+    public void EnergyChange(int energy) => Events.EnergyChange.Invoke(energy);
     #endregion
 
     private void Start()
     {
+        GameManager.Instance.CardGameStart();
         Invoke("LateStart", 1);
     }
 
+    //wait for all scripts to get their start and awake functions finished before starting the game
     private void LateStart()
     {
-        DrawPhaseStart();
+        GameStart();
     }
 }
 

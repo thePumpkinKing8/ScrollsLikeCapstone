@@ -11,6 +11,7 @@ public class TestPlayerController : MonoBehaviour
     
     private void Awake()
     {
+        GameManager.Instance.Player = transform;
         _actions = InputManager.Instance.ActionsData;
         _rb = GetComponent<Rigidbody>();
         _actions.PlayerMoveEvent.AddListener(HandleMovment);

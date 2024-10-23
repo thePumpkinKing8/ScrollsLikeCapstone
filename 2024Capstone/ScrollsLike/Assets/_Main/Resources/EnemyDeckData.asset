@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb865fe6187bf1142a9f175bace11476, type: 3}
+  m_Name: EnemyDeckData
+  m_EditorClassIdentifier: 
+  _startingCards:
+  - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
+  _enemyDifficulty: 0

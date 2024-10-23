@@ -18,17 +18,20 @@ public class LevelEditor : EditorWindow
     {
         Color.black,
         Color.white,
-        Color.red
+        Color.red,
+        Color.blue
     };
 
     string[] names =
     {
-        "Floor",
+        "Blank",
         "Wall",
-        "Boss"
+        "Boss",
+        "Player"
     };
 
     private LevelData myData;
+    private string levelFileName = "Level.txt"; 
 
     [MenuItem("Window/Level Editor")]
     public static void ShowWindow()
@@ -38,22 +41,17 @@ public class LevelEditor : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label("Pacbear Level Editor", EditorStyles.boldLabel);
+        GUILayout.Label("Level Editor", EditorStyles.boldLabel);
 
-        // Load or initialize level data
         if (myData == null)
         {
-            if (File.Exists("Assets/Level.txt"))
-            {
-                string myDataString = File.ReadAllText("Assets/Level.txt");
-                myData = JsonConvert.DeserializeObject<LevelData>(myDataString);
-            }
-            else
-                myData = new LevelData();
+            LoadLevelData();
         }
 
         myData.levelWidth = EditorGUILayout.IntField("Level Width", myData.levelWidth);
         myData.levelHeight = EditorGUILayout.IntField("Level Height", myData.levelHeight);
+
+        levelFileName = EditorGUILayout.TextField("Level File Name", levelFileName);
 
         // Reset button
         if (GUILayout.Button("Reset"))
@@ -89,7 +87,6 @@ public class LevelEditor : EditorWindow
             EditorGUI.DrawRect(r, options[i]);
         }
 
-        // Draw the grid and handle mouse input for setting object types
         for (int i = 0; i < myData.grid.GetLength(0); i++)
         {
             for (int j = 0; j < myData.grid.GetLength(1); j++)
@@ -107,13 +104,32 @@ public class LevelEditor : EditorWindow
         // Save button
         if (GUILayout.Button("Save"))
         {
-            string myDataString = JsonConvert.SerializeObject(myData);
-            File.WriteAllText("Assets/Level.txt", myDataString);
+            SaveLevelData();
         }
     }
 
     void Update()
     {
         this.Repaint();
+    }
+
+    private void LoadLevelData()
+    {
+        if (File.Exists("Assets/" + levelFileName))
+        {
+            string myDataString = File.ReadAllText("Assets/" + levelFileName);
+            myData = JsonConvert.DeserializeObject<LevelData>(myDataString);
+        }
+        else
+        {
+            myData = new LevelData();
+            myData.grid = new int[myData.levelWidth, myData.levelHeight];
+        }
+    }
+
+    private void SaveLevelData()
+    {
+        string myDataString = JsonConvert.SerializeObject(myData);
+        File.WriteAllText("Assets/" + levelFileName, myDataString);
     }
 }

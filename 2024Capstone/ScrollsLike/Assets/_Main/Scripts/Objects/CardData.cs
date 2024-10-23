@@ -11,16 +11,48 @@ public class CardData : ScriptableObject
     public Texture CardImage { get { return _cardImage; } }
     public string CardDescription { get { return _cardDescription; } }
 
+    public int EnergyCost { get { return _energyCost; } }
+    [SerializeField] private int _energyCost;
     [SerializeField] private string _cardName;
     [SerializeField] private CardType _cardType;
     [SerializeField] private Texture _cardImage;
     [SerializeField] private string _cardDescription;
-    public List<CardEffect> CardResolutionEffects { get { return _cardResolutionEffects; } }
-    [SerializeField] private List<CardEffect> _cardResolutionEffects;
-    //public List<CardEffect> CardOnDrawEffects { get { return _cardOnDrawEffects; } }
-    //[SerializeField] private List<CardEffect> _cardOnDrawEffects;
-   // public List<CardEffect> CardOnDiscardEffects { get { return _cardOnDiscardEffects; } }
-    //[SerializeField] private List<CardEffect> _cardOnDiscardEffects;
+    public List<CardEffect> CardResolutionEffects 
+    { 
+        get 
+        { 
+            foreach(CardEffect effect in CardResolutionEffects)
+            {
+                effect.GetData(this);
+            }
+            return _cardResolutionEffects; 
+        } 
+    }
+    [SerializeField] private List<CardEffect> _cardResolutionEffects = new List<CardEffect>();
+    public List<CardEffect> CardOnDrawEffects 
+    { 
+        get 
+        {
+            foreach (CardEffect effect in CardOnDrawEffects)
+            {
+                effect.GetData(this);
+            }
+            return _cardOnDrawEffects; 
+        }
+    }
+    [SerializeField] private List<CardEffect> _cardOnDrawEffects = new List<CardEffect>();
+    public List<CardEffect> CardOnDiscardEffects 
+    {
+        get
+        {
+            foreach (CardEffect effect in CardOnDiscardEffects)
+            {
+                effect.GetData(this);
+            }
+           return _cardOnDiscardEffects; 
+        }
+    }
+    [SerializeField] private List<CardEffect> _cardOnDiscardEffects = new List<CardEffect>();
 }
 
 

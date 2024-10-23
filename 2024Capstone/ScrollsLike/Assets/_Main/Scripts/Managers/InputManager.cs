@@ -17,8 +17,7 @@ public class InputManager : Singleton<InputManager>
             _input = new ActionAsset();
             _input.Gameplay.Movement.performed += (val) => _actions.HandlePlayerMovement(val.ReadValue<Vector2>());
             _input.Gameplay.Look.performed += (val) => _actions.HandlePlayerLook(val.ReadValue<Vector2>());
-            _input.Gameplay.Attack.performed += (val) => _actions.HandlePlayerAttack();
-            _input.Gameplay.Block.performed += (val) => _actions.HandlePlayerBlock();
+
         }
         _input.Enable();
     }

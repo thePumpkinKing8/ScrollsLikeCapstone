@@ -15,6 +15,7 @@ public class EffectManager : Singleton<EffectManager>
         StartCoroutine(PlayEffect(effects));
     }
 
+    //activates all qued effects
     IEnumerator PlayEffect(List<CardEffect> effects)
     {
         foreach(CardEffect effect in effects)
