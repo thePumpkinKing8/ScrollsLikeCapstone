@@ -2236,6 +2236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ccbbc57d3fa9a45b472f34cec76827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxWounds: 3
   _playerDeck: {fileID: 11400000, guid: 3604ab3c9d763694298deec54df5e405, type: 2}
 --- !u!4 &1776518481
 Transform:
@@ -2871,6 +2872,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardEventData: {fileID: 11400000, guid: 8b91a1c7913a69a4cb70de4c1ef30b26, type: 2}
+  _discardPile: {fileID: 455727023}
+  _deckManager: {fileID: 455727021}
+  _timeSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

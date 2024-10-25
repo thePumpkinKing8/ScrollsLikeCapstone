@@ -16,7 +16,7 @@ public class GameManager : Singleton<GameManager>
     public int LevelIndex { get { return _levelIndex; } }
     private int _levelIndex = 0;
 
-    private void Start()
+    protected override void Awake()
     {
         DontDestroyOnLoad(this);
         PlayersDeck.Initialize();

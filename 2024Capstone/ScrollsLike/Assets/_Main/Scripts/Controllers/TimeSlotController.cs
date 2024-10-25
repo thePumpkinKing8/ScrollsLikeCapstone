@@ -17,7 +17,7 @@ public class TimeSlotController : MonoBehaviour
         CardGameManager.Instance.Events.ResolutionPhaseEndEvent.AddListener(ResolveEffects);
         CardGameManager.Instance.Events.EffectEnded.AddListener(CardResolved);
         CardGameManager.Instance.Events.CleanupPhaseEndEvent.AddListener(ClearSlots);
-        //CardGameManager.Instance.Events.MoveToNextSlot.AddListener();
+       // CardGameManager.Instance.Events.MoveToNextSlot.AddListener();
     }
     // Start is called before the first frame update
     void Start()
@@ -99,11 +99,8 @@ public class TimeSlotController : MonoBehaviour
         foreach(TimeSlot slot in _timeSlots)
         {
             yield return new WaitUntil(() => trigger);
-        }
-        
+        }        
         CardGameManager.Instance.Events.MoveToNextSlot.RemoveListener(action.Invoke);
         yield return null;
     }
-
-    
 }
