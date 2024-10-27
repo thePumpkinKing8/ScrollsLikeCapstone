@@ -107,7 +107,6 @@ public class GameCard : PoolObject
     //what the card does when its clicked
     public void OnCLick()
     {
-        Debug.Log(CardGameManager.Instance.CurrentPhase);
         if(CardGameManager.Instance.CurrentPhase == Phase.PlayPhase)
         {
             if(InHand)

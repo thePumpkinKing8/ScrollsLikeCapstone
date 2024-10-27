@@ -12,7 +12,7 @@ public class CardGameManager : Singleton<CardGameManager>
 
     //play phase functions
     private int _timeSlotIndex;
-    [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[3];
+    [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[4];
     protected override void Awake()
     {
         base.Awake();
