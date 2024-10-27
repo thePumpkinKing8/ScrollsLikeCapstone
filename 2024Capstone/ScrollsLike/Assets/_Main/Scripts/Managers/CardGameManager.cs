@@ -117,6 +117,13 @@ public class CardGameManager : Singleton<CardGameManager>
 
     public void MoveToNextSlot()
     {
+        if (CurrentPhase != Phase.PlayPhase)
+            return;
+
+        if(_timeSlotIndex >= _timeSlots.Length - 1)
+        {
+            ResolutionPhaseStart();
+        }
         _timeSlotIndex++;
     }
 

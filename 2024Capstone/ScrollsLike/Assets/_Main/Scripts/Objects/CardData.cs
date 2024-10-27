@@ -21,7 +21,7 @@ public class CardData : ScriptableObject
     { 
         get 
         { 
-            foreach(CardEffect effect in CardResolutionEffects)
+            foreach(CardEffect effect in _cardResolutionEffects)
             {
                 effect.GetData(this);
             }
@@ -33,7 +33,7 @@ public class CardData : ScriptableObject
     { 
         get 
         {
-            foreach (CardEffect effect in CardOnDrawEffects)
+            foreach (CardEffect effect in _cardOnDrawEffects)
             {
                 effect.GetData(this);
             }
@@ -45,7 +45,7 @@ public class CardData : ScriptableObject
     {
         get
         {
-            foreach (CardEffect effect in CardOnDiscardEffects)
+            foreach (CardEffect effect in _cardOnDiscardEffects)
             {
                 effect.GetData(this);
             }
