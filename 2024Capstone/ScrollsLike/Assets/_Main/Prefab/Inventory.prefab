@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4882e02b39331e247a60eff8d1505098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 7955819338273808490, guid: 821959e803683df4f82f7c9bbca1d3a3,
+  cardPrefab: {fileID: 5544003026089015851, guid: 7b4d2d5a228cfb34e89be22c39c7a011,
     type: 3}
   gridParent: {fileID: 9100382366599420404}
   inventoryUI: {fileID: 1597035693685344755}
@@ -87,7 +87,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 3000}
+  m_SizeDelta: {x: 0, y: 4000}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3563297585658637989
 MonoBehaviour:
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6442319316222539111}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.5
+  m_Size: 0.2
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
