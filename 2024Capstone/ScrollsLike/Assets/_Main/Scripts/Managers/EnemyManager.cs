@@ -26,9 +26,10 @@ public class EnemyManager : Singleton<EnemyManager>
         CardGameManager.Instance.Events.EnemyHeal.AddListener(EnemyHeal);
     }
 
-    public void SetUp(int life)
+    public void SetUp(EnemyDeck deck)
     {
-        EnemyHealth = life;
+        OpponentsDeck = deck;
+        EnemyHealth = deck.Health;
     }
     // Update is called once per frame
     void Update()

@@ -54,7 +54,6 @@ public class GameCard : PoolObject
         {
             _image.texture = _cardData.CardImage;
         }
-
         GetComponent<Canvas>().sortingOrder = _slotSortOrder;
     }
 

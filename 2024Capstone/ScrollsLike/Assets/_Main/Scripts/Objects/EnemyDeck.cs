@@ -8,4 +8,6 @@ public class EnemyDeck : ScriptableObject
     public List<EnemyCardData> Deck { get { return _deck; } }
     [SerializeField] private List<EnemyCardData> _deck;
     [SerializeField] private int _enemyDifficulty; // meaningless number for now representing the difficulty sclaing. 
+    public int Health { get { return _health; } }
+    [SerializeField] private int _health;
 }

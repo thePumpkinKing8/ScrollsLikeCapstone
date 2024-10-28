@@ -50,7 +50,7 @@ public class HealthManager : Singleton<HealthManager>
                 
         }
 
-        _text.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()}";
+        _text.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()} \nBlock:{PlayerBlock.ToString()} \nEnergy:{Energy.ToString()}";
 
         if(PlayerHealth > _startingHealth)
         {
