@@ -52,6 +52,7 @@ public class CardGameManager : Singleton<CardGameManager>
     public void ResolutionPhaseStart()
     {
         CurrentPhase = Phase.ResolutionPhase;
+        _timeSlotIndex = 0;
         Events.ResolutionPhaseStartEvent.Invoke();        
     }
     public void ResolutionPhaseEnd() => Events.ResolutionPhaseEndEvent.Invoke();
@@ -131,6 +132,10 @@ public class CardGameManager : Singleton<CardGameManager>
 
     #region Resolution Phase
 
+    public void ResolveNextSlot()
+    {
+        
+    }
 
     #endregion
 }
