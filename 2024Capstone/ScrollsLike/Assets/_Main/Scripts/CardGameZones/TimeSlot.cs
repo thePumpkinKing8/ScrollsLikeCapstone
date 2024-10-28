@@ -17,7 +17,6 @@ public class TimeSlot : MonoBehaviour
 
     private void Awake()
     {
-        CardGameManager.Instance.Events.EffectEnded.AddListener(CardResolved);
     }
     public void ToggleActive()
     {
@@ -68,14 +67,16 @@ public class TimeSlot : MonoBehaviour
     }
 
     //plays activates an ability based on the card type. in the future enemies will have a similar system to the players cards
-    public void ResolveEnemyEffects()
-    {
-        EffectManager.Instance.ActivateEffect(EnemyCard.CardResolutionEffects);
-    }
+    
 
     //discards the played card
     public void CleanUpPhase()
     {
+        foreach(GameCard card in PlayerCards)
+        {
+            CardGameManager.Instance.DiscardCard(card.ReferenceCardData);
+            card.OnDeSpawn();
+        }
         PlayerCards.Clear();
     }
 
@@ -85,9 +86,14 @@ public class TimeSlot : MonoBehaviour
         {
             card.SetOrder(5);
             _isPlaying = true;
-            EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects);       
+            EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, this);       
             yield return new WaitUntil(() => _isPlaying == false);
         }
+        _isPlaying = true;
+        EffectManager.Instance.ActivateEffect(EnemyCard.CardResolutionEffects, this);
+        yield return new WaitUntil(() => _isPlaying == false);
+        CardGameManager.Instance.MoveToNext();
+        CardGameManager.Instance.ResolveSlot();
         yield return null;
     }
 

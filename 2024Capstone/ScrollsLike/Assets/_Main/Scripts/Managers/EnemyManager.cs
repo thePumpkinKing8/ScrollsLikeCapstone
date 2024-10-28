@@ -1,12 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class EnemyManager : Singleton<EnemyManager>
 {
     public EnemyDeck OpponentsDeck;
-    public int EnemyHealth { get; private set; }
-
+    public int EnemyHealth
+    {
+        get
+        {
+            return _enemyHealth;
+        }
+        set
+        {
+            _enemyHealth = value;
+            _healthText.text = $"health {_enemyHealth}";
+        }
+    }
+    private int _enemyHealth = 14;
+    [SerializeField] private TextMeshProUGUI _healthText;
     protected override void Awake()
     {
         base.Awake();
@@ -14,6 +26,11 @@ public class EnemyManager : Singleton<EnemyManager>
         CardGameManager.Instance.Events.EnemyHeal.AddListener(EnemyHeal);
     }
 
+    public void SetUp(EnemyDeck deck)
+    {
+        OpponentsDeck = deck;
+        EnemyHealth = deck.Health;
+    }
     // Update is called once per frame
     void Update()
     {

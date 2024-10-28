@@ -54,7 +54,6 @@ public class GameCard : PoolObject
         {
             _image.texture = _cardData.CardImage;
         }
-
         GetComponent<Canvas>().sortingOrder = _slotSortOrder;
     }
 
@@ -76,7 +75,7 @@ public class GameCard : PoolObject
             transform.localScale = Vector3.one * _hoverSizeIncrease;
             
         }
-        SetOrder(6);
+        SetOrder(14);
     }
 
     public void HoverExit()
@@ -107,7 +106,6 @@ public class GameCard : PoolObject
     //what the card does when its clicked
     public void OnCLick()
     {
-        Debug.Log(CardGameManager.Instance.CurrentPhase);
         if(CardGameManager.Instance.CurrentPhase == Phase.PlayPhase)
         {
             if(InHand)

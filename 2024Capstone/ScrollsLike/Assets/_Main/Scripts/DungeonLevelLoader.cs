@@ -45,7 +45,7 @@ public class DungeonLevelLoader : MonoBehaviour
                 if (objectType != 1) // Tile is not a wall
                 {
                     Vector3 groundPosition = new Vector3(i, 0, j);
-                    Instantiate(groundPrefab, groundPosition, Quaternion.identity);
+                    Instantiate(groundPrefab, groundPosition, Quaternion.identity, transform);
                 }                    
             }
         }
@@ -61,12 +61,12 @@ public class DungeonLevelLoader : MonoBehaviour
                 if (objectType == 3)
                 {
                     Vector3 spawnPosition = new Vector3(i, 1, j);
-                    Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity);
+                    Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity, transform);
                 }
                 else if (objectType != -1) 
                 {
                     Vector3 spawnPosition = new Vector3(i, 0, j);
-                    Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity);
+                    Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity, transform);
                 }
             }
         }
@@ -80,7 +80,7 @@ public class DungeonLevelLoader : MonoBehaviour
             for (int j = 0; j < levelData.levelHeight; j++)
             {
                 Vector3 roofPosition = new Vector3(i, roofHeight, j);
-                Instantiate(roofPrefab, roofPosition, Quaternion.identity);
+                Instantiate(roofPrefab, roofPosition, Quaternion.identity, transform);
             }
         }
     }

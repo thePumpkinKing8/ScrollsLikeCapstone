@@ -19,7 +19,6 @@ public class HandController : Singleton<HandController>
     {
         base.Awake();
         CardGameManager.Instance.Events.CardDrawnEvent.AddListener(CardDrawn);
-        CardGameManager.Instance.Events.DrawPhaseEndEvent.AddListener(DrawPhase);
         CardGameManager.Instance.Events.GameStartEvent.AddListener(GameStart);
         CardGameManager.Instance.Events.AddCardToHand.AddListener(AddCard);
         CardGameManager.Instance.Events.PlayCard.AddListener(RemoveCard);
@@ -34,6 +33,7 @@ public class HandController : Singleton<HandController>
         _cardsInHand.Add(newCard);
         newCard.InHand = true;
         newCard.InTimeSlot = false;
+        SetHandOrder();
     }
 
     public void GameStart()
@@ -59,6 +59,17 @@ public class HandController : Singleton<HandController>
         CardDrawn(card.ReferenceCardData);
     }
 
+    private void SetHandOrder()
+    {
+        int i = 1;
+        foreach (GameCard card in _cardsInHand)
+        {            
+            card.SetOrder(i, true);
+            card.SetHandParent(this);
+            i++;
+        }
+    }
+
     //draws the player multiple cards at the start if the draw phase
     IEnumerator DrawCards(int numberOfCards)
     {
@@ -68,12 +79,14 @@ public class HandController : Singleton<HandController>
 
             if (_cardsInHand.Count < _maxCardsInHand)
             {
+                bool trigger = false;
                 CardGameManager.Instance.DrawCard();
                 yield return new WaitForSeconds(_drawDelay);
             }
             else
                 break;
         }
+        SetHandOrder();
         CardGameManager.Instance.PrepPhaseStart();
         yield return null;
     }
