@@ -63,7 +63,6 @@ public class CardGameManager : Singleton<CardGameManager>
     }
     public void CleanupPhaseEnd() => Events.CleanupPhaseEndEvent.Invoke();
     public void PlayCardEvent(GameCard  card) => Events.PlayCard.Invoke(card);//remove
-    public void MoveToNext() => Events.MoveToNextSlot.Invoke();//remove move to timeslot controller
     public void EffectActivate(List<CardEffect> effects) => Events.EffectPlayed.Invoke(effects);//remove
     public void EffectDone() => Events.EffectEnded.Invoke();//remove?
    
@@ -125,19 +124,25 @@ public class CardGameManager : Singleton<CardGameManager>
         {
             ResolutionPhaseStart();
         }
-        _timeSlotIndex++;
+        MoveToNext();
     }
 
     #endregion
 
     #region Resolution Phase
 
-    public void ResolveNextSlot()
+    public void ResolveSlot()
     {
-        
+        _timeSlots[_timeSlotIndex].ResolvePlayerEffects();
+        _timeSlots[_timeSlotIndex].ResolveEnemyEffects();
     }
 
     #endregion
+
+    private void MoveToNext()
+    {
+        _timeSlotIndex++;
+    }
 }
 
 public enum Phase
