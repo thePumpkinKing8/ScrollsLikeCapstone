@@ -7,16 +7,16 @@ public class EffectManager : Singleton<EffectManager>
     //will have a list of effects to que through each phase in order to better handle time slots
     private void Start()
     {
-        CardGameManager.Instance.Events.EffectPlayed.AddListener(ActivateEffect);
+        
     }
 
-    public void ActivateEffect(List<CardEffect> effects)
+    public void ActivateEffect(List<CardEffect> effects, TimeSlot slotReference = null)
     {
-        StartCoroutine(PlayEffect(effects));
+        StartCoroutine(PlayEffect(effects, slotReference));
     }
 
     //activates all qued effects
-    IEnumerator PlayEffect(List<CardEffect> effects)
+    IEnumerator PlayEffect(List<CardEffect> effects, TimeSlot slotReference)
     {
         foreach(CardEffect effect in effects)
         {
@@ -24,7 +24,7 @@ public class EffectManager : Singleton<EffectManager>
             yield return new WaitForSeconds(1);
         }
 
-        CardGameManager.Instance.EffectDone();
+        slotReference.CardResolved();
         yield return null;
     }
 }

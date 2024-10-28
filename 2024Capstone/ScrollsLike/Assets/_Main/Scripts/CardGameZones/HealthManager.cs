@@ -11,9 +11,8 @@ public class HealthManager : Singleton<HealthManager>
     [SerializeField] private int _startingHealth; //will be set by seperate script later
     public int Wounds = 3;
     public int PlayerHealth { get; set; }
-    public int EnemyHealth { get; private set; }
+
     private TextMeshProUGUI _text;
-    [SerializeField] private TextMeshProUGUI _enemyHealthText;
     public int Energy { get; private set; }
 
     [HideInInspector] public int PlayerBlock { get; private set; }
@@ -28,7 +27,6 @@ public class HealthManager : Singleton<HealthManager>
         CardGameManager.Instance.Events.EnergyChange.AddListener(ChangeEnergy);
         Energy = 0;
         PlayerHealth = _startingHealth;
-        EnemyHealth = _startingHealth;
         _text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -51,13 +49,8 @@ public class HealthManager : Singleton<HealthManager>
             }
                 
         }
-        else if (EnemyHealth <= 0)
-        {
-            StartCoroutine(EndGame("Win"));
-        }
 
         _text.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()}";
-        _enemyHealthText.text = $"Enemy Health:{EnemyHealth.ToString()}";
 
         if(PlayerHealth > _startingHealth)
         {
@@ -99,7 +92,6 @@ public class HealthManager : Singleton<HealthManager>
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
     {
-        _enemyHealthText.text = $"You {message}!";
         yield return new WaitForSeconds(4);
         SceneManager.LoadScene("Anna_Gym");
         yield return null;

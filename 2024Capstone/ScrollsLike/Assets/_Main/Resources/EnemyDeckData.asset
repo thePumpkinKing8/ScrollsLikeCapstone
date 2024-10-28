@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb865fe6187bf1142a9f175bace11476, type: 3}
   m_Name: EnemyDeckData
   m_EditorClassIdentifier: 
-  _startingCards:
+  _deck:
+  - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
+  - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
   - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
   _enemyDifficulty: 0

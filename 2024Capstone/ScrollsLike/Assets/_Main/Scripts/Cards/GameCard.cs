@@ -76,7 +76,7 @@ public class GameCard : PoolObject
             transform.localScale = Vector3.one * _hoverSizeIncrease;
             
         }
-        SetOrder(6);
+        SetOrder(14);
     }
 
     public void HoverExit()

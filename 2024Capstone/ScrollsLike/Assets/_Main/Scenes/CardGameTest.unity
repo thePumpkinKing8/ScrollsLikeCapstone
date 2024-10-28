@@ -476,8 +476,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 208.75, y: 7.75}
-  m_SizeDelta: {x: 255.2876, y: -252}
+  m_AnchoredPosition: {x: -109.96887, y: -19.250061}
+  m_SizeDelta: {x: 0, y: -252}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &363792310
 MonoBehaviour:
@@ -943,8 +943,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 527.5, y: 7.75}
-  m_SizeDelta: {x: 255.2876, y: -252}
+  m_AnchoredPosition: {x: 209.14062, y: -19.25}
+  m_SizeDelta: {x: 0, y: -252}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &591660885
 MonoBehaviour:
@@ -1077,8 +1077,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -429.07837, y: 7.75}
-  m_SizeDelta: {x: 255.2876, y: -252}
+  m_AnchoredPosition: {x: -429.07837, y: -19.25}
+  m_SizeDelta: {x: 0, y: -252}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &678033512
 MonoBehaviour:
@@ -1764,7 +1764,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1276117158}
-  - component: {fileID: 1276117159}
   m_Layer: 5
   m_Name: TimeSlots
   m_TagString: Untagged
@@ -1785,12 +1784,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 678033511}
-  - {fileID: 1510164946}
-  - {fileID: 363792309}
   - {fileID: 591660884}
+  - {fileID: 363792309}
+  - {fileID: 1510164946}
   - {fileID: 834831688}
-  - {fileID: 225326783}
   - {fileID: 905641741}
+  - {fileID: 225326783}
   - {fileID: 424447079}
   m_Father: {fileID: 75961082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1799,28 +1798,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 126.08}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1276117159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276117157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec25bdec76b908c42b17c22ff7d2cda0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeSlots:
-  - {fileID: 834831689}
-  - {fileID: 225326784}
-  - {fileID: 905641742}
-  - {fileID: 424447080}
-  _enemyText:
-  - {fileID: 678033512}
-  - {fileID: 1510164947}
-  - {fileID: 363792310}
-  - {fileID: 591660885}
 --- !u!1 &1278195043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,8 +2084,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -111, y: 7.75}
-  m_SizeDelta: {x: 255.2876, y: -252}
+  m_AnchoredPosition: {x: 528.25, y: -19.25}
+  m_SizeDelta: {x: 0, y: -252}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1510164947
 MonoBehaviour:
@@ -2359,6 +2336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OpponentsDeck: {fileID: 11400000, guid: 2c2afdb94a398d943b0a60211a05757c, type: 2}
+  _healthText: {fileID: 501549115}
 --- !u!4 &1848347212
 Transform:
   m_ObjectHideFlags: 0
@@ -2788,7 +2766,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingHealth: 14
   Wounds: 3
-  _enemyHealthText: {fileID: 501549115}
 --- !u!114 &1944978580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2875,9 +2852,10 @@ MonoBehaviour:
   _discardPile: {fileID: 455727023}
   _deckManager: {fileID: 455727021}
   _timeSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 834831689}
+  - {fileID: 225326784}
+  - {fileID: 905641742}
+  - {fileID: 424447080}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

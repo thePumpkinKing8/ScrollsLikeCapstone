@@ -14,10 +14,9 @@ public class TimeSlotController : MonoBehaviour
         CardGameManager.Instance.Events.PlayCard.AddListener(AddCardToTimeSlot);
         CardGameManager.Instance.Events.PlayPhaseEndEvent.AddListener(StartPlayPhase);
         CardGameManager.Instance.Events.PrepPhaseEndEvent.AddListener(AddEnemyToTimeSlots);
-        CardGameManager.Instance.Events.ResolutionPhaseEndEvent.AddListener(ResolveEffects);
+       // CardGameManager.Instance.Events.ResolutionPhaseEndEvent.AddListener(ResolveEffects);
         CardGameManager.Instance.Events.EffectEnded.AddListener(CardResolved);
         CardGameManager.Instance.Events.CleanupPhaseEndEvent.AddListener(ClearSlots);
-       // CardGameManager.Instance.Events.MoveToNextSlot.AddListener();
     }
     // Start is called before the first frame update
     void Start()
@@ -41,7 +40,7 @@ public class TimeSlotController : MonoBehaviour
     }
     public void ResolveEffects()
     {
-        StartCoroutine(Resolve());
+        //StartCoroutine(Resolve());
     }
 
     //adds a card to the earliest empty slot
@@ -84,7 +83,6 @@ public class TimeSlotController : MonoBehaviour
             _isPlaying = true;
             slot.ResolvePlayerEffects();
             yield return new WaitUntil(() => _isPlaying == false);
-            slot.ResolveEnemyEffects();
         }
        
         CardGameManager.Instance.CleanupPhaseStart();

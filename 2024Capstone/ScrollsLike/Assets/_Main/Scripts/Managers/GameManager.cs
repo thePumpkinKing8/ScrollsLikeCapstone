@@ -31,7 +31,11 @@ public class GameManager : Singleton<GameManager>
     
     public void CardGameStart()
     {
-        EnemyManager.Instance.OpponentsDeck = _opponent;
+        if(EnemyManager.Instance.OpponentsDeck == null)
+        {
+            EnemyManager.Instance.OpponentsDeck = _opponent;
+        }
+        
     }
 
     public void NextLevel()

@@ -26,7 +26,6 @@ public class PhaseManager : MonoBehaviour
 
     public void PlayPhaseStart()
     {
-        Debug.Log("PlayPhase");
         CardGameManager.Instance.PlayPhaseEnd();
     }
 
@@ -38,5 +37,6 @@ public class PhaseManager : MonoBehaviour
     public void CleanupPhaseStart()
     {
         CardGameManager.Instance.CleanupPhaseEnd();
+      
     }  
 }

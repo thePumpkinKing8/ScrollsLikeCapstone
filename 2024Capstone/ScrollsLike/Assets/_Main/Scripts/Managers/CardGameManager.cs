@@ -34,10 +34,17 @@ public class CardGameManager : Singleton<CardGameManager>
         Events.DrawPhaseStartEvent.Invoke();
     }
    
-    public void DrawPhaseEnd() => Events.DrawPhaseEndEvent.Invoke();
+    public void DrawPhaseEnd()
+    {
+        DrawForTurn();
+        Events.DrawPhaseEndEvent.Invoke();
+    }
+   
     public void PrepPhaseStart()
     {
         CurrentPhase = Phase.PrepPhase;
+        Debug.Log("prep phase");
+        SetUpEnemy();
         Events.PrepPhaseStartEvent.Invoke();
     }
     
@@ -46,22 +53,35 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         CurrentPhase = Phase.PlayPhase;
         _timeSlotIndex = 0;
+        Debug.Log("play phase");
         Events.PlayPhaseStartEvent.Invoke();
     }
     public void PlayPhaseEnd() => Events.PlayPhaseEndEvent.Invoke();
-    public void ResolutionPhaseStart()
+    public void ResolutionPhaseStart() //trigger any effects waiting for this phase 
     {
         CurrentPhase = Phase.ResolutionPhase;
         _timeSlotIndex = 0;
         Events.ResolutionPhaseStartEvent.Invoke();        
     }
-    public void ResolutionPhaseEnd() => Events.ResolutionPhaseEndEvent.Invoke();
+    public void ResolutionPhaseEnd()
+    {
+        ResolveSlot();
+    }
     public void CleanupPhaseStart()
     {
         CurrentPhase = Phase.CleanupPhase;
         Events.CleanupPhaseStartEvent.Invoke();       
     }
-    public void CleanupPhaseEnd() => Events.CleanupPhaseEndEvent.Invoke();
+    public void CleanupPhaseEnd()
+    {
+        foreach(TimeSlot slot in _timeSlots)
+        {
+            slot.CleanUpPhase();
+        }
+        Events.CleanupPhaseEndEvent.Invoke();
+        DrawPhaseStart();
+    }
+    
     public void PlayCardEvent(GameCard  card) => Events.PlayCard.Invoke(card);//remove
     public void EffectActivate(List<CardEffect> effects) => Events.EffectPlayed.Invoke(effects);//remove
     public void EffectDone() => Events.EffectEnded.Invoke();//remove?
@@ -97,7 +117,25 @@ public class CardGameManager : Singleton<CardGameManager>
         _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
      //   _discardPile.
     }
+
+    public void DiscardCard(CardData card)
+    {
+        _discardPile.AddCard(card);
+    }
     #endregion
+
+    #region PrepPhase
+    public void SetUpEnemy()
+    {
+        foreach(TimeSlot slot in _timeSlots)
+        {
+            slot.AddEnemyEffect(EnemyManager.Instance.PlayAbility());
+        }
+        PrepPhaseEnd();
+        PlayPhaseStart();
+    }
+
+    #endregion 
 
     #region PlayPhase
     public void PlayCard(GameCard card)
@@ -123,6 +161,7 @@ public class CardGameManager : Singleton<CardGameManager>
         if(_timeSlotIndex >= _timeSlots.Length - 1)
         {
             ResolutionPhaseStart();
+            return;
         }
         MoveToNext();
     }
@@ -133,16 +172,20 @@ public class CardGameManager : Singleton<CardGameManager>
 
     public void ResolveSlot()
     {
+        if(_timeSlotIndex >= _timeSlots.Length - 1)
+        {
+            CleanupPhaseStart();
+            return;
+        }
         _timeSlots[_timeSlotIndex].ResolvePlayerEffects();
-        _timeSlots[_timeSlotIndex].ResolveEnemyEffects();
     }
 
-    #endregion
 
-    private void MoveToNext()
+    public void MoveToNext()
     {
         _timeSlotIndex++;
     }
+    #endregion
 }
 
 public enum Phase
