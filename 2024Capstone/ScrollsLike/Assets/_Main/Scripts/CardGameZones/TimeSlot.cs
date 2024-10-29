@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TimeSlot : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class TimeSlot : MonoBehaviour
 
     private bool _active = false;
     private bool _isPlaying = false;
+    [SerializeField] private TextMeshProUGUI text;
 
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class TimeSlot : MonoBehaviour
             color.color = Color.gray;
         else
             color.color = Color.red;
+        text.text = $"Opponent Will\n{EnemyCard.CardDescription}";
     }
 
     public void CardResolved()
@@ -69,7 +72,8 @@ public class TimeSlot : MonoBehaviour
 
     public void AddEnemyEffect(EnemyCardData card)
     {
-        EnemyCard = card;     
+        EnemyCard = card;
+        text.text = "???";
     }
 
     public void ResolvePlayerEffects()
