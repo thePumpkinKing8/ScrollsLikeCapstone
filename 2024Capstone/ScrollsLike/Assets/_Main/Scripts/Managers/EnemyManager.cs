@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 public class EnemyManager : Singleton<EnemyManager>
 {
-    public EnemyDeck OpponentsDeck;
+    private EnemyDeck _deck;
     public int EnemyHealth
     {
         get
@@ -17,11 +17,11 @@ public class EnemyManager : Singleton<EnemyManager>
             _healthText.text = $"health {_enemyHealth}";
             if(_enemyHealth <= 0)
             {
-                GameManager.Instance.PlayerWins();
+                StartCoroutine(EndGame("Victory"));
             }
         }
     }
-    private int _enemyHealth = 14;
+    private int _enemyHealth;
     [SerializeField] private TextMeshProUGUI _healthText;
     protected override void Awake()
     {
@@ -32,7 +32,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void SetUp(EnemyDeck deck)
     {
-        OpponentsDeck = deck;
+        _deck = deck;
         EnemyHealth = deck.Health;
     }
     // Update is called once per frame
@@ -53,7 +53,15 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public EnemyCardData PlayAbility()
     {
-        EnemyCardData card = OpponentsDeck.Deck[Random.Range(0,OpponentsDeck.Deck.Count)];
+        EnemyCardData card = _deck.Deck[Random.Range(0,_deck.Deck.Count)];
         return card;
+    }
+
+    IEnumerator EndGame(string message)
+    {
+        _healthText.text = "message";
+        yield return new WaitForSeconds(4);
+        GameManager.Instance.PlayerWins();
+        yield return null;
     }
 }

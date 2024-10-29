@@ -17,3 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
   - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
   _enemyDifficulty: 0
+  _health: 25

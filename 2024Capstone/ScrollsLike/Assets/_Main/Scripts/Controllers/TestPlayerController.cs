@@ -11,14 +11,20 @@ public class TestPlayerController : MonoBehaviour
     
     private void Awake()
     {
-        GameManager.Instance.Player = transform;
+       
         _actions = InputManager.Instance.ActionsData;
         _rb = GetComponent<Rigidbody>();
         _actions.PlayerMoveEvent.AddListener(HandleMovment);
     }
     private void Start()
     {
-        GameManager.Instance.Player = transform;
+        if (GameManager.Instance.Player == null)
+            GameManager.Instance.Player = transform;
+        else
+        {
+            transform.position = GameManager.Instance.PlayerPosition;
+            GameManager.Instance.Player = transform;
+        }
     }
 
     // Update is called once per frame

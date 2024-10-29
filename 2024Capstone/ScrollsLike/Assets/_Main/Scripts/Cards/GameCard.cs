@@ -76,7 +76,6 @@ public class GameCard : PoolObject
     {
         if (_inHand)
         {
-            Debug.Log("hover");
             transform.localScale = Vector3.one * _hoverSizeIncrease;            
         }
         SetOrder(14);

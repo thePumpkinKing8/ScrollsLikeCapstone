@@ -1247,6 +1247,7 @@ MonoBehaviour:
   _maxWounds: 3
   _maxHealth: 14
   _playerDeck: {fileID: 11400000, guid: 3604ab3c9d763694298deec54df5e405, type: 2}
+  _opponent: {fileID: 11400000, guid: 2c2afdb94a398d943b0a60211a05757c, type: 2}
 --- !u!4 &859144639
 Transform:
   m_ObjectHideFlags: 0
@@ -2299,7 +2300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e38338fa790cb04fb9b5ba9faf62123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpponentsDeck: {fileID: 11400000, guid: 2c2afdb94a398d943b0a60211a05757c, type: 2}
   _healthText: {fileID: 1141509940}
 --- !u!4 &1718433301
 Transform:

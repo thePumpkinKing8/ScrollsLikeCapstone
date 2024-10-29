@@ -8,6 +8,8 @@ public class GameManager : Singleton<GameManager>
     public Transform Player { get { return _player; } set { _player = value;}}
     private Transform _player;
 
+    public Vector3 PlayerPosition { get { return _playerPosition; } set { _playerPosition = value; } }
+    private Vector3 _playerPosition;
     public int WoundsRemaining { get; private set; }
     [SerializeField] private int _maxWounds = 3;
 
@@ -15,7 +17,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private int _maxHealth = 14;
     public PlayerDeck PlayersDeck { get { return _playerDeck; } }
     [SerializeField] private PlayerDeck _playerDeck;
-    private EnemyDeck _opponent;
+    [SerializeField] private EnemyDeck _opponent;
     public int LevelIndex { get { return _levelIndex; } }
     private int _levelIndex = 0;
 
@@ -30,15 +32,13 @@ public class GameManager : Singleton<GameManager>
     public void GoToCombat(EnemyDeck opponent)
     {
         _opponent = opponent;
+        _playerPosition = Player.position;
         SceneManager.LoadScene("CardGame");
     }
     
     public void CardGameStart()
     {
-        if(EnemyManager.Instance.OpponentsDeck == null)
-        {
-            EnemyManager.Instance.OpponentsDeck = _opponent;
-        }
+        EnemyManager.Instance.SetUp(_opponent);
         
     }
 
@@ -60,6 +60,6 @@ public class GameManager : Singleton<GameManager>
 
     public void PlayerLoses()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Anna_Gym");
     }
 }
