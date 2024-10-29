@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Take 4, Deal 11
+  m_text: Gain 6 block
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c4c68da9144e784ebbb05e60668c11e, type: 2}
   m_sharedMaterial: {fileID: -1480815501028671486, guid: 9c4c68da9144e784ebbb05e60668c11e,
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2a84a96a10ae7654db64022443555acc, type: 3}
+  m_Texture: {fileID: 2800000, guid: a3cf5348ef291ca47b2957cc81c94457, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Strike Of Wrath
+  m_text: Block
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c4c68da9144e784ebbb05e60668c11e, type: 2}
   m_sharedMaterial: {fileID: -1480815501028671486, guid: 9c4c68da9144e784ebbb05e60668c11e,
@@ -631,7 +631,7 @@ RectTransform:
   m_GameObject: {fileID: 7955819338273808490}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7777778, z: 0.7777778}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6406791773985166459}
@@ -794,9 +794,7 @@ MonoBehaviour:
   _title: {fileID: 3218546042635696829}
   _cardType: {fileID: 9125127196233500678}
   _image: {fileID: 3729403853336409188}
-  _hoverSizeIncrease: 1.25
-  InHand: 0
-  InTimeSlot: 0
+  _hoverSizeIncrease: 1
 --- !u!114 &7114376997264550892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,7 +968,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stance
+  m_text: Guard
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c4c68da9144e784ebbb05e60668c11e, type: 2}
   m_sharedMaterial: {fileID: -1480815501028671486, guid: 9c4c68da9144e784ebbb05e60668c11e,

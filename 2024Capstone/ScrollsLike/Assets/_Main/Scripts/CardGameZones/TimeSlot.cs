@@ -31,13 +31,19 @@ public class TimeSlot : MonoBehaviour
     //adds a card to the timeslot 
     public void AddCard(GameCard card)
     {
-        PlayerCards.Add(card);
-        card.transform.SetParent(transform, true);
-        card.transform.position = this.transform.position;
-        card.InHand = false;
-        card.InTimeSlot = true;
-        card.transform.localScale = Vector3.zero;
-        card.SetOrder(PlayerCards.Count, true);
+        if(PlayerCards.Count >= 3)
+        {
+            CardGameManager.Instance.AddCardToHand(card);
+        }
+        else
+        {
+            PlayerCards.Add(card);
+            card.transform.SetParent(transform, true);
+            card.transform.position = this.transform.position;
+            card.transform.localScale = Vector3.zero;
+            card.SetOrder(PlayerCards.Count, true);
+        }
+        
     }
 
     public void RemoveCard(GameCard card)

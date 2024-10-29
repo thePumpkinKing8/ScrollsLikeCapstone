@@ -10,6 +10,9 @@ public class GameManager : Singleton<GameManager>
 
     public int WoundsRemaining { get; private set; }
     [SerializeField] private int _maxWounds = 3;
+
+    public int HealthRemaining { get; private set; }
+    [SerializeField] private int _maxHealth = 14;
     public PlayerDeck PlayersDeck { get { return _playerDeck; } }
     [SerializeField] private PlayerDeck _playerDeck;
     private EnemyDeck _opponent;
@@ -20,7 +23,8 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(this);
         PlayersDeck.Initialize();
-        WoundsRemaining = 3;
+        WoundsRemaining = _maxWounds;
+        HealthRemaining = _maxHealth;
     }
 
     public void GoToCombat(EnemyDeck opponent)
@@ -45,5 +49,10 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.Log("Game won");
         }
+    }
+
+    public void PlayerWins()
+    {
+
     }
 }

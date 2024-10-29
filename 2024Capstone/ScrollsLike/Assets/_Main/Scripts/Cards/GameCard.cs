@@ -37,9 +37,10 @@ public class GameCard : PoolObject
 
     [Header("UI intereaction settings")]
     [SerializeField] private float _hoverSizeIncrease = 1.25f;
+    private Vector3 _baseSize;
 
-     public bool InHand;
-    [HideInInspector] public bool InTimeSlot;
+    private bool _inHand;
+    private bool _inTimeSlot;
     public int EnergyCost { get; private set; }
 
     private int _slotSortOrder = 1;
@@ -55,6 +56,7 @@ public class GameCard : PoolObject
             _image.texture = _cardData.CardImage;
         }
         GetComponent<Canvas>().sortingOrder = _slotSortOrder;
+        _baseSize = transform.localScale;
     }
 
     // Update is called once per frame
@@ -66,23 +68,25 @@ public class GameCard : PoolObject
     public void SetHandParent(HandController hand)
     {
         _handController = hand;
+        _inHand = true;
+        _inTimeSlot = false;
     }
 
     public void OnHover()
     {
-        if (InHand)
+        if (_inHand)
         {
-            transform.localScale = Vector3.one * _hoverSizeIncrease;
-            
+            Debug.Log("hover");
+            transform.localScale = Vector3.one * _hoverSizeIncrease;            
         }
         SetOrder(14);
     }
 
     public void HoverExit()
     {
-        if (InHand)
+        if (_inHand)
         {
-            transform.localScale = Vector3.one;         
+            transform.localScale = _baseSize;         
         }
         SetOrder(_slotSortOrder);
         
@@ -93,7 +97,7 @@ public class GameCard : PoolObject
     {
         if (CardGameManager.Instance.CurrentPhase == Phase.PlayPhase)
         {
-            if (InHand)
+            if (_inHand)
             {
                 CardGameManager.Instance.DiscardForEnergy(this);
                 CardGameManager.Instance.HandleCardDiscard(this.ReferenceCardData);
@@ -108,15 +112,17 @@ public class GameCard : PoolObject
     {
         if(CardGameManager.Instance.CurrentPhase == Phase.PlayPhase)
         {
-            if(InHand)
+            if(_inHand)
             {
-                CardGameManager.Instance.PlayCard(this);
-                transform.localScale = Vector3.one;
-                
+                PlayCard();   
             }
-            else if(InTimeSlot)
+            else if(_inTimeSlot)
             {
                 GetComponentInParent<TimeSlot>().RemoveCard(this);
+                if(EnergyCost > 0)
+                {
+                    HealthManager.Instance.ChangeEnergy(EnergyCost);
+                }
                 SetOrder(1, true);
             }
         }
@@ -126,12 +132,17 @@ public class GameCard : PoolObject
     {
         if(EnergyCost > 0)
         {
-            if(HealthManager.Instance.Energy < EnergyCost)
+            if (HealthManager.Instance.Energy > EnergyCost)
             {
-                CardGameManager.Instance.EnergyChange(-EnergyCost);
+                HealthManager.Instance.ChangeEnergy(-EnergyCost);
             }
+            else
+                return;
         }
         CardGameManager.Instance.PlayCard(this);
+        transform.localScale = _baseSize;
+        _inHand = false;
+        _inTimeSlot = true;
     }
 
     public void SetOrder(int num, bool changeDefault = false)

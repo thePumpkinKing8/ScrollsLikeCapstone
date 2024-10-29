@@ -31,8 +31,6 @@ public class HandController : Singleton<HandController>
         newCard.transform.SetParent(transform, true);
         newCard.ReferenceCardData = drawnCard;       
         _cardsInHand.Add(newCard);
-        newCard.InHand = true;
-        newCard.InTimeSlot = false;
         SetHandOrder();
     }
 

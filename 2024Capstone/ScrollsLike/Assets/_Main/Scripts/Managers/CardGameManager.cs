@@ -91,7 +91,6 @@ public class CardGameManager : Singleton<CardGameManager>
     public void EnemyHeal(int heal) => Events.EnemyHeal.Invoke(heal);//remove int variable. event should be only for trigger animation and sfx
     public void StanceResolved(CardData data) => Events.StanceResolved.Invoke(data);//remove
     public void PlayerBlock(int block) => Events.PlayerGainsBlock.Invoke(block);//remove int variable. event should be only for trigger animation and sfx
-    public void EnergyChange(int energy) => Events.EnergyChange.Invoke(energy);//remove int variable. event should be only for trigger animation and sfx
     #endregion
 
     private void Start()

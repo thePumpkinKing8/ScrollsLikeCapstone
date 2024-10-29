@@ -49,7 +49,6 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public EnemyCardData PlayAbility()
     {
-        Debug.Log("fjahd");
         EnemyCardData card = OpponentsDeck.Deck[Random.Range(0,OpponentsDeck.Deck.Count)];
         return card;
     }

@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -721,15 +721,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e01c48b2ac664940933bdaab58074cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _description: {fileID: 4005214541595324601, guid: 821959e803683df4f82f7c9bbca1d3a3,
-    type: 3}
-  _title: {fileID: 3218546042635696829, guid: 821959e803683df4f82f7c9bbca1d3a3, type: 3}
-  _cardType: {fileID: 9125127196233500678, guid: 821959e803683df4f82f7c9bbca1d3a3,
-    type: 3}
-  _image: {fileID: 3729403853336409188, guid: 821959e803683df4f82f7c9bbca1d3a3, type: 3}
+  _description: {fileID: 1856456885854649347}
+  _title: {fileID: 7670923555889150182}
+  _cardType: {fileID: 266528964008473842}
+  _image: {fileID: 6026982258688795942}
   _hoverSizeIncrease: 1.25
-  InHand: 0
-  InTimeSlot: 0
 --- !u!114 &7229119674020665827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,7 +812,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
