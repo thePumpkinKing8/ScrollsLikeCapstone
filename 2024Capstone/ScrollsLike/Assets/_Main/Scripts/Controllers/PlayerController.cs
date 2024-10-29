@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
     private PlayerActionsData _actions;

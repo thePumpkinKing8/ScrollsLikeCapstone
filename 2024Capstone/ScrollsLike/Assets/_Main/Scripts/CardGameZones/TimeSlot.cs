@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimeSlot : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class TimeSlot : MonoBehaviour
     public void ToggleActive()
     {
         _active = !_active;
+        var color = GetComponent<Image>();
+        if (!_active)
+            color.color = Color.gray;
+        else
+            color.color = Color.red;
     }
 
     public void CardResolved()

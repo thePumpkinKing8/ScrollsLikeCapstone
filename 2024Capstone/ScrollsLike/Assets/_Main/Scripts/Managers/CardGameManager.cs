@@ -53,6 +53,7 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         CurrentPhase = Phase.PlayPhase;
         _timeSlotIndex = 0;
+        _timeSlots[_timeSlotIndex].ToggleActive();
         Debug.Log("play phase");
         Events.PlayPhaseStartEvent.Invoke();
     }
@@ -69,6 +70,7 @@ public class CardGameManager : Singleton<CardGameManager>
     }
     public void CleanupPhaseStart()
     {
+        _timeSlots[_timeSlotIndex].ToggleActive();
         CurrentPhase = Phase.CleanupPhase;
         Events.CleanupPhaseStartEvent.Invoke();       
     }
@@ -183,7 +185,9 @@ public class CardGameManager : Singleton<CardGameManager>
 
     public void MoveToNext()
     {
+        _timeSlots[_timeSlotIndex].ToggleActive();
         _timeSlotIndex++;
+        _timeSlots[_timeSlotIndex].ToggleActive();
     }
     #endregion
 }
