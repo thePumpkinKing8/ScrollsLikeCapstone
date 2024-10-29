@@ -15,28 +15,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
-                    "type": "Button",
-                    "id": "79ec7773-3958-4f7e-b4aa-4fb73159d560",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Look",
                     "type": "PassThrough",
                     "id": "9cf265af-e7a8-4e70-9c0e-2c84edb7afb9",
                     "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Block",
-                    "type": "Button",
-                    "id": "1a3e89f9-784a-4539-b80a-41ff4f636212",
-                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -122,50 +104,6 @@
                 },
                 {
                     "name": "",
-                    "id": "805f0aa5-dfd6-40a2-812f-a2220ef6b569",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "395f08f9-09fd-4aec-81af-11f246583f53",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "086ea850-a3d0-4a20-95c0-12bd0b169725",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Block",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b88c0a81-088f-4549-8cc2-31d5953857db",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Block",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f96fce05-9e01-4cc2-8a87-e77d7da7f841",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -193,9 +131,18 @@
             "id": "97438ab9-897c-4841-8984-2eacb32a4177",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "PauseGame",
                     "type": "Button",
                     "id": "29da060b-57af-462e-b759-23e700972fa3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "5aa9b3d5-5797-4810-9c26-39bc7b1d4908",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -206,11 +153,22 @@
                 {
                     "name": "",
                     "id": "3ed79081-dde7-427d-9ca7-2f041d3a823d",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "Keyboard",
+                    "action": "PauseGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9e9f5bec-da2c-4ef6-9f6d-6af7aaba58f2",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

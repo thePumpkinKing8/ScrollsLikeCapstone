@@ -18,6 +18,7 @@ public class GameCard : PoolObject
             if (_cardData == null)
             {
                 _cardData = value;
+                EnergyCost = ReferenceCardData.EnergyCost;
             }
             else
             {
@@ -25,6 +26,8 @@ public class GameCard : PoolObject
             }              
         }
     }
+
+    private HandController _handController;
     private CardData _cardData;
 
     [SerializeField] private TextMeshProUGUI _description;
@@ -34,16 +37,14 @@ public class GameCard : PoolObject
 
     [Header("UI intereaction settings")]
     [SerializeField] private float _hoverSizeIncrease = 1.25f;
+    private Vector3 _baseSize;
 
-     public bool InHand;
-    [HideInInspector] public bool InTimeSlot;
+    private bool _inHand;
+    private bool _inTimeSlot;
+    public int EnergyCost { get; private set; }
+
+    private int _slotSortOrder = 1;
     
-
-
-    private void Awake()
-    {
-       
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +55,8 @@ public class GameCard : PoolObject
         {
             _image.texture = _cardData.CardImage;
         }
+        GetComponent<Canvas>().sortingOrder = _slotSortOrder;
+        _baseSize = transform.localScale;
     }
 
     // Update is called once per frame
@@ -62,41 +65,91 @@ public class GameCard : PoolObject
         
     }
 
+    public void SetHandParent(HandController hand)
+    {
+        _handController = hand;
+        _inHand = true;
+        _inTimeSlot = false;
+    }
+
     public void OnHover()
     {
-        if (InHand)
+        if (_inHand)
         {
-            transform.localScale = Vector3.one * _hoverSizeIncrease;
-            GetComponent<Canvas>().sortingOrder += 1;
-        }      
+            transform.localScale = Vector3.one * _hoverSizeIncrease;            
+        }
+        SetOrder(14);
     }
 
     public void HoverExit()
     {
-        if (InHand)
+        if (_inHand)
         {
-            transform.localScale = Vector3.one;
-            GetComponent<Canvas>().sortingOrder -= 1;
-        }       
+            transform.localScale = _baseSize;         
+        }
+        SetOrder(_slotSortOrder);
+        
+        //GetComponent<Canvas>().sortingOrder = _slotSortOrder;
     }
 
+    public void OnRightClick()
+    {
+        if (CardGameManager.Instance.CurrentPhase == Phase.PlayPhase)
+        {
+            if (_inHand)
+            {
+                CardGameManager.Instance.DiscardForEnergy(this);
+                CardGameManager.Instance.HandleCardDiscard(this.ReferenceCardData);
+                _handController.RemoveCard(this);
+                OnDeSpawn();
+                Debug.Log("right");
+            }
+        }
+    }
     //what the card does when its clicked
     public void OnCLick()
     {
-        Debug.Log(CardGameManager.Instance.CurrentPhase);
         if(CardGameManager.Instance.CurrentPhase == Phase.PlayPhase)
         {
-            if(InHand)
+            if(_inHand)
             {
-                
-                CardGameManager.Instance.PlayCard(this);
-                transform.localScale = Vector3.one;
-                
+                PlayCard();   
             }
-            else if(InTimeSlot)
+            else if(_inTimeSlot)
             {
-                GetComponentInParent<TimeSlot>().RemoveCard();
+                GetComponentInParent<TimeSlot>().RemoveCard(this);
+                if(EnergyCost > 0)
+                {
+                    HealthManager.Instance.ChangeEnergy(EnergyCost);
+                }
+                SetOrder(1, true);
             }
+        }
+    }
+
+    public void PlayCard()
+    {
+        if(EnergyCost > 0)
+        {
+            if (HealthManager.Instance.Energy > EnergyCost)
+            {
+                HealthManager.Instance.ChangeEnergy(-EnergyCost);
+            }
+            else
+                return;
+        }
+        CardGameManager.Instance.PlayCard(this);
+        transform.localScale = _baseSize;
+        _inHand = false;
+        _inTimeSlot = true;
+    }
+
+    public void SetOrder(int num, bool changeDefault = false)
+    {
+        GetComponent<Canvas>().sortingOrder = num;
+        if(changeDefault)
+        {
+            _slotSortOrder = num;
         }
     }
 }

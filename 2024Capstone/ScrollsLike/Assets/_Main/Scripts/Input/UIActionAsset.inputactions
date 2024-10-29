@@ -1,0 +1,54 @@
+{
+    "name": "UIActionAsset",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "05d62751-3cc0-4a75-a43c-c9f8c978dd83",
+            "actions": [
+                {
+                    "name": "PointerClick",
+                    "type": "Button",
+                    "id": "27743e3b-fadc-4805-b66a-411fb9c729c4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenInventory",
+                    "type": "Button",
+                    "id": "32abe13d-37d2-4938-9975-f52784524b61",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bcdd92b4-7605-42bd-bc54-09c06a84a47a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PointerClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0bc0891e-2185-4ce1-92a7-eade57cdebc7",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

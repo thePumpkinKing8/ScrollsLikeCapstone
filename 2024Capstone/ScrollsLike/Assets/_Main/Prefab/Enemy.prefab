@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3323386468381190836}
   - component: {fileID: 5343364866827880981}
   - component: {fileID: -8611065650357355744}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d5a68d8bd3e5c64bb01dd3f98f71f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyDeck: {fileID: 11400000, guid: 2c2afdb94a398d943b0a60211a05757c, type: 2}
 --- !u!114 &-8611065650357355744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,6 +135,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759ef8f255e3f944e9895890663bb99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolRadius: 5
-  patrolSpeed: 1
-  waitTime: 2
+  speed: 1

@@ -1,73 +1,116 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class TimeSlot : MonoBehaviour
 {
-    public GameCard PlayersCard 
-    { 
-        get { return _playersCard; } 
-        private set //if the player has already placed a card in this slot and attempts to place a new one. the old one will be returned to the players hand
-        {
-            if(_playersCard != null)
-            {
-                RemoveCard();
-            }
-            _playersCard = value;
-        } 
+    public List<GameCard> PlayerCards
+    {
+        get { return _playersCards; }
+        private set { _playersCards = value; }
     }
-    private GameCard _playersCard;
+    private List<GameCard> _playersCards = new List<GameCard>();
     public EnemyCardData EnemyCard { get; private set; } 
 
+    private bool _active = false;
+    private bool _isPlaying = false;
+    [SerializeField] private TextMeshProUGUI text;
+
+    private void Awake()
+    {
+    }
+    public void ToggleActive()
+    {
+        _active = !_active;
+        var color = GetComponent<Image>();
+        if (!_active)
+            color.color = Color.gray;
+        else
+            color.color = Color.red;
+        text.text = $"Opponent Will\n{EnemyCard.CardDescription}";
+    }
+
+    public void CardResolved()
+    {
+        _isPlaying = false;
+    }
 
     //adds a card to the timeslot 
     public void AddCard(GameCard card)
     {
-        PlayersCard = card;
-        card.transform.SetParent(transform, true);
-        card.transform.position = this.transform.position;
-        card.InHand = false;
-        card.InTimeSlot = true;
-        card.transform.localScale = Vector3.zero;
+        if(PlayerCards.Count >= 3)
+        {
+            CardGameManager.Instance.AddCardToHand(card);
+        }
+        else
+        {
+            PlayerCards.Add(card);
+            card.transform.SetParent(transform, true);
+            card.transform.position = this.transform.position;
+            card.transform.localScale = Vector3.zero;
+            card.SetOrder(PlayerCards.Count, true);
+        }
+        
     }
 
-    public void RemoveCard()
+    public void RemoveCard(GameCard card)
     {
-        CardGameManager.Instance.AddCardToHand(PlayersCard);
-        _playersCard.OnDeSpawn();
-        _playersCard = null;
+        CardGameManager.Instance.AddCardToHand(card);
+        GameCard removedCard = PlayerCards.Find( x => x == card);
+        removedCard.OnDeSpawn();
+        PlayerCards.Remove(removedCard);
        
     }
 
-    public void DiscardCard()
-    {
-        CardGameManager.Instance.HandleCardDiscard(PlayersCard.ReferenceCardData);
-        _playersCard.OnDeSpawn();
-        _playersCard = null;
+    public void DiscardCard(GameCard card)
+    {       
+            CardGameManager.Instance.HandleCardDiscard(card.ReferenceCardData);
+            card.OnDeSpawn();   
     }
 
     public void AddEnemyEffect(EnemyCardData card)
     {
-        EnemyCard = card;     
+        EnemyCard = card;
+        text.text = "???";
     }
 
     public void ResolvePlayerEffects()
     {
-        EffectManager.Instance.ActivateEffect(PlayersCard.ReferenceCardData.CardResolutionEffects);
+        StartCoroutine("ResolvePlayer");
+        
     }
 
     //plays activates an ability based on the card type. in the future enemies will have a similar system to the players cards
-    public void ResolveEnemyEffects()
-    {
-        EffectManager.Instance.ActivateEffect(EnemyCard.CardResolutionEffects);
-    }
+    
 
     //discards the played card
     public void CleanUpPhase()
     {
-        CardGameManager.Instance.HandleCardDiscard(PlayersCard.ReferenceCardData);
-        PlayersCard.OnDeSpawn();
-        PlayersCard = null;
-        CardGameManager.Instance.DrawPhaseStart();
+        foreach(GameCard card in PlayerCards)
+        {
+            CardGameManager.Instance.DiscardCard(card.ReferenceCardData);
+            card.OnDeSpawn();
+        }
+        PlayerCards.Clear();
     }
+
+    IEnumerator ResolvePlayer()
+    {
+        foreach(GameCard card in PlayerCards)
+        {
+            card.SetOrder(5);
+            _isPlaying = true;
+            EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, this);       
+            yield return new WaitUntil(() => _isPlaying == false);
+        }
+        _isPlaying = true;
+        EffectManager.Instance.ActivateEffect(EnemyCard.CardResolutionEffects, this);
+        yield return new WaitUntil(() => _isPlaying == false);
+        CardGameManager.Instance.MoveToNext();
+        CardGameManager.Instance.ResolveSlot();
+        yield return null;
+    }
+
 }

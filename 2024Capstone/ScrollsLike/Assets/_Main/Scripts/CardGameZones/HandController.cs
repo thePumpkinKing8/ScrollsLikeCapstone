@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HandController : MonoBehaviour
+public class HandController : Singleton<HandController>
 {
     [SerializeField] private GameObject CardPrefab;
     [Header("draw settings")]
     [Tooltip("time between cards drawn to hand")][SerializeField] private float _drawDelay;
     [SerializeField] private int _maxCardsInHand = 12;
-    [SerializeField] private int _minCardsInHand = 5;
+    [SerializeField] private int _cardsDrawnPerTurn = 3;
     [SerializeField] private int _startingHandSize = 8;
 
     private List<GameCard> _cardsInHand = new List<GameCard>(); 
     
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         CardGameManager.Instance.Events.CardDrawnEvent.AddListener(CardDrawn);
-        CardGameManager.Instance.Events.DrawPhaseEndEvent.AddListener(DrawPhase);
+        CardGameManager.Instance.Events.GameStartEvent.AddListener(GameStart);
         CardGameManager.Instance.Events.AddCardToHand.AddListener(AddCard);
         CardGameManager.Instance.Events.PlayCard.AddListener(RemoveCard);
     }
@@ -30,16 +31,7 @@ public class HandController : MonoBehaviour
         newCard.transform.SetParent(transform, true);
         newCard.ReferenceCardData = drawnCard;       
         _cardsInHand.Add(newCard);
-        newCard.InHand = true;
-        newCard.InTimeSlot = false;
-    }
-
-    public void DrawPhase()
-    {
-        if(_cardsInHand.Count < _minCardsInHand)
-        {
-            StartCoroutine(DrawCards(_minCardsInHand - _cardsInHand.Count));
-        }
+        SetHandOrder();
     }
 
     public void GameStart()
@@ -47,6 +39,13 @@ public class HandController : MonoBehaviour
         StartCoroutine(DrawCards(_startingHandSize));
     }
 
+    public void DrawPhase()
+    {
+        if(_cardsInHand.Count < _maxCardsInHand)
+        {
+            StartCoroutine(DrawCards(_cardsDrawnPerTurn));
+        }
+    }
 
     public void RemoveCard(GameCard card)
     {
@@ -58,16 +57,34 @@ public class HandController : MonoBehaviour
         CardDrawn(card.ReferenceCardData);
     }
 
+    private void SetHandOrder()
+    {
+        int i = 1;
+        foreach (GameCard card in _cardsInHand)
+        {            
+            card.SetOrder(i, true);
+            card.SetHandParent(this);
+            i++;
+        }
+    }
+
     //draws the player multiple cards at the start if the draw phase
     IEnumerator DrawCards(int numberOfCards)
     {
         Debug.Log(numberOfCards);
         for(int i = 0; i < numberOfCards; i++)
         {
-            Debug.Log("turn");
-            CardGameManager.Instance.DrawCard();
-            yield return new WaitForSeconds(_drawDelay);
+
+            if (_cardsInHand.Count < _maxCardsInHand)
+            {
+                bool trigger = false;
+                CardGameManager.Instance.DrawCard();
+                yield return new WaitForSeconds(_drawDelay);
+            }
+            else
+                break;
         }
+        SetHandOrder();
         CardGameManager.Instance.PrepPhaseStart();
         yield return null;
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class DiscardPile : MonoBehaviour
 {
     public List<CardData> DiscardedCards { get { return _discardedCards; } }
-    private List<CardData> _discardedCards;
+    private List<CardData> _discardedCards = new List<CardData>();
 
     private void Awake()
     {
@@ -22,9 +22,7 @@ public class DiscardPile : MonoBehaviour
 
     public void ShuffleCardsToDeck()
     {
-        var cards = _discardedCards;
         _discardedCards.Clear();
-        CardGameManager.Instance.HandleShuffleToDeck(cards);
     }
 
     public void RemoveACard(CardData chosenCard)

@@ -4,25 +4,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+
+//Should probably be changed to player manager
 public class HealthManager : Singleton<HealthManager>
 {
     [SerializeField] private int _startingHealth; //will be set by seperate script later
     public int Wounds = 3;
     public int PlayerHealth { get; set; }
-    public int EnemyHealth { get; private set; }
-    private TextMeshProUGUI _text;
-    [SerializeField] private TextMeshProUGUI _enemyHealthText;
 
-    [HideInInspector] public bool PlayerBlock;
-    [HideInInspector] public bool EnemyBlock;
+    private TextMeshProUGUI _text;
+    public int Energy { get; private set; }
+
+    [HideInInspector] public int PlayerBlock { get; private set; }
+    //[HideInInspector] public bool EnemyBlock;
 
     // Start is called before the first frame update
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         CardGameManager.Instance.Events.PlayerHit.AddListener(PlayerHit);
-        CardGameManager.Instance.Events.EnemyHit.AddListener(EnemyHit);
+        CardGameManager.Instance.Events.PlayerGainsBlock.AddListener(GainBlock);
+        CardGameManager.Instance.Events.EnergyChange.AddListener(ChangeEnergy);
+        Energy = 0;
         PlayerHealth = _startingHealth;
-        EnemyHealth = _startingHealth;
         _text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -45,14 +49,8 @@ public class HealthManager : Singleton<HealthManager>
             }
                 
         }
-        else if (EnemyHealth <= 0)
-        {
-            StartCoroutine(EndGame("Win"));
 
-        }
-
-        _text.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()}";
-        _enemyHealthText.text = $"Enemy Health:{EnemyHealth.ToString()}";
+        _text.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()} \nBlock:{PlayerBlock.ToString()} \nEnergy:{Energy.ToString()}";
 
         if(PlayerHealth > _startingHealth)
         {
@@ -63,30 +61,39 @@ public class HealthManager : Singleton<HealthManager>
     //deals health damage to the player
     public void PlayerHit(int damage)
     {
-        if(!PlayerBlock)
-            PlayerHealth -= damage;
-        else
-            PlayerBlock = false;
-    }
-
-    //deals damage to the enemy
-    public void EnemyHit(int damage)
-    {
-        if (!EnemyBlock)
-            EnemyHealth -= damage;
+        if(PlayerBlock >= 0)
+        {
+            if(damage > PlayerBlock)
+            {
+                int remainder = damage - PlayerBlock;
+                PlayerBlock = 0;
+                PlayerHealth -= remainder;
+            }
+            else
+            {
+                PlayerBlock -= damage;
+            }
+        }
         else
         {
-            EnemyBlock = false;
-            EnemyHealth -= Mathf.RoundToInt(damage / 2);
+            PlayerHealth -= damage;
         }
-            
+    }
+
+    public void GainBlock(int amount)
+    {
+        PlayerBlock += amount;
+    }
+
+    public void ChangeEnergy(int amount)
+    {
+        Energy += amount;
     }
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
     {
-        _enemyHealthText.text = $"You {message}!";
         yield return new WaitForSeconds(4);
-        SceneManager.LoadScene("Anna_Gym");
+        GameManager.Instance.PlayerLoses();
         yield return null;
     }
 }

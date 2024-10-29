@@ -17,6 +17,7 @@ public class CardEventData : ScriptableObject
     public UnityEvent<GameCard> AddCardToHand;
 
     //phase events
+    public UnityEvent GameStartEvent;
     public UnityEvent DrawPhaseStartEvent;
     public UnityEvent DrawPhaseEndEvent;
     public UnityEvent PrepPhaseStartEvent;
@@ -30,14 +31,19 @@ public class CardEventData : ScriptableObject
 
     //input events
     public UnityEvent<GameCard> PlayCard;
+    public UnityEvent MoveToNextSlot;
 
     //effect events
     public UnityEvent<List<CardEffect>> EffectPlayed;
     public UnityEvent EffectEnded;
 
+    public UnityEvent<int> EnergyChange;
+
     public UnityEvent<int> PlayerHit;
     public UnityEvent<int> EnemyHit;
+    public UnityEvent<int> EnemyHeal;
     public UnityEvent<CardData> StanceResolved;
+    public UnityEvent<int> PlayerGainsBlock;
     #endregion
 
 

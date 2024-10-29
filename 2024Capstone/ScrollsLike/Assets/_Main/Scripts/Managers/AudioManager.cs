@@ -14,8 +14,9 @@ public class AudioManager : Singleton<AudioManager>
 
     private AudioSource audioSource;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         audioSource = GetComponent<AudioSource>();
 
         if (audioSource == null)

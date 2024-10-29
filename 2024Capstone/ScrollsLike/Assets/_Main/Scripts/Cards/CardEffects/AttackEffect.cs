@@ -9,6 +9,6 @@ public class AttackEffect : CardEffect
     public override void Effect()
     {
         base.Effect();
-        CardGameManager.Instance.EnemyHit(damage);
+        EnemyManager.Instance.EnemyHit(damage);
     }
 }
