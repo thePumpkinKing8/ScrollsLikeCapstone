@@ -78,6 +78,7 @@ public class CardGameManager : Singleton<CardGameManager>
         {
             slot.CleanUpPhase();
         }
+        HealthManager.Instance.ChangeEnergy(-HealthManager.Instance.Energy);
         Events.CleanupPhaseEndEvent.Invoke();
         DrawPhaseStart();
     }

@@ -30,7 +30,7 @@ public class GameManager : Singleton<GameManager>
     public void GoToCombat(EnemyDeck opponent)
     {
         _opponent = opponent;
-        SceneManager.LoadScene("CardGameTest");
+        SceneManager.LoadScene("CardGame");
     }
     
     public void CardGameStart()
@@ -53,6 +53,13 @@ public class GameManager : Singleton<GameManager>
 
     public void PlayerWins()
     {
+        HealthRemaining = HealthManager.Instance.PlayerHealth;
+        WoundsRemaining = HealthManager.Instance.Wounds;
+        SceneManager.LoadScene("Anna_Gym");
+    }
 
+    public void PlayerLoses()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

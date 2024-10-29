@@ -93,7 +93,7 @@ public class HealthManager : Singleton<HealthManager>
     IEnumerator EndGame(string message)
     {
         yield return new WaitForSeconds(4);
-        SceneManager.LoadScene("Anna_Gym");
+        GameManager.Instance.PlayerLoses();
         yield return null;
     }
 }

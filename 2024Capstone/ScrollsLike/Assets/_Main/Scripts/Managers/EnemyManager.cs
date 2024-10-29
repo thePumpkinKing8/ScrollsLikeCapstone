@@ -15,6 +15,10 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             _enemyHealth = value;
             _healthText.text = $"health {_enemyHealth}";
+            if(_enemyHealth <= 0)
+            {
+                GameManager.Instance.PlayerWins();
+            }
         }
     }
     private int _enemyHealth = 14;
