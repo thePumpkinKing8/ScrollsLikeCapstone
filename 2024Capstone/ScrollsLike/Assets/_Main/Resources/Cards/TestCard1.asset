@@ -15,7 +15,7 @@ MonoBehaviour:
   _energyCost: 0
   _cardName: Block
   _cardType: 1
-  _cardImage: {fileID: 2800000, guid: a3cf5348ef291ca47b2957cc81c94457, type: 3}
+  _cardImage: {fileID: 2800000, guid: 41c36dd0bf387ab4f95cc87a6e250c34, type: 3}
   _cardDescription: Gain 6 block
   _cardResolutionEffects:
   - {fileID: 11400000, guid: 159d9d48b59e4fd4d9f51908af35b7ec, type: 2}
