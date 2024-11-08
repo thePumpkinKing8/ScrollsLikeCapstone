@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEditor;
+using UnityEngine;
 
 public class LevelEditor : EditorWindow
 {
@@ -14,24 +13,11 @@ public class LevelEditor : EditorWindow
     float gridPadding = 2;
     int currentOption = 1;
 
-    Color[] options =
-    {
-        Color.black,
-        Color.white,
-        Color.red,
-        Color.blue
-    };
-
-    string[] names =
-    {
-        "Blank",
-        "Wall",
-        "Boss",
-        "Player"
-    };
+    Color[] options = { Color.black, Color.white, Color.red, Color.blue, Color.green };
+    string[] names = { "Blank", "Wall", "Boss", "Player", "Patrol Point" };
 
     private LevelData myData;
-    private string levelFileName = "Level.txt"; 
+    private string levelFileName = "Level.txt";
 
     [MenuItem("Window/Level Editor")]
     public static void ShowWindow()
@@ -43,9 +29,18 @@ public class LevelEditor : EditorWindow
     {
         GUILayout.Label("Level Editor", EditorStyles.boldLabel);
 
+        // myData is initialized before usage
         if (myData == null)
         {
             LoadLevelData();
+            if (myData == null)
+            {
+                myData = new LevelData();
+                myData.levelWidth = 10;
+                myData.levelHeight = 10;
+                myData.grid = new int[myData.levelWidth, myData.levelHeight];
+                myData.patrolPoints = new List<Vector2Int>();
+            }
         }
 
         myData.levelWidth = EditorGUILayout.IntField("Level Width", myData.levelWidth);
@@ -59,6 +54,7 @@ public class LevelEditor : EditorWindow
             if (EditorUtility.DisplayDialog("Reset", "Warning. This will clear your level. Are you sure?", "Yes", "...no"))
             {
                 myData.grid = new int[myData.levelWidth, myData.levelHeight];
+                myData.patrolPoints.Clear();
             }
         }
 
@@ -87,17 +83,47 @@ public class LevelEditor : EditorWindow
             EditorGUI.DrawRect(r, options[i]);
         }
 
+        // Ensure grid is initialized
+        if (myData.grid == null || myData.grid.GetLength(0) != myData.levelWidth || myData.grid.GetLength(1) != myData.levelHeight)
+        {
+            myData.grid = new int[myData.levelWidth, myData.levelHeight];
+        }
+
         for (int i = 0; i < myData.grid.GetLength(0); i++)
         {
             for (int j = 0; j < myData.grid.GetLength(1); j++)
             {
                 Rect r = new Rect(leftPadding + i * (gridSize + gridPadding), 180 + (myData.grid.GetLength(1) - j) * (gridSize + gridPadding), gridSize, gridSize);
+
                 if (mouseDown && r.Contains(e.mousePosition))
                 {
-                    myData.grid[i, j] = currentOption;
+                    if (currentOption == 4) // Patrol Point
+                    {
+                        Vector2Int patrolPoint = new Vector2Int(i, j);
+
+                        // Toggle patrol point: add if it doesn’t exist, remove if it does
+                        if (myData.patrolPoints.Contains(patrolPoint))
+                        {
+                            myData.patrolPoints.Remove(patrolPoint);
+                        }
+                        else
+                        {
+                            myData.patrolPoints.Add(patrolPoint);
+                        }
+                    }
+                    else
+                    {
+                        myData.grid[i, j] = currentOption;
+                    }
                 }
-                int objectType = myData.grid[i, j];
-                EditorGUI.DrawRect(r, options[objectType]);
+
+                Color cellColor = options[myData.grid[i, j]];
+                if (myData.patrolPoints.Contains(new Vector2Int(i, j)))
+                {
+                    cellColor = Color.green; 
+                }
+
+                EditorGUI.DrawRect(r, cellColor);
             }
         }
 
@@ -119,11 +145,6 @@ public class LevelEditor : EditorWindow
         {
             string myDataString = File.ReadAllText("Assets/" + levelFileName);
             myData = JsonConvert.DeserializeObject<LevelData>(myDataString);
-        }
-        else
-        {
-            myData = new LevelData();
-            myData.grid = new int[myData.levelWidth, myData.levelHeight];
         }
     }
 

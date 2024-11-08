@@ -73,7 +73,7 @@ public class PathFinder : Singleton<PathFinder>
         if (tileX < 0 || tileX >= tiles.GetLength(0) || tileY < 0 || tileY >= tiles.GetLength(1)) //if out of bounds return
             return;
         Tile nextTile = tiles[tileX, tileY]; //grab the current tile
-        //if that tile has been searched or traveled to before, or it's not walkable, leave
+
         if (nextTile.previousTile != null || !nextTile.isWalkable)
             return;
         nextTile.previousTile = origin;
