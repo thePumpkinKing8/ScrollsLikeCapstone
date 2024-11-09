@@ -117,7 +117,15 @@ public class GameCard : PoolObject
             }
             else if(_inTimeSlot)
             {
-                GetComponentInParent<TimeSlot>().RemoveCard(this);
+
+                TimeSlot slot = GetComponentInParent<TimeSlot>();
+                if(slot.Active)
+                {
+                    slot.RemoveCard(this);
+                    OnDeSpawn();
+                }
+                
+
                 if(EnergyCost > 0)
                 {
                     HealthManager.Instance.ChangeEnergy(EnergyCost);

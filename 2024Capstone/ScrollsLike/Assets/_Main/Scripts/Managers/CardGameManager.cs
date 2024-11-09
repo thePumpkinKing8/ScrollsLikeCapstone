@@ -145,8 +145,9 @@ public class CardGameManager : Singleton<CardGameManager>
         if(CurrentPhase != Phase.PlayPhase)
             return;
 
-        _timeSlots[_timeSlotIndex].AddCard(card);
-        HandController.Instance.RemoveCard(card);
+        EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects);
+        HandleCardDiscard(card.ReferenceCardData);
+        card.OnDeSpawn();
     }
 
     public void DiscardForEnergy(GameCard card)

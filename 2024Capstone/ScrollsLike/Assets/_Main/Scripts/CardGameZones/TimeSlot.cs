@@ -14,7 +14,8 @@ public class TimeSlot : MonoBehaviour
     private List<GameCard> _playersCards = new List<GameCard>();
     public EnemyCardData EnemyCard { get; private set; } 
 
-    private bool _active = false;
+    public bool Active{ get; private set; }
+    
     private bool _isPlaying = false;
     [SerializeField] private TextMeshProUGUI text;
 
@@ -23,9 +24,9 @@ public class TimeSlot : MonoBehaviour
     }
     public void ToggleActive()
     {
-        _active = !_active;
+        Active = Active;
         var color = GetComponent<Image>();
-        if (!_active)
+        if (Active)
             color.color = Color.gray;
         else
             color.color = Color.red;
@@ -110,6 +111,7 @@ public class TimeSlot : MonoBehaviour
         yield return new WaitUntil(() => _isPlaying == false);
         CardGameManager.Instance.MoveToNext();
         CardGameManager.Instance.ResolveSlot();
+
         yield return null;
     }
 

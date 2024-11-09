@@ -59,7 +59,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     IEnumerator EndGame(string message)
     {
-        _healthText.text = "message";
+        _healthText.text = message;
         yield return new WaitForSeconds(4);
         GameManager.Instance.PlayerWins();
         yield return null;

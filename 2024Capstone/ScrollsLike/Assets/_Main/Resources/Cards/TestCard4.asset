@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _energyCost: 0
   _cardName: Strike Of Wrath
-  _cardType: 3
+  _cardType: 0
   _cardImage: {fileID: 2800000, guid: 2a84a96a10ae7654db64022443555acc, type: 3}
   _cardDescription: Take 4, Deal 11
   _cardResolutionEffects:
