@@ -166,7 +166,6 @@ public class CardGameManager : Singleton<CardGameManager>
             ResolutionPhaseStart();
             return;
         }
-        MoveToNext();
     }
 
     #endregion
@@ -180,16 +179,9 @@ public class CardGameManager : Singleton<CardGameManager>
             CleanupPhaseStart();
             return;
         }
-        _timeSlots[_timeSlotIndex].ResolvePlayerEffects();
+        
     }
 
-
-    public void MoveToNext()
-    {
-        _timeSlots[_timeSlotIndex].ToggleActive();
-        _timeSlotIndex++;
-        _timeSlots[_timeSlotIndex].ToggleActive();
-    }
     #endregion
 }
 

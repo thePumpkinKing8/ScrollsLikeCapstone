@@ -7,7 +7,7 @@ using TMPro;
 public class TimeSlot : MonoBehaviour
 {
     private List<GameCard> _playersCards = new List<GameCard>();
-    public EnemyCardData EnemyCard { get; private set; } 
+    public EnemyCard EnemyData { get; private set; } 
 
     public bool Active{ get; private set; } // whether this slot can be targeted or not
 
@@ -29,6 +29,16 @@ public class TimeSlot : MonoBehaviour
            color.color = Color.white;
     }
 
+    public void CleanUpPhase()
+    {
+        if(EnemyData.ReferenceCardData.CardOnDiscardEffects.Count > 1)
+        {
+            EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardOnDiscardEffects);
+            EnemyData.OnDeSpawn();
+            EnemyData = null;
+        }
+    }
+
     public void CardResolved()
     {
         _isPlaying = false;
@@ -37,9 +47,9 @@ public class TimeSlot : MonoBehaviour
 
     public void AddEnemyEffect(EnemyCardData card)
     {
-        EnemyCard = card;
-        var cardOBJ =  PoolManager.Instance.Spawn("Card"); //needs to be a different prefab for enemy cards. this is just for testing
-        cardOBJ.transform.SetParent(transform);
+        EnemyData =  PoolManager.Instance.Spawn("EnemyCard").GetComponent<EnemyCard>(); 
+        EnemyData.transform.SetParent(transform);
+        EnemyData.ReferenceCardData = card;
     }
 
     public void EnemyHit(int damage)

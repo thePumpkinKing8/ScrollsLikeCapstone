@@ -89,7 +89,6 @@ public class GameCard : PoolObject
         }
         SetOrder(_slotSortOrder);
         
-        //GetComponent<Canvas>().sortingOrder = _slotSortOrder;
     }
 
     public void OnRightClick()
@@ -114,24 +113,7 @@ public class GameCard : PoolObject
             if(_inHand)
             {
                 PlayCard();   
-            }
-            else if(_inTimeSlot)
-            {
-
-                TimeSlot slot = GetComponentInParent<TimeSlot>();
-                if(slot.Active)
-                {
-                    slot.RemoveCard(this);
-                    OnDeSpawn();
-                }
-                
-
-                if(EnergyCost > 0)
-                {
-                    HealthManager.Instance.ChangeEnergy(EnergyCost);
-                }
-                SetOrder(1, true);
-            }
+            }           
         }
     }
 
