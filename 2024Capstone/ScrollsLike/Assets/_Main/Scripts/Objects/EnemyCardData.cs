@@ -9,7 +9,7 @@ public class EnemyCardData : CardData
     [SerializeField] private int _cardUses;
     public int CardUses { get { return _cardUses; }}
     private int _remainingUses;
-    private void OnValidate()
+    private void Awake()
     {
         _remainingUses = CardUses;
     }
