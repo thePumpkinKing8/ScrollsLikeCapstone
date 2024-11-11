@@ -6,22 +6,25 @@ using TMPro;
 
 public class TimeSlot : MonoBehaviour
 {
-    private List<GameCard> _playersCards = new List<GameCard>();
+   
     public EnemyCard EnemyData { get; private set; } 
 
     public bool Active{ get; private set; } // whether this slot can be targeted or not
 
+    private int _maxHealth;
     public int SlotHealth {get; private set; }
     
+    //used for waiting for a cards effect to finish playing before continuing
     private bool _isPlaying = false;
     [SerializeField] private TextMeshProUGUI text;
 
     private void Awake()
     {
+        Active = true;
     }
     public void ToggleActive()
     {
-        Active = Active;
+        Active = !Active;
         var color = GetComponent<Image>();
         if (Active)
             color.color = Color.gray;
@@ -31,18 +34,16 @@ public class TimeSlot : MonoBehaviour
 
     public void SetUp(int health)
     {
+        _maxHealth = health;
+        text.text = _maxHealth.ToString();
         SlotHealth = health;
-        text.text = SlotHealth.ToString();
+
     }
 
-    public void CleanUpPhase()
+    public void ClearSlot()
     {
-        if(EnemyData.ReferenceCardData.CardOnDiscardEffects.Count > 1)
-        {
-            EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardOnDiscardEffects);
-            EnemyData.OnDeSpawn();
-            EnemyData = null;
-        }
+        EnemyData.OnDeSpawn();
+        EnemyData = null;
     }
 
     public void CardResolved()
@@ -61,17 +62,33 @@ public class TimeSlot : MonoBehaviour
     public void EnemyHit(int damage)
     {
         SlotHealth -= damage;
-        if(SlotHealth <= 0)
-        {
-            Active = false;
-        }
+        
         text.text = SlotHealth.ToString();
+        if (SlotHealth <= 0)
+        {
+            ToggleActive();
+            ClearSlot();
+            text.text = "dead";
+        }
     }
 
     public void EnemyHeal(int value)
     {
+        if(!Active)
+        {
+            ToggleActive();
+        }
         SlotHealth += value;
+        if(SlotHealth > _maxHealth)
+        {
+            SlotHealth = _maxHealth;
+        }
+        text.text = SlotHealth.ToString();
     }
 
+    public void ResolveEnemyEffect()
+    {
+        EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects);
+    }
    
 }

@@ -10,8 +10,6 @@ public class DeckManager : MonoBehaviour
     private List<CardData> _deck = new List<CardData>();
     private void Awake()
     {
-        CardGameManager.Instance.Events.DrawCardEvent.AddListener(DrawCard);
-        CardGameManager.Instance.Events.ShuffleCardsToDeck.AddListener(ShuffleCardsIn);
     }
 
     void Start()

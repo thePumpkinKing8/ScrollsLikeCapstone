@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Stance Effect", menuName = "Effects/StanceEffect")]
 public class StanceEffect : CardEffect
 {
-    public override void Effect()
+    public override void Effect(TimeSlot target = null)
     {
         base.Effect();
-        CardGameManager.Instance.StanceResolved(_cardsData);
+        //CardGameManager.Instance.StanceResolved(_cardsData);
     }
 
 }

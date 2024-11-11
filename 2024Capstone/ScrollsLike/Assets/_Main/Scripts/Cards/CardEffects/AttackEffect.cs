@@ -6,9 +6,9 @@ using UnityEngine;
 public class AttackEffect : CardEffect
 {
     [SerializeField] private int damage = 8;
-    public override void Effect()
+    public override void Effect(TimeSlot target = null)
     {
         base.Effect();
-        EnemyManager.Instance.EnemyHit(damage);
+        target.EnemyHit(damage);
     }
 }

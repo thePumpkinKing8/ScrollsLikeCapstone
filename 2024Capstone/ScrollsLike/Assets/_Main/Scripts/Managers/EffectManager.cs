@@ -10,21 +10,21 @@ public class EffectManager : Singleton<EffectManager>
         
     }
 
-    public void ActivateEffect(List<CardEffect> effects, TimeSlot slotReference = null)
+    public void ActivateEffect(List<CardEffect> effects, TimeSlot target = null)
     {
-        StartCoroutine(PlayEffect(effects, slotReference));
+        StartCoroutine(PlayEffect(effects, target));
     }
 
     //activates all qued effects
-    IEnumerator PlayEffect(List<CardEffect> effects, TimeSlot slotReference)
+    IEnumerator PlayEffect(List<CardEffect> effects, TimeSlot target)
     {
         foreach(CardEffect effect in effects)
         {
-            effect.Effect();
+            effect.Effect(target);
             yield return new WaitForSeconds(1);
         }
-
-        slotReference.CardResolved();
+        //tell the card game manager that it can continue to allow effects to be played
+        CardGameManager.Instance.EffectDone();
         yield return null;
     }
 }

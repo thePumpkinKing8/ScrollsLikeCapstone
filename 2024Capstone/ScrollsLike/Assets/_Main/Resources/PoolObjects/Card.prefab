@@ -794,7 +794,7 @@ MonoBehaviour:
   _title: {fileID: 3218546042635696829}
   _cardType: {fileID: 9125127196233500678}
   _image: {fileID: 3729403853336409188}
-  _hoverSizeIncrease: 1
+  _hoverSizeIncrease: 1.2
 --- !u!114 &7114376997264550892
 MonoBehaviour:
   m_ObjectHideFlags: 0

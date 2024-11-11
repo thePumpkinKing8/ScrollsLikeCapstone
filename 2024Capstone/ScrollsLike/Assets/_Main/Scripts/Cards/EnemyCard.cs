@@ -55,12 +55,22 @@ public class EnemyCard : PoolObject
     }
 
     public void OnHover()
-    {  
-        transform.localScale = Vector3.one * _hoverSizeIncrease;        
+    {
+        _baseSize = transform.localScale;
+        transform.localScale = _baseSize * _hoverSizeIncrease;        
     }
 
     public void OnHoverExit()
     {
         transform.localScale = _baseSize;
+    }
+
+    public void OnClick()
+    {
+        Debug.Log(CardGameManager.Instance.CurrentPhase);
+        if(CardGameManager.Instance.CurrentPhase == Phase.TargetMode)
+        {
+            CardGameManager.Instance.SetTarget(GetComponentInParent<TimeSlot>());
+        }
     }
 }

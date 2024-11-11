@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class CardGameManager : Singleton<CardGameManager>
@@ -14,7 +15,13 @@ public class CardGameManager : Singleton<CardGameManager>
     private int _timeSlotIndex;
     [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[4];
 
-    public bool TargetMode { get; private set; }
+    public float DrawDelay
+    {
+        get { return _drawDelay; }
+    }
+    [Tooltip("time between cards drawn to hand")][SerializeField] private float _drawDelay = 0.5f;
+    public TimeSlot EffectTarget { get; private set; }
+    private bool _waitForTarget = false;
 
     protected override void Awake()
     {
@@ -23,18 +30,22 @@ public class CardGameManager : Singleton<CardGameManager>
         Cursor.visible = true;
     }
     #region EventFunctions
-    public void HandleCardDraw(CardData card) => Events.CardDrawnEvent.Invoke(card);//remove
-    public void HandleCardDiscard(CardData card) => Events.CardDiscardedEvent.Invoke(card);//remove
-  
-    public void HandleShuffleToDeck(List<CardData> cards) => Events.ShuffleCardsToDeck.Invoke(cards);//remove
-    public void DrawCard() => Events.DrawCardEvent.Invoke();//remove
-    public void AddCardToHand(GameCard card) => Events.AddCardToHand.Invoke(card);//remove
+    public void HandleCardDraw(CardData card) => HandController.Instance.CardDrawn(card);//remove
+    public void HandleCardDiscard(CardData card) => _discardPile.AddCard(card);//remove
 
-    public void GameStart() => Events.GameStartEvent.Invoke();
+    public void HandleShuffleToDeck(List<CardData> cards)
+    {
+        _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
+        _discardPile.ShuffleCardsToDeck();
+    }    
+    public void DrawCard() => _deckManager.DrawCard();//remove
+    public void AddCardToHand(GameCard card) => HandController.Instance.AddCard(card);//remove
+
+    
     public void DrawPhaseStart()
     {
         CurrentPhase = Phase.DrawPhase;
-        Events.DrawPhaseStartEvent.Invoke();
+        DrawPhaseEnd();
     }
    
     public void DrawPhaseEnd()
@@ -47,33 +58,29 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         CurrentPhase = Phase.PrepPhase;
         Debug.Log("prep phase");
-        SetUpEnemy();
-        Events.PrepPhaseStartEvent.Invoke();
+        EnemyDraw();
+        PrepPhaseEnd();
     }
     
     public void PrepPhaseEnd() => Events.PrepPhaseEndEvent.Invoke();
     public void PlayPhaseStart()
     {
         CurrentPhase = Phase.PlayPhase;
-        _timeSlotIndex = 0;
-        _timeSlots[_timeSlotIndex].ToggleActive();
         Debug.Log("play phase");
-        Events.PlayPhaseStartEvent.Invoke();
+        PlayPhaseEnd();
     }
     public void PlayPhaseEnd() => Events.PlayPhaseEndEvent.Invoke();
     public void ResolutionPhaseStart() //trigger any effects waiting for this phase 
     {
         CurrentPhase = Phase.ResolutionPhase;
-        _timeSlotIndex = 0;
-        Events.ResolutionPhaseStartEvent.Invoke();        
+        StartCoroutine(EnemyTurn());   
     }
     public void ResolutionPhaseEnd()
     {
-        ResolveSlot();
+        CleanupPhaseStart();
     }
     public void CleanupPhaseStart()
     {
-        _timeSlots[_timeSlotIndex].ToggleActive();
         CurrentPhase = Phase.CleanupPhase;
         Events.CleanupPhaseStartEvent.Invoke();       
     }
@@ -81,34 +88,63 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         foreach(TimeSlot slot in _timeSlots)
         {
-            slot.CleanUpPhase();
+            //slot.ClearSlot();
         }
         HealthManager.Instance.ChangeEnergy(-HealthManager.Instance.Energy);
         Events.CleanupPhaseEndEvent.Invoke();
         DrawPhaseStart();
     }
-    
-    public void PlayCardEvent(GameCard  card) => Events.PlayCard.Invoke(card);//remove
-    public void EffectActivate(List<CardEffect> effects) => Events.EffectPlayed.Invoke(effects);//remove
-    public void EffectDone() => Events.EffectEnded.Invoke();//remove?
-   
-    public void PlayerHit(int damage) => Events.PlayerHit.Invoke(damage);//remove int variable. event should be only for trigger animation and sfx
-    public void EnemyHit(int damage) => Events.EnemyHit.Invoke(damage);//remove int variable. event should be only for trigger animation and sfx
-    public void EnemyHeal(int heal) => Events.EnemyHeal.Invoke(heal);//remove int variable. event should be only for trigger animation and sfx
-    public void StanceResolved(CardData data) => Events.StanceResolved.Invoke(data);//remove
-    public void PlayerBlock(int block) => Events.PlayerGainsBlock.Invoke(block);//remove int variable. event should be only for trigger animation and sfx
+
+    #region effectHandlers
+    public void EffectDone()
+    {
+        Events.EffectEnded.Invoke();
+    }
+    IEnumerator WaitForEffects(Phase currentPhase = default)
+    {
+        currentPhase = currentPhase == default ? CurrentPhase : currentPhase;
+        var trigger = false;
+        Action action = () => trigger = true;
+        Events.EffectEnded.AddListener(action.Invoke);
+        CurrentPhase = Phase.EffectMode;
+        yield return new WaitUntil(() => trigger);
+        CurrentPhase = currentPhase;
+        yield return null;
+    }
+
+    public void Wait(Phase waitingPhase)
+    {
+        StartCoroutine(WaitForEffects());
+    }
+    #endregion
+    /*
+     public void PlayerHit() => Events.PlayerHit.Invoke(damage);// event should be only for trigger animation and sfx
+     public void EnemyHit() => Events.EnemyHit.Invoke(damage);//. event should be only for trigger animation and sfx
+     public void EnemyHeal() => Events.EnemyHeal.Invoke(heal);// event should be only for trigger animation and sfx
+     public void StanceResolved() => Events.StanceResolved.Invoke(data);//event should be only for trigger animation and sfx
+     public void PlayerBlock() => Events.PlayerGainsBlock.Invoke(block);//event should be only for trigger animation and sfx
+     */
     #endregion
 
     private void Start()
     {
         GameManager.Instance.CardGameStart();
-        Invoke("LateStart", 1);
+        Invoke("GameStart", 1);
     }
 
     //wait for all scripts to get their start and awake functions finished before starting the game
-    private void LateStart()
+    private void GameStart()
     {
-        GameStart();
+        HandController.Instance.GameStart();
+        SetUpEnemy();
+    }
+
+    public void SetUpEnemy()
+    {
+        foreach(TimeSlot slot in _timeSlots)
+        {
+            slot.SetUp(EnemyManager.Instance.EnemyHealth);
+        }
     }
 
     #region DrawPhase/Card Draw
@@ -130,14 +166,24 @@ public class CardGameManager : Singleton<CardGameManager>
     #endregion
 
     #region PrepPhase
-    public void SetUpEnemy()
+    public void EnemyDraw()
     {
-        foreach(TimeSlot slot in _timeSlots)
+        StartCoroutine(SetEnemyCards());
+    }
+
+    IEnumerator SetEnemyCards()
+    {
+        foreach (TimeSlot slot in _timeSlots)
         {
-            slot.AddEnemyEffect(EnemyManager.Instance.PlayAbility());
+            if (slot.Active)
+            {
+                slot.AddEnemyEffect(EnemyManager.Instance.PlayAbility());
+                yield return new WaitForSeconds(_drawDelay);
+            }                
         }
         PrepPhaseEnd();
         PlayPhaseStart();
+        yield return null;
     }
 
     #endregion 
@@ -148,8 +194,17 @@ public class CardGameManager : Singleton<CardGameManager>
         if(CurrentPhase != Phase.PlayPhase)
             return;
         //go to target mode if needed
-        TargetMode = true;
+        foreach(CardEffect effect in card.ReferenceCardData.CardResolutionEffects)
+        {
+            if(effect.RequiresTarget)
+            {
+                Debug.Log("requires target");
+                StartCoroutine(WaitForTargetSelect(card));
+                return;
+            }
+        }
         EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects);
+        HandController.Instance.RemoveCard(card);
         HandleCardDiscard(card.ReferenceCardData);
         card.OnDeSpawn();
     }
@@ -160,37 +215,59 @@ public class CardGameManager : Singleton<CardGameManager>
         HandController.Instance.RemoveCard(card);        
     }
 
-    IEnumerator WaitForTargetSelect()
+    public void EndTurn()
     {
+        if(CurrentPhase == Phase.PlayPhase)
+        {
+            PlayPhaseEnd();
+            ResolutionPhaseStart();
+        }
+        
+    }
+
+    IEnumerator WaitForTargetSelect(GameCard card)
+    {
+        CurrentPhase = Phase.TargetMode;
+        _waitForTarget = true;
+        yield return new WaitUntil(() => _waitForTarget == false);
+        Debug.Log("target selected");
+        EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, EffectTarget);
+        HandleCardDiscard(card.ReferenceCardData);
+        card.OnDeSpawn();
+        CurrentPhase = Phase.PlayPhase;
         yield return null;
     }
 
+    public void SetTarget(TimeSlot target)
+    {
+        EffectTarget = target;
+        _waitForTarget = false;
+    }
     
 
     #endregion
 
     #region Resolution Phase
 
-    public void ResolveSlot()
-    {
-        if(_timeSlotIndex >= _timeSlots.Length - 1)
-        {
-            CleanupPhaseStart();
-            return;
-        }
-        
-    }
 
-    public void MoveToNextSlot()
+    IEnumerator EnemyTurn()
     {
-        if (CurrentPhase != Phase.PlayPhase)
-            return;
-
-        if (_timeSlotIndex >= _timeSlots.Length - 1)
+        var trigger = false;
+        Action action = () => trigger = true;
+        Events.EffectEnded.AddListener(action.Invoke);
+        Debug.Log("EnemyTurn");
+        foreach(TimeSlot slot in _timeSlots)
         {
-            ResolutionPhaseStart();
-            return;
+            if(slot.Active)
+            {
+                slot.ResolveEnemyEffect();
+                yield return new WaitUntil(() => trigger);
+                slot.ClearSlot();
+                yield return new WaitForSeconds(DrawDelay);
+            }
         }
+        ResolutionPhaseEnd();
+        yield return null;
     }
 
     #endregion
@@ -198,9 +275,13 @@ public class CardGameManager : Singleton<CardGameManager>
 
 public enum Phase
 {
+    Default,
     DrawPhase,
     PrepPhase,
     PlayPhase,
     ResolutionPhase,
-    CleanupPhase
+    CleanupPhase,
+    //below arent phases but break points in the middle of phases so the game wont continue until an action is taken
+    TargetMode,
+    EffectMode   
 }

@@ -26,8 +26,6 @@ public class EnemyManager : Singleton<EnemyManager>
     protected override void Awake()
     {
         base.Awake();
-        CardGameManager.Instance.Events.EnemyHit.AddListener(EnemyHit);
-        CardGameManager.Instance.Events.EnemyHeal.AddListener(EnemyHeal);
     }
 
     public void SetUp(EnemyDeck deck)
