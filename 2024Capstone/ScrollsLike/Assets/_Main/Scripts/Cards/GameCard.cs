@@ -65,18 +65,21 @@ public class GameCard : PoolObject
         
     }
 
+    public void SetSize()
+    {
+        _baseSize = transform.localScale;
+    }
     public void SetHandParent(HandController hand)
     {
         _handController = hand;
-        _inHand = true;
-        _inTimeSlot = false;
+        _inHand = true;        
     }
 
     public void OnHover()
     {
         if (_inHand)
         {
-            transform.localScale = Vector3.one * _hoverSizeIncrease;            
+            transform.localScale = _baseSize * _hoverSizeIncrease;            
         }
         SetOrder(14);
     }
@@ -89,7 +92,6 @@ public class GameCard : PoolObject
         }
         SetOrder(_slotSortOrder);
         
-        //GetComponent<Canvas>().sortingOrder = _slotSortOrder;
     }
 
     public void OnRightClick()
@@ -114,16 +116,7 @@ public class GameCard : PoolObject
             if(_inHand)
             {
                 PlayCard();   
-            }
-            else if(_inTimeSlot)
-            {
-                GetComponentInParent<TimeSlot>().RemoveCard(this);
-                if(EnergyCost > 0)
-                {
-                    HealthManager.Instance.ChangeEnergy(EnergyCost);
-                }
-                SetOrder(1, true);
-            }
+            }           
         }
     }
 
@@ -141,7 +134,13 @@ public class GameCard : PoolObject
         CardGameManager.Instance.PlayCard(this);
         transform.localScale = _baseSize;
         _inHand = false;
-        _inTimeSlot = true;
+        
+    }
+
+    //refund spent energy if player decides to not play card
+    public void CancelPlay()
+    {
+        HealthManager.Instance.ChangeEnergy(EnergyCost);
     }
 
     public void SetOrder(int num, bool changeDefault = false)

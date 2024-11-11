@@ -6,30 +6,44 @@ using TMPro;
 
 public class TimeSlot : MonoBehaviour
 {
-    public List<GameCard> PlayerCards
-    {
-        get { return _playersCards; }
-        private set { _playersCards = value; }
-    }
-    private List<GameCard> _playersCards = new List<GameCard>();
-    public EnemyCardData EnemyCard { get; private set; } 
+   
+    public EnemyCard EnemyData { get; private set; } 
 
-    private bool _active = false;
+    public bool Active{ get; private set; } // whether this slot can be targeted or not
+
+    private int _maxHealth;
+    public int SlotHealth {get; private set; }
+    
+    //used for waiting for a cards effect to finish playing before continuing
     private bool _isPlaying = false;
     [SerializeField] private TextMeshProUGUI text;
 
     private void Awake()
     {
+        Active = true;
     }
     public void ToggleActive()
     {
-        _active = !_active;
+        Active = !Active;
         var color = GetComponent<Image>();
-        if (!_active)
+        if (Active)
             color.color = Color.gray;
         else
-            color.color = Color.red;
-        text.text = $"Opponent Will\n{EnemyCard.CardDescription}";
+           color.color = Color.white;
+    }
+
+    public void SetUp(int health)
+    {
+        _maxHealth = health;
+        text.text = _maxHealth.ToString();
+        SlotHealth = health;
+
+    }
+
+    public void ClearSlot()
+    {
+        EnemyData.OnDeSpawn();
+        EnemyData = null;
     }
 
     public void CardResolved()
@@ -37,80 +51,44 @@ public class TimeSlot : MonoBehaviour
         _isPlaying = false;
     }
 
-    //adds a card to the timeslot 
-    public void AddCard(GameCard card)
-    {
-        if(PlayerCards.Count >= 3)
-        {
-            CardGameManager.Instance.AddCardToHand(card);
-        }
-        else
-        {
-            PlayerCards.Add(card);
-            card.transform.SetParent(transform, true);
-            card.transform.position = this.transform.position;
-            card.transform.localScale = Vector3.zero;
-            card.SetOrder(PlayerCards.Count, true);
-        }
-        
-    }
-
-    public void RemoveCard(GameCard card)
-    {
-        CardGameManager.Instance.AddCardToHand(card);
-        GameCard removedCard = PlayerCards.Find( x => x == card);
-        removedCard.OnDeSpawn();
-        PlayerCards.Remove(removedCard);
-       
-    }
-
-    public void DiscardCard(GameCard card)
-    {       
-            CardGameManager.Instance.HandleCardDiscard(card.ReferenceCardData);
-            card.OnDeSpawn();   
-    }
 
     public void AddEnemyEffect(EnemyCardData card)
     {
-        EnemyCard = card;
-        text.text = "???";
+        EnemyData =  PoolManager.Instance.Spawn("EnemyCard").GetComponent<EnemyCard>(); 
+        EnemyData.transform.SetParent(transform);
+        EnemyData.ReferenceCardData = card;
     }
 
-    public void ResolvePlayerEffects()
+    public void EnemyHit(int damage)
     {
-        StartCoroutine("ResolvePlayer");
+        SlotHealth -= damage;
         
-    }
-
-    //plays activates an ability based on the card type. in the future enemies will have a similar system to the players cards
-    
-
-    //discards the played card
-    public void CleanUpPhase()
-    {
-        foreach(GameCard card in PlayerCards)
+        text.text = SlotHealth.ToString();
+        if (SlotHealth <= 0)
         {
-            CardGameManager.Instance.DiscardCard(card.ReferenceCardData);
-            card.OnDeSpawn();
+            ToggleActive();
+            ClearSlot();
+            text.text = "dead";
         }
-        PlayerCards.Clear();
     }
 
-    IEnumerator ResolvePlayer()
+    public void EnemyHeal(int value)
     {
-        foreach(GameCard card in PlayerCards)
+        if(!Active)
         {
-            card.SetOrder(5);
-            _isPlaying = true;
-            EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, this);       
-            yield return new WaitUntil(() => _isPlaying == false);
+            ToggleActive();
         }
-        _isPlaying = true;
-        EffectManager.Instance.ActivateEffect(EnemyCard.CardResolutionEffects, this);
-        yield return new WaitUntil(() => _isPlaying == false);
-        CardGameManager.Instance.MoveToNext();
-        CardGameManager.Instance.ResolveSlot();
-        yield return null;
+        SlotHealth += value;
+        if(SlotHealth > _maxHealth)
+        {
+            SlotHealth = _maxHealth;
+        }
+        text.text = SlotHealth.ToString();
     }
 
+    public void ResolveEnemyEffect()
+    {
+        EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects);
+    }
+   
 }

@@ -7,10 +7,10 @@ public class BigAttack : CardEffect
 {
     [SerializeField] private int _selfDamage = 4;
     [SerializeField] private int enDamage = 11;
-    public override void Effect()
+    public override void Effect(TimeSlot target = null)
     {
         base.Effect();
-        CardGameManager.Instance.PlayerHit(_selfDamage);
-        CardGameManager.Instance.EnemyHit(enDamage);
+        HealthManager.Instance.PlayerHit(_selfDamage);
+        target.EnemyHit(enDamage);
     }
 }

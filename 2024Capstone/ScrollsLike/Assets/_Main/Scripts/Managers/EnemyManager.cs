@@ -26,8 +26,6 @@ public class EnemyManager : Singleton<EnemyManager>
     protected override void Awake()
     {
         base.Awake();
-        CardGameManager.Instance.Events.EnemyHit.AddListener(EnemyHit);
-        CardGameManager.Instance.Events.EnemyHeal.AddListener(EnemyHeal);
     }
 
     public void SetUp(EnemyDeck deck)
@@ -59,7 +57,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     IEnumerator EndGame(string message)
     {
-        _healthText.text = "message";
+        _healthText.text = message;
         yield return new WaitForSeconds(4);
         GameManager.Instance.PlayerWins();
         yield return null;

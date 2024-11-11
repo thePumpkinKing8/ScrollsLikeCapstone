@@ -10,13 +10,10 @@ public class TimeSlotController : MonoBehaviour
 
     private int _activeSlot;
     private void Awake()
-    {
-        CardGameManager.Instance.Events.PlayCard.AddListener(AddCardToTimeSlot);
-        CardGameManager.Instance.Events.PlayPhaseEndEvent.AddListener(StartPlayPhase);
+    { 
         CardGameManager.Instance.Events.PrepPhaseEndEvent.AddListener(AddEnemyToTimeSlots);
        // CardGameManager.Instance.Events.ResolutionPhaseEndEvent.AddListener(ResolveEffects);
         CardGameManager.Instance.Events.EffectEnded.AddListener(CardResolved);
-        CardGameManager.Instance.Events.CleanupPhaseEndEvent.AddListener(ClearSlots);
     }
     // Start is called before the first frame update
     void Start()
@@ -29,11 +26,7 @@ public class TimeSlotController : MonoBehaviour
     {
         
     }
-    //clears board during cleanup phase
-    public void ClearSlots()
-    {
-        CardGameManager.Instance.DrawPhaseStart();
-    }
+    
     public void CardResolved()
     {
         _isPlaying = false;
@@ -44,20 +37,11 @@ public class TimeSlotController : MonoBehaviour
     }
 
     //adds a card to the earliest empty slot
-    public void AddCardToTimeSlot(GameCard card)
-    {
-        _timeSlots[_activeSlot].AddCard(card);
-    }
 
     public void AddEnemyToTimeSlots()
     {
         // StartCoroutine(EnemyEffects());
         CardGameManager.Instance.PlayPhaseStart();
-    }
-
-    public void StartPlayPhase()
-    {
-        StartCoroutine(PlayPhase());
     }
 
     //adds enemy abilities to each timeslot
@@ -67,7 +51,6 @@ public class TimeSlotController : MonoBehaviour
         foreach(TimeSlot slot in _timeSlots)
         {
             slot.AddEnemyEffect(EnemyManager.Instance.PlayAbility());
-            _enemyText[loop].text = $"Enemy is {slot.EnemyCard.CardType.ToString()}ing";
             yield return new WaitForSeconds(2);
             loop++; 
         }
@@ -80,25 +63,11 @@ public class TimeSlotController : MonoBehaviour
     {
         foreach(TimeSlot slot in _timeSlots)
         {
-            _isPlaying = true;
-            slot.ResolvePlayerEffects();
-            yield return new WaitUntil(() => _isPlaying == false);
         }
        
         CardGameManager.Instance.CleanupPhaseStart();
         yield return null;
     }
 
-    IEnumerator PlayPhase()
-    {
-        var trigger = false;
-        Action action = () => trigger = true;
-        CardGameManager.Instance.Events.MoveToNextSlot.AddListener(action.Invoke);
-        foreach(TimeSlot slot in _timeSlots)
-        {
-            yield return new WaitUntil(() => trigger);
-        }        
-        CardGameManager.Instance.Events.MoveToNextSlot.RemoveListener(action.Invoke);
-        yield return null;
-    }
+  
 }
