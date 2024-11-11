@@ -29,6 +29,12 @@ public class TimeSlot : MonoBehaviour
            color.color = Color.white;
     }
 
+    public void SetUp(int health)
+    {
+        SlotHealth = health;
+        text.text = SlotHealth.ToString();
+    }
+
     public void CleanUpPhase()
     {
         if(EnemyData.ReferenceCardData.CardOnDiscardEffects.Count > 1)
@@ -59,6 +65,7 @@ public class TimeSlot : MonoBehaviour
         {
             Active = false;
         }
+        text.text = SlotHealth.ToString();
     }
 
     public void EnemyHeal(int value)

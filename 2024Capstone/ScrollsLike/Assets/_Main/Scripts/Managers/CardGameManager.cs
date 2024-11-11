@@ -13,6 +13,9 @@ public class CardGameManager : Singleton<CardGameManager>
     //play phase functions
     private int _timeSlotIndex;
     [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[4];
+
+    public bool TargetMode { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -144,7 +147,8 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         if(CurrentPhase != Phase.PlayPhase)
             return;
-
+        //go to target mode if needed
+        TargetMode = true;
         EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects);
         HandleCardDiscard(card.ReferenceCardData);
         card.OnDeSpawn();
@@ -156,17 +160,12 @@ public class CardGameManager : Singleton<CardGameManager>
         HandController.Instance.RemoveCard(card);        
     }
 
-    public void MoveToNextSlot()
+    IEnumerator WaitForTargetSelect()
     {
-        if (CurrentPhase != Phase.PlayPhase)
-            return;
-
-        if(_timeSlotIndex >= _timeSlots.Length - 1)
-        {
-            ResolutionPhaseStart();
-            return;
-        }
+        yield return null;
     }
+
+    
 
     #endregion
 
@@ -180,6 +179,18 @@ public class CardGameManager : Singleton<CardGameManager>
             return;
         }
         
+    }
+
+    public void MoveToNextSlot()
+    {
+        if (CurrentPhase != Phase.PlayPhase)
+            return;
+
+        if (_timeSlotIndex >= _timeSlots.Length - 1)
+        {
+            ResolutionPhaseStart();
+            return;
+        }
     }
 
     #endregion
