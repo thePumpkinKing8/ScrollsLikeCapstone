@@ -15,7 +15,7 @@ MonoBehaviour:
   _energyCost: 0
   _cardName: Bandaid
   _cardType: 2
-  _cardImage: {fileID: 2800000, guid: e3b8a437856c9c2479574256f0df4ba9, type: 3}
+  _cardImage: {fileID: 2800000, guid: c03527dcddd36eb428b032620a80d625, type: 3}
   _cardDescription: Heal 5
   _cardResolutionEffects:
   - {fileID: 11400000, guid: 045411310837e844bab1f3052f3e166f, type: 2}
