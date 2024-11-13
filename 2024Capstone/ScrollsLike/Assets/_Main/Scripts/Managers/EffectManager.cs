@@ -22,9 +22,10 @@ public class EffectManager : Singleton<EffectManager>
         {
             effect.Effect(target);
             yield return new WaitForSeconds(1);
+            yield return new WaitUntil(() => CardGameManager.Instance.CurrentPhase != Phase.EffectMode);
         }
         //tell the card game manager that it can continue to allow effects to be played
-        CardGameManager.Instance.EffectDone();
+       // CardGameManager.Instance.EffectDone();
         yield return null;
     }
 }

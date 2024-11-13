@@ -8,16 +8,18 @@ public class CardGameEffect : PoolObject
 
     private void Start()
     {
-        animator.Play("Effect");
+        GetComponent<Canvas>().overrideSorting = true;
     }
     public override void OnSpawn()
     {
         base.OnSpawn();
         animator.Play("Effect");
+        CardGameManager.Instance.Wait();
     }
 
     public void Finished()
     {
+        CardGameManager.Instance.EffectDone();
         OnDeSpawn();
     }
 }

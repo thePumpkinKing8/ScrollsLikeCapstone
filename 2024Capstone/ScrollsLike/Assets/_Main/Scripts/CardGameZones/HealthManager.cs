@@ -67,7 +67,8 @@ public class HealthManager : Singleton<HealthManager>
             if(damage > PlayerBlock)
             {
                 int remainder = damage - PlayerBlock;
-                effect = PoolManager.Instance.Spawn("AttackEffect");
+                effect = PoolManager.Instance.Spawn("BlockBreakEffect");
+                effect.transform.SetAsLastSibling();
                 effect.transform.SetParent(transform);
                 effect.transform.position = _text.transform.position;
                 PlayerBlock = 0;
@@ -75,7 +76,8 @@ public class HealthManager : Singleton<HealthManager>
             }
             else
             {
-                effect = PoolManager.Instance.Spawn("AttackEffect");
+                effect = PoolManager.Instance.Spawn("BlockHitEffect");
+                effect.transform.SetAsLastSibling();
                 effect.transform.SetParent(transform);
                 effect.transform.position = _text.transform.position;
                 PlayerBlock -= damage;
@@ -84,6 +86,7 @@ public class HealthManager : Singleton<HealthManager>
         else
         {
             effect = PoolManager.Instance.Spawn("AttackEffect");
+            effect.transform.SetAsLastSibling();
             effect.transform.SetParent(transform);
             effect.transform.position = _text.transform.position;
             PlayerHealth -= damage;
@@ -94,6 +97,10 @@ public class HealthManager : Singleton<HealthManager>
 
     public void GainBlock(int amount)
     {
+        var effect = PoolManager.Instance.Spawn("BlockGainEffect");
+        effect.transform.SetAsLastSibling();
+        effect.transform.SetParent(transform);
+        effect.transform.position = _text.transform.position;
         PlayerBlock += amount;
     }
 

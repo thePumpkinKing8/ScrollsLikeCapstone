@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 6941578027956610774}
   - component: {fileID: 8908116955881331178}
   - component: {fileID: 8659574443415093863}
-  - component: {fileID: 6021669081065489950}
+  - component: {fileID: 2546289607858562038}
   m_Layer: 0
-  m_Name: AttackEffect
+  m_Name: BlockHitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 63b2ce39c92b04d4ca34bd244d26e88d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c8154c46982eaa94ea4d834514f53d3d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -89,7 +89,7 @@ Animator:
   m_GameObject: {fileID: 3882706078746378452}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5750bdf36339b1841bfe52fbb184f7ba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1ff72b2b54e52ec4fb362dff29d93feb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!223 &6021669081065489950
+--- !u!223 &2546289607858562038
 Canvas:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -69,9 +69,9 @@ public class TimeSlot : MonoBehaviour
             if (damage > EnemyManager.Instance.EnemyBlock)
             {
                 int remainder = damage - EnemyManager.Instance.EnemyBlock;
-                effect = PoolManager.Instance.Spawn("AttackEffect");
+                effect = PoolManager.Instance.Spawn("BlockBreakEffect");
                 effect.transform.SetParent(transform);
-                effect.transform.position = text.transform.position;
+                effect.transform.position = transform.position;
                 EnemyManager.Instance.BlockHit(EnemyManager.Instance.EnemyBlock);
                 SlotHealth -= remainder;
             }
@@ -79,7 +79,7 @@ public class TimeSlot : MonoBehaviour
             {
                 effect = PoolManager.Instance.Spawn("AttackEffect");
                 effect.transform.SetParent(transform);
-                effect.transform.position = text.transform.position;
+                effect.transform.position = transform.position;
                 EnemyManager.Instance.BlockHit(damage);
             }
         }
@@ -87,7 +87,7 @@ public class TimeSlot : MonoBehaviour
         {
             effect = PoolManager.Instance.Spawn("AttackEffect");
             effect.transform.SetParent(transform);
-            effect.transform.position = text.transform.position;
+            effect.transform.position = transform.position;
             SlotHealth -= damage;
         }
         text.text = SlotHealth.ToString();
@@ -97,6 +97,14 @@ public class TimeSlot : MonoBehaviour
             ClearSlot();
             text.text = "dead";
         }
+    }
+    
+    public void GainBlock(int value)
+    {
+        var effect = PoolManager.Instance.Spawn("BlockGainEffect");
+        effect.transform.SetParent(transform);
+        effect.transform.position = transform.position;
+        EnemyManager.Instance.EnemyGainBlock(value);
     }
 
     public void EnemyHeal(int value)

@@ -59,7 +59,6 @@ public class CardGameManager : Singleton<CardGameManager>
         CurrentPhase = Phase.PrepPhase;
         Debug.Log("prep phase");
         EnemyDraw();
-        PrepPhaseEnd();
     }
     
     public void PrepPhaseEnd() => Events.PrepPhaseEndEvent.Invoke();
@@ -94,7 +93,7 @@ public class CardGameManager : Singleton<CardGameManager>
         Events.CleanupPhaseEndEvent.Invoke();
         DrawPhaseStart();
     }
-
+    #endregion
     #region effectHandlers
     public void EffectDone()
     {
@@ -112,11 +111,11 @@ public class CardGameManager : Singleton<CardGameManager>
         yield return null;
     }
 
-    public void Wait(Phase waitingPhase)
+    public void Wait(Phase waitingPhase = default)
     {
         StartCoroutine(WaitForEffects());
     }
-    #endregion
+    
     /*
      public void PlayerHit() => Events.PlayerHit.Invoke(damage);// event should be only for trigger animation and sfx
      public void EnemyHit() => Events.EnemyHit.Invoke(damage);//. event should be only for trigger animation and sfx
