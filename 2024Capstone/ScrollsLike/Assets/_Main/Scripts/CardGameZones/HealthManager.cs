@@ -61,23 +61,35 @@ public class HealthManager : Singleton<HealthManager>
     //deals health damage to the player
     public void PlayerHit(int damage)
     {
-        if(PlayerBlock >= 0)
+        PoolObject effect;
+        if(PlayerBlock > 0)
         {
             if(damage > PlayerBlock)
             {
                 int remainder = damage - PlayerBlock;
+                effect = PoolManager.Instance.Spawn("AttackEffect");
+                effect.transform.SetParent(transform);
+                effect.transform.position = _text.transform.position;
                 PlayerBlock = 0;
                 PlayerHealth -= remainder;
             }
             else
             {
+                effect = PoolManager.Instance.Spawn("AttackEffect");
+                effect.transform.SetParent(transform);
+                effect.transform.position = _text.transform.position;
                 PlayerBlock -= damage;
             }
         }
         else
         {
+            effect = PoolManager.Instance.Spawn("AttackEffect");
+            effect.transform.SetParent(transform);
+            effect.transform.position = _text.transform.position;
             PlayerHealth -= damage;
         }
+        
+        
     }
 
     public void GainBlock(int amount)

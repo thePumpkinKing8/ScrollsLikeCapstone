@@ -78,8 +78,8 @@ public class GameCard : PoolObject
     public void OnHover()
     {
         if (_inHand)
-        {
-            transform.localScale = _baseSize * _hoverSizeIncrease;            
+        {          
+            transform.localScale = _baseSize * _hoverSizeIncrease;
         }
         SetOrder(14);
     }
@@ -87,8 +87,8 @@ public class GameCard : PoolObject
     public void HoverExit()
     {
         if (_inHand)
-        {
-            transform.localScale = _baseSize;         
+        {           
+            transform.localScale = _baseSize;
         }
         SetOrder(_slotSortOrder);
         

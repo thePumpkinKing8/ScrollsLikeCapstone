@@ -14,15 +14,12 @@ public class EnemyManager : Singleton<EnemyManager>
         set
         {
             _enemyHealth = value;
-            _healthText.text = $"health {_enemyHealth}";
-            if(_enemyHealth <= 0)
-            {
-                StartCoroutine(EndGame("Victory"));
-            }
         }
     }
     private int _enemyHealth;
-    [SerializeField] private TextMeshProUGUI _healthText;
+
+    public int EnemyBlock { get; private set; }
+    
     protected override void Awake()
     {
         base.Awake();
@@ -39,14 +36,14 @@ public class EnemyManager : Singleton<EnemyManager>
         
     }
 
-    public void EnemyHit(int damage)
+    public void BlockHit(int damage)
     {
-        EnemyHealth -= damage;
+        EnemyBlock -= damage;
     }
 
-    public void EnemyHeal(int value)
+    public void EnemyGainBlock(int value)
     {
-        EnemyHealth += value;
+        EnemyBlock += value;
     }
 
     public EnemyCardData PlayAbility()
@@ -57,7 +54,6 @@ public class EnemyManager : Singleton<EnemyManager>
 
     IEnumerator EndGame(string message)
     {
-        _healthText.text = message;
         yield return new WaitForSeconds(4);
         GameManager.Instance.PlayerWins();
         yield return null;

@@ -872,7 +872,7 @@ MonoBehaviour:
   _title: {fileID: 3218546042635696829}
   _cardType: {fileID: 9125127196233500678}
   _image: {fileID: 3729403853336409188}
-  _hoverSizeIncrease: 1.2
+  _hoverSizeIncrease: 1.15
 --- !u!114 &7114376997264550892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -988,7 +988,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7955819338273808490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 50d8e0d621928784282417654683b5ff, type: 2}
   m_CullingMode: 0

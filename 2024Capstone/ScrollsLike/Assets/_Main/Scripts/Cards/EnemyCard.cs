@@ -56,7 +56,6 @@ public class EnemyCard : PoolObject
 
     public void OnHover()
     {
-        _baseSize = transform.localScale;
         transform.localScale = _baseSize * _hoverSizeIncrease;        
     }
 

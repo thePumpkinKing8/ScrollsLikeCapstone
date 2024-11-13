@@ -70,7 +70,7 @@ MonoBehaviour:
   m_text: Gain 6 block
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c4c68da9144e784ebbb05e60668c11e, type: 2}
-  m_sharedMaterial: {fileID: -1480815501028671486, guid: 9c4c68da9144e784ebbb05e60668c11e,
+  m_sharedMaterial: {fileID: -401976670097298797, guid: 9c4c68da9144e784ebbb05e60668c11e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: a3cf5348ef291ca47b2957cc81c94457, type: 3}
+  m_Texture: {fileID: 2800000, guid: 0f08f81106dc2fe46823ea0aba5172b5, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -429,7 +429,7 @@ MonoBehaviour:
   m_text: Block
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c4c68da9144e784ebbb05e60668c11e, type: 2}
-  m_sharedMaterial: {fileID: -1480815501028671486, guid: 9c4c68da9144e784ebbb05e60668c11e,
+  m_sharedMaterial: {fileID: -401976670097298797, guid: 9c4c68da9144e784ebbb05e60668c11e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -586,7 +586,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 83bbaa528ba49214bb6302e529eaaadf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 65c829febb446d348841ffa3a2cf4852, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -614,6 +614,7 @@ GameObject:
   - component: {fileID: 1231707456599338237}
   - component: {fileID: -2509512260351704827}
   - component: {fileID: 2943844546047656284}
+  - component: {fileID: 6414994426538123601}
   m_Layer: 0
   m_Name: EnemyCard
   m_TagString: Untagged
@@ -868,6 +869,27 @@ MonoBehaviour:
   _cardType: {fileID: 9125127196233500678}
   _image: {fileID: 3729403853336409188}
   _hoverSizeIncrease: 1.2
+--- !u!95 &6414994426538123601
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7955819338273808490}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bc56b98a0f855754b8e3fc039029f98c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8631807920488914027
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +959,7 @@ MonoBehaviour:
   m_text: Guard
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c4c68da9144e784ebbb05e60668c11e, type: 2}
-  m_sharedMaterial: {fileID: -1480815501028671486, guid: 9c4c68da9144e784ebbb05e60668c11e,
+  m_sharedMaterial: {fileID: -401976670097298797, guid: 9c4c68da9144e784ebbb05e60668c11e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

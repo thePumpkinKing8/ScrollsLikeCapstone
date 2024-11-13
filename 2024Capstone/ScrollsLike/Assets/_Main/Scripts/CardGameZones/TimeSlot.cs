@@ -60,9 +60,36 @@ public class TimeSlot : MonoBehaviour
     }
 
     public void EnemyHit(int damage)
-    {
-        SlotHealth -= damage;
+    {        
         
+
+        PoolObject effect;
+        if (EnemyManager.Instance.EnemyBlock > 0)
+        {
+            if (damage > EnemyManager.Instance.EnemyBlock)
+            {
+                int remainder = damage - EnemyManager.Instance.EnemyBlock;
+                effect = PoolManager.Instance.Spawn("AttackEffect");
+                effect.transform.SetParent(transform);
+                effect.transform.position = text.transform.position;
+                EnemyManager.Instance.BlockHit(EnemyManager.Instance.EnemyBlock);
+                SlotHealth -= remainder;
+            }
+            else
+            {
+                effect = PoolManager.Instance.Spawn("AttackEffect");
+                effect.transform.SetParent(transform);
+                effect.transform.position = text.transform.position;
+                EnemyManager.Instance.BlockHit(damage);
+            }
+        }
+        else
+        {
+            effect = PoolManager.Instance.Spawn("AttackEffect");
+            effect.transform.SetParent(transform);
+            effect.transform.position = text.transform.position;
+            SlotHealth -= damage;
+        }
         text.text = SlotHealth.ToString();
         if (SlotHealth <= 0)
         {
