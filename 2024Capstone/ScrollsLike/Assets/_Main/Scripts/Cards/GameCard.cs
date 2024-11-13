@@ -15,15 +15,8 @@ public class GameCard : PoolObject
         }
         set
         {
-            if (_cardData == null)
-            {
-                _cardData = value;
-                EnergyCost = ReferenceCardData.EnergyCost;
-            }
-            else
-            {
-                return;
-            }              
+            _cardData = value;
+            SetUpCard();
         }
     }
 
@@ -33,6 +26,7 @@ public class GameCard : PoolObject
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _title;
     [SerializeField] private TextMeshProUGUI _cardType;
+    [SerializeField] private TextMeshProUGUI _energyCost;
     [SerializeField] private RawImage _image;
 
     [Header("UI intereaction settings")]
@@ -40,17 +34,18 @@ public class GameCard : PoolObject
     private Vector3 _baseSize;
 
     private bool _inHand;
-    private bool _inTimeSlot;
     public int EnergyCost { get; private set; }
 
     private int _slotSortOrder = 1;
     
     // Start is called before the first frame update
-    void Start()
+    public void SetUpCard()
     {
         _description.text = _cardData.CardDescription;
         _title.text = _cardData.CardName;
         _cardType.text = _cardData.CardType.ToString();
+        EnergyCost = _cardData.EnergyCost;
+        _energyCost.text = _cardData.EnergyCost.ToString();
         if(_cardData.CardImage != null)
         {
             _image.texture = _cardData.CardImage;
@@ -124,7 +119,7 @@ public class GameCard : PoolObject
     {
         if(EnergyCost > 0)
         {
-            if (HealthManager.Instance.Energy > EnergyCost)
+            if (HealthManager.Instance.Energy >= EnergyCost)
             {
                 HealthManager.Instance.ChangeEnergy(-EnergyCost);
             }

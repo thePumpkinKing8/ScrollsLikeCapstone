@@ -210,7 +210,7 @@ public class CardGameManager : Singleton<CardGameManager>
 
     public void DiscardForEnergy(GameCard card)
     {
-        HealthManager.Instance.ChangeEnergy(card.EnergyCost);
+        HealthManager.Instance.ChangeEnergy(1);
         HandController.Instance.RemoveCard(card);        
     }
 
