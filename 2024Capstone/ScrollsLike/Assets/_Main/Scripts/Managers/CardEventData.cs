@@ -44,6 +44,7 @@ public class CardEventData : ScriptableObject
     public UnityEvent<int> EnemyHeal;
     public UnityEvent<CardData> StanceResolved;
     public UnityEvent<int> PlayerGainsBlock;
+    public UnityEvent AttackPlayed;
     #endregion
 
 

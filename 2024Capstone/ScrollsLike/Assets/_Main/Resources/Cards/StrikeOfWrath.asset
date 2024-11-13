@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
   m_Name: StrikeOfWrath
   m_EditorClassIdentifier: 
-  _energyCost: 0
+  _energyCost: 3
   _cardName: Strike Of Wrath
-  _cardType: 3
+  _cardType: 0
   _cardImage: {fileID: 2800000, guid: 0e1df26b018ece842b76fa56e9fedd9f, type: 3}
   _cardDescription: Take 4, Deal 11
   _cardResolutionEffects:

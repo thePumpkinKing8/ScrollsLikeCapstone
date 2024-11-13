@@ -7,8 +7,6 @@ public class StanceEffect : CardEffect
 {
     public override void Effect(TimeSlot target = null)
     {
-        base.Effect();
-        //CardGameManager.Instance.StanceResolved(_cardsData);
+        StanceZone.Instance.AddStance(_cardsData as StanceData);        
     }
-
 }

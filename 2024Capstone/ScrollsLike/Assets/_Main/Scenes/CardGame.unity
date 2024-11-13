@@ -3034,8 +3034,8 @@ GameObject:
   - component: {fileID: 1974089251}
   - component: {fileID: 1974089255}
   - component: {fileID: 1974089254}
-  - component: {fileID: 1974089253}
   - component: {fileID: 1974089252}
+  - component: {fileID: 1974089256}
   m_Layer: 5
   m_Name: Stance Zone
   m_TagString: Untagged
@@ -3088,19 +3088,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1974089253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974089250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd021cbfd83f1c1479e404f9dd468fdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 0}
 --- !u!114 &1974089254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3139,6 +3126,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974089250}
   m_CullTransparentMesh: 1
+--- !u!114 &1974089256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974089250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12d9b7faad5e1a4da78b09444e6f6e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2003411682
 GameObject:
   m_ObjectHideFlags: 0

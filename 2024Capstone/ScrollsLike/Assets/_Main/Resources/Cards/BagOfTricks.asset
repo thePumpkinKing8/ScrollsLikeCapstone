@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BagOfTricks
   m_EditorClassIdentifier: 
   _energyCost: 0
-  _cardName: Strike2
+  _cardName: Bag of Tricks
   _cardType: 1
   _cardImage: {fileID: 2800000, guid: 98db862bd9ee91f4188cb313e7d23eb9, type: 3}
-  _cardDescription: This is a test card for testing card systems
+  _cardDescription: Draws 2 cards
   _cardResolutionEffects:
   - {fileID: 11400000, guid: 659d2a9612fba78438bc20a0d4c108cc, type: 2}
   _cardOnDrawEffects: []
