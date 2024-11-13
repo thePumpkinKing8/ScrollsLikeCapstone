@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TimeSlot : MonoBehaviour
+public class TimeSlot : MonoBehaviour, ICardEffectable
 {
    
     public EnemyCard EnemyData { get; private set; } 
@@ -61,8 +61,6 @@ public class TimeSlot : MonoBehaviour
 
     public void EnemyHit(int damage)
     {        
-        
-
         PoolObject effect;
         if (EnemyManager.Instance.EnemyBlock > 0)
         {
@@ -125,5 +123,23 @@ public class TimeSlot : MonoBehaviour
     {
         EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects);
     }
-   
+
+    public void ApplyEffect(CardEffectType effectType, int value)
+    {
+        switch (effectType)
+        {
+            case CardEffectType.Damage:
+                //do damage
+                break;
+            case CardEffectType.Heal:
+                break;
+        }
+    }
+
+    public void ApplyDamage(int value)
+    {
+        //do whatever hit damage
+       // PlayerHit(value);
+        // throw new System.NotImplementedException();
+    }
 }

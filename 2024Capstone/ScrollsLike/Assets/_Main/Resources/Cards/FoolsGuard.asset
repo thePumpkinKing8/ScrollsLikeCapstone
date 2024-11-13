@@ -21,4 +21,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 60218babeec82b64fae388728cd7d5d0, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
-  _triggeredEffects: []
+  _triggeredEffects:
+  - {fileID: 11400000, guid: 467778da585d7ee47893d6b1b5a1f1e6, type: 2}

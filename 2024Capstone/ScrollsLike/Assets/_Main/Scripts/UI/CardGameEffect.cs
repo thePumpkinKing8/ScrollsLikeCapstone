@@ -14,7 +14,7 @@ public class CardGameEffect : PoolObject
     {
         base.OnSpawn();
         animator.Play("Effect");
-        CardGameManager.Instance.Wait();
+        CardGameManager.Instance.WaitForEffects();
     }
 
     public void Finished()

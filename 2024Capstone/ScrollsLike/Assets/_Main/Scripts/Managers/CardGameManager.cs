@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CardGameManager : Singleton<CardGameManager>
 {
@@ -29,18 +30,7 @@ public class CardGameManager : Singleton<CardGameManager>
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
-    #region EventFunctions
-    public void HandleCardDraw(CardData card) => HandController.Instance.CardDrawn(card);//remove
-    public void HandleCardDiscard(CardData card) => _discardPile.AddCard(card);//remove
-
-    public void HandleShuffleToDeck(List<CardData> cards)
-    {
-        _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
-        _discardPile.ShuffleCardsToDeck();
-    }    
-    public void DrawCard() => _deckManager.DrawCard();//remove
-    public void AddCardToHand(GameCard card) => HandController.Instance.AddCard(card);//remove
-
+    #region EventFunctions  
     
     public void DrawPhaseStart()
     {
@@ -81,48 +71,55 @@ public class CardGameManager : Singleton<CardGameManager>
     public void CleanupPhaseStart()
     {
         CurrentPhase = Phase.CleanupPhase;
-        Events.CleanupPhaseStartEvent.Invoke();       
+        Events.CleanupPhaseStartEvent.Invoke();
+        FunctionWait(CleanupPhaseEnd);
     }
     public void CleanupPhaseEnd()
     {
-        foreach(TimeSlot slot in _timeSlots)
-        {
-            //slot.ClearSlot();
-        }
         HealthManager.Instance.ChangeEnergy(-HealthManager.Instance.Energy);
         Events.CleanupPhaseEndEvent.Invoke();
         DrawPhaseStart();
     }
     #endregion
-    #region effectHandlers
+    #region EffectHandlers
+    
+    public void EffectPermission() => Events.EffectManagerPermission.Invoke();
     public void EffectDone()
     {
         Events.EffectEnded.Invoke();
     }
-    IEnumerator WaitForEffects(Phase currentPhase = default)
+    public void WaitForEffects(Phase currentPhase = default)
     {
         currentPhase = currentPhase == default ? CurrentPhase : currentPhase;
-        var trigger = false;
-        Action action = () => trigger = true;
-        Events.EffectEnded.AddListener(action.Invoke);
         CurrentPhase = Phase.EffectMode;
-        yield return new WaitUntil(() => trigger);
-        CurrentPhase = currentPhase;
-        yield return null;
+        if (EffectManager.Instance.GetPermission())
+        {
+            CurrentPhase = currentPhase;
+        }
+        else
+        {
+            Action action = () => CurrentPhase = currentPhase;
+            StartCoroutine(WaitForEffectsManager(action));
+        }
+            
+        
     }
 
-    public void Wait(Phase waitingPhase = default)
+    IEnumerator WaitForEffectsManager(Action function)
+    {       
+        var trigger = false;
+        Action action = () => trigger = true;
+        Events.EffectManagerPermission.AddListener(action.Invoke);
+        CurrentPhase = Phase.EffectMode;
+        yield return new WaitUntil(() => trigger);
+        function();
+    }
+
+    public void FunctionWait(Action action)
     {
-        StartCoroutine(WaitForEffects());
+        StartCoroutine(WaitForEffectsManager(action));
     }
     
-    /*
-     public void PlayerHit() => Events.PlayerHit.Invoke(damage);// event should be only for trigger animation and sfx
-     public void EnemyHit() => Events.EnemyHit.Invoke(damage);//. event should be only for trigger animation and sfx
-     public void EnemyHeal() => Events.EnemyHeal.Invoke(heal);// event should be only for trigger animation and sfx
-     public void StanceResolved() => Events.StanceResolved.Invoke(data);//event should be only for trigger animation and sfx
-     public void PlayerBlock() => Events.PlayerGainsBlock.Invoke(block);//event should be only for trigger animation and sfx
-     */
     #endregion
 
     private void Start()
@@ -146,22 +143,13 @@ public class CardGameManager : Singleton<CardGameManager>
         }
     }
 
-    #region DrawPhase/Card Draw
+    #region DrawPhase
     public void DrawForTurn()
     {
         HandController.Instance.DrawPhase();
     }
 
-    public void DrawFromDeckFailed()
-    {
-        _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
-     //   _discardPile.
-    }
 
-    public void DiscardCard(CardData card)
-    {
-        _discardPile.AddCard(card);
-    }
     #endregion
 
     #region PrepPhase
@@ -192,8 +180,15 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         if(CurrentPhase != Phase.PlayPhase)
             return;
+
+        #region CardTypeEventCalls
+        if(card.CardsType == CardType.Strike)
+        {
+            Events.AttackPlayed.Invoke();
+        }
+        #endregion
         //go to target mode if needed
-        foreach(CardEffect effect in card.ReferenceCardData.CardResolutionEffects)
+        foreach (CardEffect effect in card.ReferenceCardData.CardResolutionEffects)
         {
             if(effect.RequiresTarget)
             {
@@ -204,12 +199,13 @@ public class CardGameManager : Singleton<CardGameManager>
         }
         EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects);
         HandController.Instance.RemoveCard(card);
-        HandleCardDiscard(card.ReferenceCardData);
+        //HandleCardDiscard(card.ReferenceCardData);
         card.OnDeSpawn();
     }
 
     public void DiscardForEnergy(GameCard card)
     {
+        DiscardCard(card.ReferenceCardData);
         HealthManager.Instance.ChangeEnergy(1);
         HandController.Instance.RemoveCard(card);        
     }
@@ -231,7 +227,7 @@ public class CardGameManager : Singleton<CardGameManager>
         yield return new WaitUntil(() => _waitForTarget == false);
         Debug.Log("target selected");
         EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, EffectTarget);
-        HandleCardDiscard(card.ReferenceCardData);
+        DiscardCard(card.ReferenceCardData);
         card.OnDeSpawn();
         CurrentPhase = Phase.PlayPhase;
         yield return null;
@@ -253,7 +249,7 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         var trigger = false;
         Action action = () => trigger = true;
-        Events.EffectEnded.AddListener(action.Invoke);
+        Events.EffectManagerPermission.AddListener(action.Invoke);
         Debug.Log("EnemyTurn");
         foreach(TimeSlot slot in _timeSlots)
         {
@@ -269,6 +265,46 @@ public class CardGameManager : Singleton<CardGameManager>
         yield return null;
     }
 
+    #endregion
+
+    #region AdditionalEnemyLogic
+    //handles damage for attacks that dont target a specific slot
+    public void AOEAttack(int damage)
+    {
+        foreach (TimeSlot slot in _timeSlots)
+        {
+            if (slot.Active)
+            {
+                slot.EnemyHit(damage);
+            }
+        }
+    }
+    #endregion
+
+    #region OtherGameFunctions
+    public void HandleShuffleToDeck(List<CardData> cards)
+    {
+        _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
+        _discardPile.ShuffleCardsToDeck();
+    }
+
+    public void DiscardCard(CardData card)
+    {
+        _discardPile.AddCard(card);
+    }
+
+    public void DrawCard()
+    {
+        CardData card;
+        card = _deckManager.DrawCard();
+        HandController.Instance.CardDrawn(card);
+    }
+
+    public void DrawFromDeckFailed() //shuffles discard pile into deck if there are no cards to draw from
+    {
+        _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
+        _discardPile.ShuffleCardsToDeck();
+    }
     #endregion
 }
 

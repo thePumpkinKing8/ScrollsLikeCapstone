@@ -84,7 +84,6 @@ public class HandController : Singleton<HandController>
 
             if (_cardsInHand.Count < _maxCardsInHand)
             {
-                bool trigger = false;
                 CardGameManager.Instance.DrawCard();
                 yield return new WaitForSeconds(_drawDelay);
             }

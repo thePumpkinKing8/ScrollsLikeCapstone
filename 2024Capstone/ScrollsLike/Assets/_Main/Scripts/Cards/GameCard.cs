@@ -23,6 +23,14 @@ public class GameCard : PoolObject
     private HandController _handController;
     private CardData _cardData;
 
+    public CardType CardsType
+    {
+        get
+        {
+            return ReferenceCardData.CardType;
+        }
+    }
+
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _title;
     [SerializeField] private TextMeshProUGUI _cardType;
@@ -96,7 +104,6 @@ public class GameCard : PoolObject
             if (_inHand)
             {
                 CardGameManager.Instance.DiscardForEnergy(this);
-                CardGameManager.Instance.HandleCardDiscard(this.ReferenceCardData);
                 _handController.RemoveCard(this);
                 OnDeSpawn();
                 Debug.Log("right");

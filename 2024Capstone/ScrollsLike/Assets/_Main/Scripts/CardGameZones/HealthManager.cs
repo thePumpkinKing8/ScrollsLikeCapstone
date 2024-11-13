@@ -4,9 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using Unity.VisualScripting;
+public interface ICardEffectable
+{
+    void ApplyEffect(CardEffectType effectType, int value);
+    void ApplyDamage(int value);
+}
 //Should probably be changed to player manager
-public class HealthManager : Singleton<HealthManager>
+public class HealthManager : Singleton<HealthManager>, ICardEffectable
 {
     [SerializeField] private int _startingHealth; //will be set by seperate script later
     public int Wounds = 3;
@@ -22,9 +27,6 @@ public class HealthManager : Singleton<HealthManager>
     protected override void Awake()
     {
         base.Awake();
-        CardGameManager.Instance.Events.PlayerHit.AddListener(PlayerHit);
-        CardGameManager.Instance.Events.PlayerGainsBlock.AddListener(GainBlock);
-        CardGameManager.Instance.Events.EnergyChange.AddListener(ChangeEnergy);
         Energy = 0;
         PlayerHealth = _startingHealth;
         _text = GetComponentInChildren<TextMeshProUGUI>();
@@ -73,6 +75,7 @@ public class HealthManager : Singleton<HealthManager>
                 effect.transform.position = _text.transform.position;
                 PlayerBlock = 0;
                 PlayerHealth -= remainder;
+                CardGameManager.Instance.Events.PlayerHit.Invoke();
             }
             else
             {
@@ -90,6 +93,7 @@ public class HealthManager : Singleton<HealthManager>
             effect.transform.SetParent(transform);
             effect.transform.position = _text.transform.position;
             PlayerHealth -= damage;
+            CardGameManager.Instance.Events.PlayerHit.Invoke();
         }
         
         
@@ -114,5 +118,23 @@ public class HealthManager : Singleton<HealthManager>
         yield return new WaitForSeconds(4);
         GameManager.Instance.PlayerLoses();
         yield return null;
+    }
+
+    public void ApplyEffect(CardEffectType effectType, int value)
+    {
+        switch (effectType)
+        {
+            case CardEffectType.Damage:
+                //do damage
+                break;
+            case CardEffectType.Heal:
+                break;
+        }
+    }
+
+    public void ApplyDamage(int value)
+    {
+        PlayerHit(value);
+       // throw new System.NotImplementedException();
     }
 }

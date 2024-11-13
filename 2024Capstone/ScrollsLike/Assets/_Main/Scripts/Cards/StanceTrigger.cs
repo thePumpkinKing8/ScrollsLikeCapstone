@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(fileName = "CardData", menuName = "Effects/BaseStanceTrigger")]
+[CreateAssetMenu(fileName = "BaseStanceTrigger", menuName = "StanceEffects/BaseStanceTrigger")]
 public class StanceTrigger : ScriptableObject
 {
+    protected StanceData _cardsData;
 
-    protected virtual void Awake()
+    [SerializeField] protected List<CardEffect> _effectsFromTrigger;
+    protected virtual void SetUpTrigger()
     {
-        //example
         
     }
-    protected virtual void Trigger()
-    { 
 
+    public void GetData(StanceData data)
+    {
+        _cardsData = data;
+        SetUpTrigger();
+    }
+    protected virtual void Trigger()
+    {
+        EffectManager.Instance.ActivateEffect(_effectsFromTrigger);
     }
     
 }
