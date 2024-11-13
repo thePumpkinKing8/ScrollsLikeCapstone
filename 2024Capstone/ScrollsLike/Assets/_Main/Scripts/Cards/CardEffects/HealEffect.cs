@@ -6,9 +6,5 @@ using UnityEngine;
 public class HealEffect : CardEffect
 {
     [SerializeField] private int _amountHealed = 5;
-    public override void Effect(TimeSlot target = null)
-    {
-        base.Effect();
-        HealthManager.Instance.PlayerHealth += _amountHealed;
-    }
+
 }

@@ -16,28 +16,32 @@ public class EffectManager : Singleton<EffectManager>
     {
         if(_effectPlaying)
         {
-            //_effectQue.Enqueue(new Tuple<List<CardEffect>, TimeSlot>(effects,target));
+            _effectQue.Enqueue(new Tuple<List<CardEffect>, TimeSlot>(effects,target));
         }
         else
+        {
+            _effectQue.Enqueue(new Tuple<List<CardEffect>, TimeSlot>(effects, target));
             StartCoroutine(PlayEffect(effects, target));
+        }
+            
     }
 
     //activates all qued effects
     IEnumerator PlayEffect(List<CardEffect> effects, TimeSlot target)
     {
+        _effectPlaying = true;
         bool trigger = false;
         Action action = () => trigger = true;
         CardGameManager.Instance.Events.EffectEnded.AddListener(action.Invoke);
         foreach(CardEffect effect in effects)
         {
-            effect.Effect(target);
+            effect.Effect(HealthManager.Instance,target);
             yield return new WaitUntil(() => trigger == true);
             trigger = false;
         }
         _effectQue.Dequeue();
         NextInQue();
-        //tell the card game manager that it can continue to allow effects to be played
-       // CardGameManager.Instance.EffectDone();
+
         yield return null;
     }
 
@@ -45,10 +49,11 @@ public class EffectManager : Singleton<EffectManager>
     {
         if(_effectQue.Count > 0)
         {
-            ///StartCoroutine(PlayEffect(_effectQue[0].Item1, _effectQue[0].Item2));
+            StartCoroutine(PlayEffect(_effectQue.Peek().Item1, _effectQue.Peek().Item2));
         }
         else
         {
+            _effectPlaying = false;
             CardGameManager.Instance.EffectPermission();
         }
     }

@@ -6,9 +6,5 @@ using UnityEngine;
 public class EnemyDamageEffect : CardEffect
 {
     [SerializeField] private int _damage;
-    public override void Effect(TimeSlot target = null)
-    {
-        base.Effect();
-        HealthManager.Instance.PlayerHit(_damage);
-    }
+
 }

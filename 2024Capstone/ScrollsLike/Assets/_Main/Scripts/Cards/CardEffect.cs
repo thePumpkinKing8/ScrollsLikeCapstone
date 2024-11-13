@@ -9,7 +9,6 @@ public class CardEffect : ScriptableObject
 {
     [field: SerializeField]
     public List<CardEffector> CardEffectors = new List<CardEffector>();
-    [field: SerializeField]
     protected CardData _cardsData;
 
     [SerializeField] private bool _requireTarget;
@@ -18,10 +17,6 @@ public class CardEffect : ScriptableObject
     public void GetData(CardData data)
     {
         _cardsData = data;
-    }
-    public virtual void Effect(TimeSlot target = null) 
-    {
-        Debug.Log("card ability activates");    
     }
     public void Effect(HealthManager player, TimeSlot target = null)
     {
@@ -36,7 +31,7 @@ public class CardEffect : ScriptableObject
 }
 public enum CardEffectType
 {
-    Damage, Heal, Block, None
+    Damage, Heal, Block, Draw, None
 }
 [Serializable]
 public struct CardEffector

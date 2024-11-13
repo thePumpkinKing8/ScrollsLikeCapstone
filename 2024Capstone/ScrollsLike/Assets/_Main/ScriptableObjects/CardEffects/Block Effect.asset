@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16dc365ed7f5464ab0a5bec7d148aa6, type: 3}
   m_Name: Block Effect
   m_EditorClassIdentifier: 
+  CardEffectors:
+  - Type: 2
+    EffectValue: 4
+    TargetSelf: 1
+    Strategy: {fileID: 0}
+  _requireTarget: 0
   _blockGain: 6
