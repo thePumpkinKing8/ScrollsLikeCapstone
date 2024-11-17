@@ -293,11 +293,14 @@ public class CardGameManager : Singleton<CardGameManager>
         _discardPile.AddCard(card);
     }
 
-    public void DrawCard()
+    public void DrawCard(int num = 1)
     {
-        CardData card;
-        card = _deckManager.DrawCard();
-        HandController.Instance.CardDrawn(card);
+        for(int i = 0; i <= num; i++)
+        {
+            CardData card;
+            card = _deckManager.DrawCard();
+            HandController.Instance.CardDrawn(card);
+        }
     }
 
     public void DrawFromDeckFailed() //shuffles discard pile into deck if there are no cards to draw from

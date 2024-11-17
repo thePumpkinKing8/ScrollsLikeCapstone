@@ -22,6 +22,7 @@ public class CardEffect : ScriptableObject
     {
         foreach(CardEffector effect in CardEffectors)
         {
+            Debug.Log(target);
             var effected = effect.TargetSelf ? (ICardEffectable) player : (ICardEffectable)target;
             effected.ApplyEffect(effect.Type, effect.EffectValue);
             effect.Strategy?.ApplyEffect(effected);

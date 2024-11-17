@@ -108,6 +108,11 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         PlayerBlock += amount;
     }
 
+    public void GainHealth(int value)
+    {
+        PlayerHealth += value;
+    }
+
     public void ChangeEnergy(int amount)
     {
         Energy += amount;
@@ -125,9 +130,16 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         switch (effectType)
         {
             case CardEffectType.Damage:
-                //do damage
+                PlayerHit(value);
                 break;
             case CardEffectType.Heal:
+                GainHealth(value);
+                break;
+            case CardEffectType.Block:
+                GainBlock(value);
+                break;
+            case CardEffectType.Draw:
+                CardGameManager.Instance.DrawCard(value);
                 break;
         }
     }

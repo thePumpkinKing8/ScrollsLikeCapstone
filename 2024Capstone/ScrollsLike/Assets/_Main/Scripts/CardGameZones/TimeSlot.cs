@@ -129,17 +129,19 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         switch (effectType)
         {
             case CardEffectType.Damage:
-                //do damage
+                ApplyDamage(value);
                 break;
             case CardEffectType.Heal:
+                EnemyHeal(value);
+                break;
+            case CardEffectType.Block:
+                GainBlock(value);
                 break;
         }
     }
 
     public void ApplyDamage(int value)
     {
-        //do whatever hit damage
-       // PlayerHit(value);
-        // throw new System.NotImplementedException();
+        EnemyHit(value);
     }
 }
