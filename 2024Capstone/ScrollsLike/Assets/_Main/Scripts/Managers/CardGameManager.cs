@@ -261,6 +261,7 @@ public class CardGameManager : Singleton<CardGameManager>
         {
             if(slot.Active)
             {
+                yield return new WaitForSeconds(1);
                 if(EffectManager.Instance.GetPermission())
                     slot.ResolveEnemyEffect();
                 else

@@ -40,7 +40,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     public void ClearSlot()
     {
-        EnemyData.OnDeSpawn();
+        EnemyData?.OnDeSpawn();
         EnemyData = null;
     }
 
