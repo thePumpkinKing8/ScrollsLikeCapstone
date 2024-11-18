@@ -106,7 +106,7 @@ public class GameCard : PoolObject
                 CardGameManager.Instance.DiscardForEnergy(this);
                 _handController.RemoveCard(this);
                 OnDeSpawn();
-                Debug.Log("right");
+
             }
         }
     }
@@ -152,5 +152,11 @@ public class GameCard : PoolObject
         {
             _slotSortOrder = num;
         }
+    }
+
+    public override void OnDeSpawn()
+    {
+        _inHand = false;
+        base.OnDeSpawn();
     }
 }

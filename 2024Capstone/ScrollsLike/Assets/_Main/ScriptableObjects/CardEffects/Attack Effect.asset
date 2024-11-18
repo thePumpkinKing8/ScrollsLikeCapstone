@@ -14,17 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardEffectors:
   - Type: 0
-    EffectValue: 0
+    EffectValue: 6
     TargetSelf: 0
-  - Type: 0
-    EffectValue: 0
-    TargetSelf: 0
-  - Type: 0
-    EffectValue: 0
-    TargetSelf: 0
-  - Type: 0
-    EffectValue: 0
-    TargetSelf: 0
-  _cardsData: {fileID: 0}
+    Strategy: {fileID: 0}
   _requireTarget: 1
-  damage: 8
+  damage: 6

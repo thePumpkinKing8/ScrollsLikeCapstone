@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 [CreateAssetMenu(fileName = "BaseStanceTrigger", menuName = "StanceEffects/BaseStanceTrigger")]
 public class StanceTrigger : ScriptableObject
 {
     protected StanceData _cardsData;
+    public List<CardEffect> Effects { get { return _effects; } }
 
-    [SerializeField] protected List<CardEffect> _effectsFromTrigger;
+    public UnityEvent Event { get { return Effects[0].CardEffectors[0].Strategy.Event; } }
+
+    [SerializeField] private List<CardEffect> _effects;
+
+
+
+   // [SerializeField] protected List<CardEffect> _effectsFromTrigger;
     protected virtual void SetUpTrigger()
     {
         
@@ -21,7 +29,7 @@ public class StanceTrigger : ScriptableObject
     }
     protected virtual void Trigger()
     {
-        EffectManager.Instance.ActivateEffect(_effectsFromTrigger);
+       // EffectManager.Instance.ActivateEffect(_effectsFromTrigger);
     }
     
 }

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a97f2a3960f62047aa3a7c546413554, type: 3}
+  m_Script: {fileID: 11500000, guid: b87dd08995229ed479a77f8be654c60a, type: 3}
   m_Name: FoolsGuard
   m_EditorClassIdentifier: 
-  _effectsFromTrigger:
-  - {fileID: 11400000, guid: e8dc56c029c9b3942bd301559b343348, type: 2}
+  CardEffectors: []
+  _requireTarget: 0

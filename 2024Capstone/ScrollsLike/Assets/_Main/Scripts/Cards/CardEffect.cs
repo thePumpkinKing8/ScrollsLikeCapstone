@@ -9,34 +9,72 @@ public class CardEffect : ScriptableObject
 {
     [field: SerializeField]
     public List<CardEffector> CardEffectors = new List<CardEffector>();
-    [field: SerializeField]
     protected CardData _cardsData;
 
     [SerializeField] private bool _requireTarget;
     public bool RequiresTarget { get { return _requireTarget; } }
-    
+
+    [SerializeField] private bool _isAOE;
+    public bool IsAOE { get { return _isAOE; } }
+
     public void GetData(CardData data)
     {
         _cardsData = data;
     }
-    public virtual void Effect(TimeSlot target = null) 
-    {
-        Debug.Log("card ability activates");    
-    }
     public void Effect(HealthManager player, TimeSlot target = null)
     {
-        foreach(CardEffector effect in CardEffectors)
+
+
+        foreach (CardEffector effect in CardEffectors)
         {
-            var effected = effect.TargetSelf ? (ICardEffectable) player : (ICardEffectable)target;
-            effected.ApplyEffect(effect.Type, effect.EffectValue);
-            effect.Strategy?.ApplyEffect(effected);
+            ICardEffectable effected;
+            if (effect.TargetSelf)
+            {
+                effected = (ICardEffectable)player;
+                effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+                effect.Strategy?.ApplyEffect(effected, _cardsData);
+            }
+            else
+            {
+                if(_requireTarget)
+                {
+                    effected = (ICardEffectable)target;
+                    effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+                    effect.Strategy?.ApplyEffect(effected, _cardsData);
+                }
+                else
+                {
+                    if(_isAOE)
+                    {
+                        foreach (TimeSlot slot in CardGameManager.Instance.EnemySlot)
+                        {
+                            if (slot.Active)
+                            {
+                                effected = (ICardEffectable)slot;
+                                effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+                                effect.Strategy?.ApplyEffect(effected, _cardsData);
+                            }
+                        }
+                        continue;
+                    }
+                    else
+                    {
+                        effected = (ICardEffectable)player;
+                        effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+                        effect.Strategy?.ApplyEffect(effected, _cardsData);
+                    }
+                    
+                }
+            }
+            
             
         }
+        
     }
 }
 public enum CardEffectType
 {
-    Damage, Heal, Block, None
+    Damage, Heal, Block, Draw, None
 }
 [Serializable]
 public struct CardEffector

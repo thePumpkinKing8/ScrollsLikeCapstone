@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
+using System;
 public interface ICardEffectable
 {
-    void ApplyEffect(CardEffectType effectType, int value);
+    void ApplyEffect(CardEffectType effectType, int value, CardData card);
     void ApplyDamage(int value);
 }
 //Should probably be changed to player manager
@@ -31,6 +30,8 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         PlayerHealth = _startingHealth;
         _text = GetComponentInChildren<TextMeshProUGUI>();
     }
+
+    [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>(); 
 
     // Update is called once per frame
     void Update()
@@ -93,6 +94,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             effect.transform.SetParent(transform);
             effect.transform.position = _text.transform.position;
             PlayerHealth -= damage;
+            Debug.Log("playerHit");
             CardGameManager.Instance.Events.PlayerHit.Invoke();
         }
         
@@ -108,6 +110,11 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         PlayerBlock += amount;
     }
 
+    public void GainHealth(int value)
+    {
+        PlayerHealth += value;
+    }
+
     public void ChangeEnergy(int amount)
     {
         Energy += amount;
@@ -120,14 +127,23 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         yield return null;
     }
 
-    public void ApplyEffect(CardEffectType effectType, int value)
+    public void ApplyEffect(CardEffectType effectType, int value, CardData card)
     {
         switch (effectType)
         {
             case CardEffectType.Damage:
-                //do damage
+                PlayerHit(value);
                 break;
             case CardEffectType.Heal:
+                GainHealth(value);
+                break;
+            case CardEffectType.Block:
+                GainBlock(value);
+                break;
+            case CardEffectType.Draw:
+                CardGameManager.Instance.DrawCard(value);
+                break;
+            case CardEffectType.None:
                 break;
         }
     }
@@ -136,5 +152,23 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     {
         PlayerHit(value);
        // throw new System.NotImplementedException();
+    }
+
+    public void AddEffect(StanceTrigger stance)
+    {
+        StatusEffects.Add(stance);
+        stance.Event.AddListener(delegate { TriggerStatus(stance); });
+        Debug.Log(stance.Event.GetPersistentEventCount());
+    }
+
+    public void RemoveEffect(StanceTrigger stance)
+    {
+        StatusEffects.Remove(stance);
+        stance.Event.RemoveListener(() => TriggerStatus(stance));
+    }
+
+    public void TriggerStatus(StanceTrigger stance)
+    {
+        EffectManager.Instance.ActivateEffect(stance.Effects) ;
     }
 }

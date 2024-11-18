@@ -14,8 +14,6 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     private int _maxHealth;
     public int SlotHealth {get; private set; }
     
-    //used for waiting for a cards effect to finish playing before continuing
-    private bool _isPlaying = false;
     [SerializeField] private TextMeshProUGUI text;
 
     private void Awake()
@@ -42,14 +40,10 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     public void ClearSlot()
     {
-        EnemyData.OnDeSpawn();
+        EnemyData?.OnDeSpawn();
         EnemyData = null;
     }
 
-    public void CardResolved()
-    {
-        _isPlaying = false;
-    }
 
 
     public void AddEnemyEffect(EnemyCardData card)
@@ -122,24 +116,27 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     public void ResolveEnemyEffect()
     {
         EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects);
+        Debug.Log("enemy effect");
     }
 
-    public void ApplyEffect(CardEffectType effectType, int value)
+    public void ApplyEffect(CardEffectType effectType, int value, CardData card)
     {
         switch (effectType)
         {
             case CardEffectType.Damage:
-                //do damage
+                ApplyDamage(value);
                 break;
             case CardEffectType.Heal:
+                EnemyHeal(value);
+                break;
+            case CardEffectType.Block:
+                GainBlock(value);
                 break;
         }
     }
 
     public void ApplyDamage(int value)
     {
-        //do whatever hit damage
-       // PlayerHit(value);
-        // throw new System.NotImplementedException();
+        EnemyHit(value);
     }
 }
