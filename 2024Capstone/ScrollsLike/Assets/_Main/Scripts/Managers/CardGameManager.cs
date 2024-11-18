@@ -108,7 +108,6 @@ public class CardGameManager : Singleton<CardGameManager>
 
     IEnumerator WaitForEffectsManager(Action function)
     {
-        Debug.Log(function.Method.Name);
         var trigger = false;
         Action action = () => trigger = true;
         Events.EffectManagerPermission.AddListener(action.Invoke);
@@ -263,8 +262,12 @@ public class CardGameManager : Singleton<CardGameManager>
             if(slot.Active)
             {
                 if(EffectManager.Instance.GetPermission())
-                slot.ResolveEnemyEffect();
-                yield return new WaitUntil(() => trigger);
+                    slot.ResolveEnemyEffect();
+                else
+                {
+                    yield return new WaitUntil(() => trigger == true);
+                }
+                yield return new WaitUntil(() => trigger == true);
                 slot.ClearSlot();
                 yield return new WaitForSeconds(DrawDelay);
             }

@@ -116,6 +116,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     public void ResolveEnemyEffect()
     {
         EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects);
+        Debug.Log("enemy effect");
     }
 
     public void ApplyEffect(CardEffectType effectType, int value, CardData card)

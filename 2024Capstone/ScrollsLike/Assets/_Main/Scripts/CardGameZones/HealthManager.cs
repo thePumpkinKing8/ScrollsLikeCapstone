@@ -158,10 +158,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     {
         StatusEffects.Add(stance);
         stance.Event.AddListener(delegate { TriggerStatus(stance); });
-        if(stance.Event == CardGameManager.Instance.Events.PlayerHit)
-        {
-            Debug.Log("same");
-        }
+        Debug.Log(stance.Event.GetPersistentEventCount());
     }
 
     public void RemoveEffect(StanceTrigger stance)
@@ -172,7 +169,6 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
 
     public void TriggerStatus(StanceTrigger stance)
     {
-        Debug.Log("it worked");
         EffectManager.Instance.ActivateEffect(stance.Effects) ;
     }
 }

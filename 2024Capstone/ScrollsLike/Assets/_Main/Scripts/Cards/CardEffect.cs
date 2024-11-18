@@ -31,12 +31,16 @@ public class CardEffect : ScriptableObject
             if (effect.TargetSelf)
             {
                 effected = (ICardEffectable)player;
+                effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+                effect.Strategy?.ApplyEffect(effected, _cardsData);
             }
             else
             {
                 if(_requireTarget)
                 {
                     effected = (ICardEffectable)target;
+                    effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+                    effect.Strategy?.ApplyEffect(effected, _cardsData);
                 }
                 else
                 {
@@ -63,8 +67,7 @@ public class CardEffect : ScriptableObject
                 }
             }
             
-            effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
-            effect.Strategy?.ApplyEffect(effected, _cardsData);
+            
         }
         
     }
