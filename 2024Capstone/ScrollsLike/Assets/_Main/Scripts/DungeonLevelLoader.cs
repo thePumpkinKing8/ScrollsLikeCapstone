@@ -87,17 +87,20 @@ public class DungeonLevelLoader : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject); // Destroy all instantiated objects from the current level
+        }
+
         currentLevelIndex++;
         if (currentLevelIndex < levelFiles.Length)
         {
             LoadLevel(levelFiles[currentLevelIndex]);
-            InstantiateGround();
-            InstantiateObjects();
-            InstantiateRoof();
         }
         else
         {
             Debug.Log("All levels completed!");
         }
     }
+
 }

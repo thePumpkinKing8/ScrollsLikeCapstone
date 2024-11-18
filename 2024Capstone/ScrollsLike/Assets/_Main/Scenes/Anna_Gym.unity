@@ -243,6 +243,8 @@ MonoBehaviour:
   - {fileID: 4160559209280494497, guid: ba99173b05774d046a2fb40fb270a8cb, type: 3}
   - {fileID: 5627840854469443888, guid: 950c2655f5f8cfa459283bfd0ebefecc, type: 3}
   - {fileID: 1098447560758140780, guid: c9af3dd43f29e454e82fd8dc07978867, type: 3}
+  - {fileID: 0}
+  - {fileID: 8622431372724339656, guid: f4e8e601b4894254fa31c10930bf3884, type: 3}
   roofPrefab: {fileID: 2477724797077034722, guid: d6734696a71005a41b3dd90415b3f13b,
     type: 3}
   groundPrefab: {fileID: 8553549014766895136, guid: ce6e4905ac528fd4ead32326bfc5d6a3,
@@ -250,6 +252,7 @@ MonoBehaviour:
   levelData:
     levelWidth: 0
     levelHeight: 0
+    patrolPoints: []
 --- !u!1001 &731696340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1402,7 +1405,6 @@ GameObject:
   - component: {fileID: 1060318584}
   - component: {fileID: 1060318583}
   - component: {fileID: 1060318581}
-  - component: {fileID: 1060318585}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1520,19 +1522,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &1060318585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060318580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce6ce3c4995b51419626ea2e2a5acdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!1 &1146263364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,7 +1656,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxWounds: 3
+  _maxHealth: 14
   _playerDeck: {fileID: 11400000, guid: 3604ab3c9d763694298deec54df5e405, type: 2}
+  _opponent: {fileID: 0}
 --- !u!4 &1295837956
 Transform:
   m_ObjectHideFlags: 0
