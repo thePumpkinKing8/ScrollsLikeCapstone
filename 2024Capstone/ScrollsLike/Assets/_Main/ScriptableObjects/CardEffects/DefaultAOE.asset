@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e05d024d31b7934495f50c720ecaf7a, type: 3}
   m_Name: DefaultAOE
   m_EditorClassIdentifier: 
+  CardEffectors:
+  - Type: 0
+    EffectValue: 2
+    TargetSelf: 0
+    Strategy: {fileID: 0}
   _requireTarget: 0
-  _baseDamage: 0

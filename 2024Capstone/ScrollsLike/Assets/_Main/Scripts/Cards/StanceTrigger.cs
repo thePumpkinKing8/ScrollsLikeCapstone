@@ -6,7 +6,7 @@ using System;
 [CreateAssetMenu(fileName = "BaseStanceTrigger", menuName = "StanceEffects/BaseStanceTrigger")]
 public class StanceTrigger : ScriptableObject
 {
-    protected StanceData _cardsData;
+    protected  StanceData _cardsData;
 
     [SerializeField] protected List<CardEffect> _effectsFromTrigger;
     protected virtual void SetUpTrigger()

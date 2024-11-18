@@ -40,9 +40,10 @@ public class EffectManager : Singleton<EffectManager>
             trigger = false;
         }
         _effectQue.Dequeue();
+        yield return null;
         NextInQue();
 
-        yield return null;
+        
     }
 
     private void NextInQue()
@@ -61,7 +62,7 @@ public class EffectManager : Singleton<EffectManager>
     public bool GetPermission()
     {
         if (_effectQue.Count > 0)
-        {
+        {          
             return false;
         }
         else 

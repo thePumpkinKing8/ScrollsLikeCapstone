@@ -20,14 +20,40 @@ public class CardEffect : ScriptableObject
     }
     public void Effect(HealthManager player, TimeSlot target = null)
     {
-        foreach(CardEffector effect in CardEffectors)
+
+
+        foreach (CardEffector effect in CardEffectors)
         {
-            Debug.Log(target);
-            var effected = effect.TargetSelf ? (ICardEffectable) player : (ICardEffectable)target;
-            effected.ApplyEffect(effect.Type, effect.EffectValue);
-            effect.Strategy?.ApplyEffect(effected);
+            ICardEffectable effected;
+            if (effect.TargetSelf)
+            {
+                effected = (ICardEffectable)player;
+            }
+            else
+            {
+                if(_requireTarget)
+                {
+                    effected = (ICardEffectable)target;
+                }
+                else
+                {
+                    foreach(TimeSlot slot in CardGameManager.Instance.EnemySlot)
+                    {
+                        if(slot.Active)
+                        {
+                            effected = (ICardEffectable)slot;
+                            effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+                            effect.Strategy?.ApplyEffect(effected, _cardsData);
+                        }                     
+                    }
+                    continue;
+                }
+            }
             
+            effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+            effect.Strategy?.ApplyEffect(effected, _cardsData);
         }
+        
     }
 }
 public enum CardEffectType

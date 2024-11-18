@@ -124,7 +124,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects);
     }
 
-    public void ApplyEffect(CardEffectType effectType, int value)
+    public void ApplyEffect(CardEffectType effectType, int value, CardData card)
     {
         switch (effectType)
         {

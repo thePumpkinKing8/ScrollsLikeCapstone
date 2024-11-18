@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 public interface ICardEffectable
 {
-    void ApplyEffect(CardEffectType effectType, int value);
+    void ApplyEffect(CardEffectType effectType, int value, CardData card);
     void ApplyDamage(int value);
 }
 //Should probably be changed to player manager
@@ -93,6 +93,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             effect.transform.SetParent(transform);
             effect.transform.position = _text.transform.position;
             PlayerHealth -= damage;
+            Debug.Log("playerHit");
             CardGameManager.Instance.Events.PlayerHit.Invoke();
         }
         
@@ -125,7 +126,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         yield return null;
     }
 
-    public void ApplyEffect(CardEffectType effectType, int value)
+    public void ApplyEffect(CardEffectType effectType, int value, CardData card)
     {
         switch (effectType)
         {
@@ -140,6 +141,8 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 break;
             case CardEffectType.Draw:
                 CardGameManager.Instance.DrawCard(value);
+                break;
+            case CardEffectType.None:
                 break;
         }
     }

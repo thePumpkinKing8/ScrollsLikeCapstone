@@ -15,6 +15,7 @@ public class CardGameManager : Singleton<CardGameManager>
     //play phase functions
     private int _timeSlotIndex;
     [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[4];
+    public TimeSlot[] EnemySlot { get { return _timeSlots; } }
 
     public float DrawDelay
     {
@@ -112,6 +113,7 @@ public class CardGameManager : Singleton<CardGameManager>
         Events.EffectManagerPermission.AddListener(action.Invoke);
         CurrentPhase = Phase.EffectMode;
         yield return new WaitUntil(() => trigger);
+        Debug.Log("end wait");
         function();
     }
 
@@ -185,7 +187,9 @@ public class CardGameManager : Singleton<CardGameManager>
         if(card.CardsType == CardType.Strike)
         {
             Events.AttackPlayed.Invoke();
+            Debug.Log("trigger");
         }
+        
         #endregion
         //go to target mode if needed
         foreach (CardEffect effect in card.ReferenceCardData.CardResolutionEffects)
@@ -199,7 +203,10 @@ public class CardGameManager : Singleton<CardGameManager>
         }
         EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects);
         HandController.Instance.RemoveCard(card);
-        //HandleCardDiscard(card.ReferenceCardData);
+        if (card.CardsType != CardType.Stance)
+        {
+            DiscardCard(card.ReferenceCardData);
+        }
         card.OnDeSpawn();
     }
 
@@ -255,30 +262,31 @@ public class CardGameManager : Singleton<CardGameManager>
         {
             if(slot.Active)
             {
+                if(EffectManager.Instance.GetPermission())
                 slot.ResolveEnemyEffect();
                 yield return new WaitUntil(() => trigger);
                 slot.ClearSlot();
                 yield return new WaitForSeconds(DrawDelay);
             }
         }
-        ResolutionPhaseEnd();
+        if(EffectManager.Instance.GetPermission() == false)
+        {
+            Debug.Log("wait");
+            FunctionWait(() => ResolutionPhaseEnd());
+        }
+        else
+        {
+            Debug.Log("no wait");
+            ResolutionPhaseEnd();
+        }
+        
         yield return null;
     }
 
     #endregion
 
     #region AdditionalEnemyLogic
-    //handles damage for attacks that dont target a specific slot
-    public void AOEAttack(int damage)
-    {
-        foreach (TimeSlot slot in _timeSlots)
-        {
-            if (slot.Active)
-            {
-                slot.EnemyHit(damage);
-            }
-        }
-    }
+
     #endregion
 
     #region OtherGameFunctions
@@ -295,7 +303,7 @@ public class CardGameManager : Singleton<CardGameManager>
 
     public void DrawCard(int num = 1)
     {
-        for(int i = 0; i <= num; i++)
+        for(int i = 0; i < num; i++)
         {
             CardData card;
             card = _deckManager.DrawCard();

@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebdd8ab752f855740b9696fe28181be2, type: 3}
   m_Name: Stance Effect
   m_EditorClassIdentifier: 
+  CardEffectors:
+  - Type: 4
+    EffectValue: 0
+    TargetSelf: 1
+    Strategy: {fileID: 11400000, guid: 0cb0cf7a53a31d446ae63117719a5828, type: 2}
   _requireTarget: 0
