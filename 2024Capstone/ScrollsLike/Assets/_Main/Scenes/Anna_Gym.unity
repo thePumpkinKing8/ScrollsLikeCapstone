@@ -243,6 +243,8 @@ MonoBehaviour:
   - {fileID: 4160559209280494497, guid: ba99173b05774d046a2fb40fb270a8cb, type: 3}
   - {fileID: 5627840854469443888, guid: 950c2655f5f8cfa459283bfd0ebefecc, type: 3}
   - {fileID: 1098447560758140780, guid: c9af3dd43f29e454e82fd8dc07978867, type: 3}
+  - {fileID: 0}
+  - {fileID: 8622431372724339656, guid: f4e8e601b4894254fa31c10930bf3884, type: 3}
   roofPrefab: {fileID: 2477724797077034722, guid: d6734696a71005a41b3dd90415b3f13b,
     type: 3}
   groundPrefab: {fileID: 8553549014766895136, guid: ce6e4905ac528fd4ead32326bfc5d6a3,

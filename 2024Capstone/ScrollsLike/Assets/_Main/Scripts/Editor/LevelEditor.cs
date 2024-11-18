@@ -13,8 +13,8 @@ public class LevelEditor : EditorWindow
     float gridPadding = 2;
     int currentOption = 1;
 
-    Color[] options = { Color.black, Color.white, Color.red, Color.blue, Color.green };
-    string[] names = { "Blank", "Wall", "Boss", "Player", "Patrol Point" };
+    Color[] options = { Color.black, Color.white, Color.red, Color.blue, Color.green, Color.yellow };
+    string[] names = { "Blank", "Wall", "Boss", "Player", "Patrol Point", "LevelExit" };
 
     private LevelData myData;
     private string levelFileName = "Level.txt";
