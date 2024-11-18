@@ -16,7 +16,7 @@ MonoBehaviour:
   _cardName: Slash
   _cardType: 0
   _cardImage: {fileID: 2800000, guid: db9013da176a18241bd695e65375526e, type: 3}
-  _cardDescription: 'Deal 8 damage '
+  _cardDescription: 'Deal 6 damage '
   _cardResolutionEffects:
   - {fileID: 11400000, guid: fcc286ab713723c448bc5ced9578d157, type: 2}
   _cardOnDrawEffects: []

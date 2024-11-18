@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 23764216}
   - component: {fileID: 23764215}
   - component: {fileID: 23764213}
+  - component: {fileID: 23764218}
   m_Layer: 0
   m_Name: '[OtherManagers]'
   m_TagString: Untagged
@@ -193,6 +194,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &23764218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23764212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04a23768fd13c944bbeb0adc536b241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &128912040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2291,6 +2304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingHealth: 14
   Wounds: 3
+  StatusEffects: []
 --- !u!114 &1609500034
 MonoBehaviour:
   m_ObjectHideFlags: 0
