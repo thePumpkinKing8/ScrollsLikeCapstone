@@ -62,10 +62,11 @@ public class EffectManager : Singleton<EffectManager>
     public bool GetPermission()
     {
         if (_effectQue.Count > 0)
-        {          
+        {
             return false;
         }
         else 
             return true;
     }
+
 }

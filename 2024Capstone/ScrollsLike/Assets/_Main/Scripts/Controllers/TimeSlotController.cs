@@ -6,14 +6,12 @@ public class TimeSlotController : MonoBehaviour
 {
     [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[4];
     [SerializeField] private TextMeshProUGUI[] _enemyText = new TextMeshProUGUI[4];
-    private bool _isPlaying = false; //prevents Resolve() from continuing throught the loop until the current effect is finished Playing
+  
 
-    private int _activeSlot;
     private void Awake()
     { 
         CardGameManager.Instance.Events.PrepPhaseEndEvent.AddListener(AddEnemyToTimeSlots);
        // CardGameManager.Instance.Events.ResolutionPhaseEndEvent.AddListener(ResolveEffects);
-        CardGameManager.Instance.Events.EffectEnded.AddListener(CardResolved);
     }
     // Start is called before the first frame update
     void Start()
@@ -27,10 +25,6 @@ public class TimeSlotController : MonoBehaviour
         
     }
     
-    public void CardResolved()
-    {
-        _isPlaying = false;
-    }
     public void ResolveEffects()
     {
         //StartCoroutine(Resolve());

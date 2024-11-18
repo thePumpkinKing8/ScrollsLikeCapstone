@@ -73,7 +73,7 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         CurrentPhase = Phase.CleanupPhase;
         Events.CleanupPhaseStartEvent.Invoke();
-        FunctionWait(CleanupPhaseEnd);
+        CleanupPhaseEnd();
     }
     public void CleanupPhaseEnd()
     {
@@ -107,7 +107,8 @@ public class CardGameManager : Singleton<CardGameManager>
     }
 
     IEnumerator WaitForEffectsManager(Action function)
-    {       
+    {
+        Debug.Log(function.Method.Name);
         var trigger = false;
         Action action = () => trigger = true;
         Events.EffectManagerPermission.AddListener(action.Invoke);
@@ -187,7 +188,6 @@ public class CardGameManager : Singleton<CardGameManager>
         if(card.CardsType == CardType.Strike)
         {
             Events.AttackPlayed.Invoke();
-            Debug.Log("trigger");
         }
         
         #endregion

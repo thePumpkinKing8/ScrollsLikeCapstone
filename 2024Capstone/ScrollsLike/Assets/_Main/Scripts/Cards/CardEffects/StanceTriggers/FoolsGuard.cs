@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 [CreateAssetMenu(fileName = "FoolsGuard", menuName = "StanceEffects/FoolsGuard")]
 public class FoolsGuard : StanceTrigger
 {
@@ -59,3 +59,4 @@ public class FoolsGuard : StanceTrigger
     }
 
 }
+*/

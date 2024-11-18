@@ -13,7 +13,10 @@ public class CardEffect : ScriptableObject
 
     [SerializeField] private bool _requireTarget;
     public bool RequiresTarget { get { return _requireTarget; } }
-    
+
+    [SerializeField] private bool _isAOE;
+    public bool IsAOE { get { return _isAOE; } }
+
     public void GetData(CardData data)
     {
         _cardsData = data;
@@ -37,16 +40,26 @@ public class CardEffect : ScriptableObject
                 }
                 else
                 {
-                    foreach(TimeSlot slot in CardGameManager.Instance.EnemySlot)
+                    if(_isAOE)
                     {
-                        if(slot.Active)
+                        foreach (TimeSlot slot in CardGameManager.Instance.EnemySlot)
                         {
-                            effected = (ICardEffectable)slot;
-                            effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
-                            effect.Strategy?.ApplyEffect(effected, _cardsData);
-                        }                     
+                            if (slot.Active)
+                            {
+                                effected = (ICardEffectable)slot;
+                                effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+                                effect.Strategy?.ApplyEffect(effected, _cardsData);
+                            }
+                        }
+                        continue;
                     }
-                    continue;
+                    else
+                    {
+                        effected = (ICardEffectable)player;
+                        effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
+                        effect.Strategy?.ApplyEffect(effected, _cardsData);
+                    }
+                    
                 }
             }
             

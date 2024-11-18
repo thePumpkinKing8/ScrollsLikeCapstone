@@ -14,8 +14,6 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     private int _maxHealth;
     public int SlotHealth {get; private set; }
     
-    //used for waiting for a cards effect to finish playing before continuing
-    private bool _isPlaying = false;
     [SerializeField] private TextMeshProUGUI text;
 
     private void Awake()
@@ -46,10 +44,6 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         EnemyData = null;
     }
 
-    public void CardResolved()
-    {
-        _isPlaying = false;
-    }
 
 
     public void AddEnemyEffect(EnemyCardData card)

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
+using System;
 public interface ICardEffectable
 {
     void ApplyEffect(CardEffectType effectType, int value, CardData card);
@@ -31,6 +30,8 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         PlayerHealth = _startingHealth;
         _text = GetComponentInChildren<TextMeshProUGUI>();
     }
+
+    [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>(); 
 
     // Update is called once per frame
     void Update()
@@ -151,5 +152,27 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     {
         PlayerHit(value);
        // throw new System.NotImplementedException();
+    }
+
+    public void AddEffect(StanceTrigger stance)
+    {
+        StatusEffects.Add(stance);
+        stance.Event.AddListener(delegate { TriggerStatus(stance); });
+        if(stance.Event == CardGameManager.Instance.Events.PlayerHit)
+        {
+            Debug.Log("same");
+        }
+    }
+
+    public void RemoveEffect(StanceTrigger stance)
+    {
+        StatusEffects.Remove(stance);
+        stance.Event.RemoveListener(() => TriggerStatus(stance));
+    }
+
+    public void TriggerStatus(StanceTrigger stance)
+    {
+        Debug.Log("it worked");
+        EffectManager.Instance.ActivateEffect(stance.Effects) ;
     }
 }
