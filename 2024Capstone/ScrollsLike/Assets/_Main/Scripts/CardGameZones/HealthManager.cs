@@ -19,6 +19,8 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     private TextMeshProUGUI _text;
     public int Energy { get; private set; }
 
+    private int _poison = 0;
+
     [HideInInspector] public int PlayerBlock { get; private set; }
     //[HideInInspector] public bool EnemyBlock;
 
@@ -29,6 +31,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         Energy = 0;
         PlayerHealth = _startingHealth;
         _text = GetComponentInChildren<TextMeshProUGUI>();
+        CardGameManager.Instance.Events.DrawPhaseStartEvent.AddListener(TriggerPoison);
     }
 
     [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>(); 
@@ -119,6 +122,16 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     {
         Energy += amount;
     }
+
+    public void TriggerPoison()
+    {
+        if(_poison > 0)
+        {
+            PlayerHealth -= _poison;
+            _poison -= 1;
+        }
+        
+    }
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
     {
@@ -142,6 +155,9 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 break;
             case CardEffectType.Draw:
                 CardGameManager.Instance.DrawCard(value);
+                break;
+            case CardEffectType.Poison:
+                _poison += value;
                 break;
             case CardEffectType.None:
                 break;
