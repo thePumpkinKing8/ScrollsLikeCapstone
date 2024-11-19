@@ -16,7 +16,8 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     public int Wounds = 3;
     public int PlayerHealth { get; set; }
 
-    private TextMeshProUGUI _text;
+    [SerializeField] private TextMeshProUGUI _statText;
+    [SerializeField] private TextMeshProUGUI _poisonText;
     public int Energy { get; private set; }
 
     private int _poison = 0;
@@ -30,7 +31,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         base.Awake();
         Energy = 0;
         PlayerHealth = _startingHealth;
-        _text = GetComponentInChildren<TextMeshProUGUI>();
+        _statText = GetComponentInChildren<TextMeshProUGUI>();
         CardGameManager.Instance.Events.DrawPhaseStartEvent.AddListener(TriggerPoison);
     }
 
@@ -56,7 +57,8 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 
         }
 
-        _text.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()} \nBlock:{PlayerBlock.ToString()} \nEnergy:{Energy.ToString()}";
+        _statText.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()} \nBlock:{PlayerBlock.ToString()} \nEnergy:{Energy.ToString()}";
+        _poisonText.text = $"Poison:{_poison}";
 
         if(PlayerHealth > _startingHealth)
         {
@@ -76,7 +78,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 effect = PoolManager.Instance.Spawn("BlockBreakEffect");
                 effect.transform.SetAsLastSibling();
                 effect.transform.SetParent(transform);
-                effect.transform.position = _text.transform.position;
+                effect.transform.position = _statText.transform.position;
                 PlayerBlock = 0;
                 PlayerHealth -= remainder;
                 CardGameManager.Instance.Events.PlayerHit.Invoke();
@@ -86,7 +88,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 effect = PoolManager.Instance.Spawn("BlockHitEffect");
                 effect.transform.SetAsLastSibling();
                 effect.transform.SetParent(transform);
-                effect.transform.position = _text.transform.position;
+                effect.transform.position = _statText.transform.position;
                 PlayerBlock -= damage;
             }
         }
@@ -95,7 +97,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             effect = PoolManager.Instance.Spawn("AttackEffect");
             effect.transform.SetAsLastSibling();
             effect.transform.SetParent(transform);
-            effect.transform.position = _text.transform.position;
+            effect.transform.position = _statText.transform.position;
             PlayerHealth -= damage;
             Debug.Log("playerHit");
             CardGameManager.Instance.Events.PlayerHit.Invoke();
@@ -109,7 +111,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         var effect = PoolManager.Instance.Spawn("BlockGainEffect");
         effect.transform.SetAsLastSibling();
         effect.transform.SetParent(transform);
-        effect.transform.position = _text.transform.position;
+        effect.transform.position = _statText.transform.position;
         PlayerBlock += amount;
     }
 

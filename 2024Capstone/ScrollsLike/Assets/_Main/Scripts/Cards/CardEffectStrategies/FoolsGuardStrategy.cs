@@ -7,9 +7,10 @@ using UnityEngine.Events;
 public class FoolsGuardStrategy : CardEffectStrategy
 {
 
+
     private void OnEnable()
     {
-        _event = CardGameManager.Instance.Events.PlayerHit;
+        _event = _cardEventData.PlayerHit;
     }
     public override void ApplyEffect(ICardEffectable target, CardData card)
     {

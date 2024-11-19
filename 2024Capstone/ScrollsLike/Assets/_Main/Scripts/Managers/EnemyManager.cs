@@ -19,6 +19,8 @@ public class EnemyManager : Singleton<EnemyManager>
     private int _enemyHealth;
 
     public int EnemyBlock { get; private set; }
+
+    [SerializeField] private TextMeshProUGUI _blockText;
     
     protected override void Awake()
     {
@@ -33,7 +35,7 @@ public class EnemyManager : Singleton<EnemyManager>
     // Update is called once per frame
     void Update()
     {
-        
+        _blockText.text = $"Enemy Block:{EnemyBlock}";
     }
 
     public void BlockHit(int damage)
@@ -44,6 +46,11 @@ public class EnemyManager : Singleton<EnemyManager>
     public void EnemyGainBlock(int value)
     {
         EnemyBlock += value;
+    }
+
+    public void ClearBlock()
+    {
+        EnemyBlock = 0;
     }
 
     public EnemyCardData PlayAbility()

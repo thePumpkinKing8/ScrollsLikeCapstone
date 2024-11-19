@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d67d4833dcc3984c9a7f17e6e2f0510, type: 3}
   m_Name: StanceStrategy
   m_EditorClassIdentifier: 
+  _cardEventData: {fileID: 11400000, guid: 8b91a1c7913a69a4cb70de4c1ef30b26, type: 2}

@@ -99,6 +99,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         EnemyManager.Instance.EnemyGainBlock(value);
     }
 
+
     public void EnemyHeal(int value)
     {
         if(!Active)
@@ -115,7 +116,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     public void ResolveEnemyEffect()
     {
-        EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects);
+        EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects, this);
         Debug.Log("enemy effect");
     }
 

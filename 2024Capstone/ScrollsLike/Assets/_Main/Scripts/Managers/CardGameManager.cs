@@ -63,6 +63,7 @@ public class CardGameManager : Singleton<CardGameManager>
     public void ResolutionPhaseStart() //trigger any effects waiting for this phase 
     {
         CurrentPhase = Phase.ResolutionPhase;
+        EnemyManager.Instance.ClearBlock();
         StartCoroutine(EnemyTurn());   
     }
     public void ResolutionPhaseEnd()
