@@ -53,24 +53,35 @@ public class DungeonLevelLoader : MonoBehaviour
 
     void InstantiateObjects()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
         for (int i = 0; i < levelData.levelWidth; i++)
         {
             for (int j = 0; j < levelData.levelHeight; j++)
             {
-                int objectType = levelData.grid[i, j]; 
-                if (objectType == 3)
+                int objectType = levelData.grid[i, j];
+                Vector3 spawnPosition = new Vector3(i, 0, j);
+
+                if (objectType == 3) // Player
                 {
-                    Vector3 spawnPosition = new Vector3(i, 1, j);
-                    Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity, transform);
+                    if (player != null)
+                    {
+                        player.transform.position = spawnPosition + Vector3.up * 1;
+                    }
+                    else
+                    {
+                        player = Instantiate(objectPrefabs[objectType], spawnPosition + Vector3.up * 1, Quaternion.identity);
+                        player.tag = "Player";
+                    }
                 }
-                else if (objectType != -1) 
+                else if (objectType != -1) // Other objects
                 {
-                    Vector3 spawnPosition = new Vector3(i, 0, j);
                     Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity, transform);
                 }
             }
         }
     }
+
 
     void InstantiateRoof()
     {
