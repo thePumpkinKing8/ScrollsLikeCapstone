@@ -17,7 +17,8 @@ MonoBehaviour:
   _cardType: 1
   _cardImage: {fileID: 2800000, guid: a3cf5348ef291ca47b2957cc81c94457, type: 3}
   _cardDescription: gains 10 block
-  _cardResolutionEffects: []
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: f075e40ba46b38549a55eebdcab7aa2f, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
   _cardUses: 0
