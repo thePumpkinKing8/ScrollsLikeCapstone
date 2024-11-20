@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
-  m_Name: Block
+  m_Script: {fileID: 11500000, guid: 5101027089f35674fa670d84b0071742, type: 3}
+  m_Name: Maul
   m_EditorClassIdentifier: 
   _energyCost: 0
-  _cardName: Block
-  _cardType: 1
-  _cardImage: {fileID: 2800000, guid: 41c36dd0bf387ab4f95cc87a6e250c34, type: 3}
-  _cardDescription: Gain 4 block
+  _cardName: Maul
+  _cardType: 0
+  _cardImage: {fileID: 2800000, guid: 78aa54caa2085aa49a826d6b4349cc98, type: 3}
+  _cardDescription: Deal damage =  your poison stacks
   _cardResolutionEffects:
-  - {fileID: 11400000, guid: 159d9d48b59e4fd4d9f51908af35b7ec, type: 2}
+  - {fileID: 11400000, guid: 4c6cc695414e8214fbd47ab375cdd06d, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
+  _cardUses: 0

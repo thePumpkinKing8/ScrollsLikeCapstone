@@ -28,6 +28,7 @@ public class CardEffect : ScriptableObject
         foreach (CardEffector effect in CardEffectors)
         {
             ICardEffectable effected;
+            //applys effect to player
             if (effect.TargetSelf)
             {
                 effected = (ICardEffectable)player;
@@ -36,6 +37,7 @@ public class CardEffect : ScriptableObject
             }
             else
             {
+                //applys effect to a target enemy
                 if(_requireTarget)
                 {
                     effected = (ICardEffectable)target;
@@ -44,6 +46,7 @@ public class CardEffect : ScriptableObject
                 }
                 else
                 {
+                    //applys effect to each active slot at the same time
                     if(_isAOE)
                     {
                         foreach (TimeSlot slot in CardGameManager.Instance.EnemySlot)
@@ -57,6 +60,7 @@ public class CardEffect : ScriptableObject
                         }
                         continue;
                     }
+                    //applys effect to enemy chosen by enemy
                     else
                     {
                         effected = (ICardEffectable)target;
@@ -74,7 +78,7 @@ public class CardEffect : ScriptableObject
 }
 public enum CardEffectType
 {
-    Damage, Heal, Block, Draw, Poison, None
+    Damage, Heal, Block, Draw, Poison, UnblockPoison, None
 }
 [Serializable]
 public struct CardEffector

@@ -8,6 +8,9 @@ public interface ICardEffectable
 {
     void ApplyEffect(CardEffectType effectType, int value, CardData card);
     void ApplyDamage(int value);
+
+    public void AddEffect(StanceTrigger stance);
+    public void RemoveEffect(StanceTrigger stance);
 }
 //Should probably be changed to player manager
 public class HealthManager : Singleton<HealthManager>, ICardEffectable
@@ -20,7 +23,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     [SerializeField] private TextMeshProUGUI _poisonText;
     public int Energy { get; private set; }
 
-    private int _poison = 0;
+    public int Poison { get; private set; } = 0;
 
     [HideInInspector] public int PlayerBlock { get; private set; }
     //[HideInInspector] public bool EnemyBlock;
@@ -58,7 +61,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         }
 
         _statText.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()} \nBlock:{PlayerBlock.ToString()} \nEnergy:{Energy.ToString()}";
-        _poisonText.text = $"Poison:{_poison}";
+        _poisonText.text = $"Poison:{Poison}";
 
         if(PlayerHealth > _startingHealth)
         {
@@ -127,12 +130,17 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
 
     public void TriggerPoison()
     {
-        if(_poison > 0)
+        if(Poison > 0)
         {
-            PlayerHealth -= _poison;
-            _poison -= 1;
+            PlayerHealth -= Poison;
+            Poison -= 1;
         }
         
+    }
+
+    public void GainPoison(int value)
+    {
+        Poison += value;
     }
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
@@ -159,7 +167,13 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 CardGameManager.Instance.DrawCard(value);
                 break;
             case CardEffectType.Poison:
-                _poison += value;
+                if(PlayerBlock > 0)
+                {
+                    GainPoison(value);
+                }
+                break;
+            case CardEffectType.UnblockPoison:               
+                GainPoison(value);               
                 break;
             case CardEffectType.None:
                 break;
@@ -188,5 +202,9 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     public void TriggerStatus(StanceTrigger stance)
     {
         EffectManager.Instance.ActivateEffect(stance.Effects) ;
+        if (stance.Temp)
+        {
+            RemoveEffect(stance);
+        }
     }
 }

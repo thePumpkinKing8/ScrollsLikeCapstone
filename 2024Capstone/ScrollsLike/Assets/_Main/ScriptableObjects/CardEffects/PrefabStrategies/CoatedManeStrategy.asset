@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b87dd08995229ed479a77f8be654c60a, type: 3}
-  m_Name: FoolsGuard
+  m_Script: {fileID: 11500000, guid: 78ac6ceacbc72dd4db45be396ce37ad7, type: 3}
+  m_Name: CoatedManeStrategy
   m_EditorClassIdentifier: 
-  CardEffectors:
-  - Type: 0
-    EffectValue: 0
-    TargetSelf: 0
-    Strategy: {fileID: 11400000, guid: e5f055df125c46245884420812c95e2f, type: 2}
-  _requireTarget: 0
-  _isAOE: 1
+  _cardEventData: {fileID: 11400000, guid: 8b91a1c7913a69a4cb70de4c1ef30b26, type: 2}

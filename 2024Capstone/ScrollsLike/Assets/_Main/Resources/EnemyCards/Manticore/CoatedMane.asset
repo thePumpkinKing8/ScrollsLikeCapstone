@@ -9,15 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
-  m_Name: Block
+  m_Script: {fileID: 11500000, guid: 5101027089f35674fa670d84b0071742, type: 3}
+  m_Name: CoatedMane
   m_EditorClassIdentifier: 
   _energyCost: 0
-  _cardName: Block
+  _cardName: 
   _cardType: 1
-  _cardImage: {fileID: 2800000, guid: 41c36dd0bf387ab4f95cc87a6e250c34, type: 3}
-  _cardDescription: Gain 4 block
+  _cardImage: {fileID: 2800000, guid: 789d4bbda02a439439773db5919693a2, type: 3}
+  _cardDescription: Gain 8 Block. The next time damage is blocked apply poison =
+    to damage blocked
   _cardResolutionEffects:
-  - {fileID: 11400000, guid: 159d9d48b59e4fd4d9f51908af35b7ec, type: 2}
+  - {fileID: 11400000, guid: 51d5bb483572bf14cacf64546e943099, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
+  _cardUses: 0

@@ -29,6 +29,8 @@ public class CardEventData : ScriptableObject
     public UnityEvent CleanupPhaseStartEvent;
     public UnityEvent CleanupPhaseEndEvent;
 
+
+    public UnityEvent GameEnd;
     //input events
     public UnityEvent<GameCard> PlayCard;
     public UnityEvent MoveToNextSlot;
@@ -43,6 +45,7 @@ public class CardEventData : ScriptableObject
 
     public UnityEvent PlayerHit;
     public UnityEvent EnemyHit;
+    public UnityEvent EnemyBlocked;
     public UnityEvent EnemyHeal;
     public UnityEvent StanceResolved;
     public UnityEvent PlayerGainsBlock;

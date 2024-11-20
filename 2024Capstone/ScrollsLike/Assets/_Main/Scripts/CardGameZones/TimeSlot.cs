@@ -16,6 +16,8 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     
     [SerializeField] private TextMeshProUGUI text;
 
+   
+
     private void Awake()
     {
         Active = true;
@@ -90,6 +92,11 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
             text.text = "dead";
         }
     }
+
+    public void PoisonDamage(int value)
+    {
+        SlotHealth -= value;
+    }
     
     public void GainBlock(int value)
     {
@@ -133,11 +140,32 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
             case CardEffectType.Block:
                 GainBlock(value);
                 break;
+            case CardEffectType.Poison:
+                if(EnemyManager.Instance.EnemyBlock <= 0)
+                {
+                    EnemyManager.Instance.GainPoison(value);
+                }
+                break;
         }
     }
 
     public void ApplyDamage(int value)
     {
         EnemyHit(value);
+    }
+
+    public void AddEffect(StanceTrigger stance)
+    {
+        stance.Event.AddListener(delegate { TriggerStatus(stance); });
+    }
+
+    public void RemoveEffect(StanceTrigger stance)
+    {
+        stance.Event.RemoveListener(() => TriggerStatus(stance));
+    }
+
+    public void TriggerStatus(StanceTrigger stance)
+    {
+        EffectManager.Instance.ActivateEffect(stance.Effects);
     }
 }

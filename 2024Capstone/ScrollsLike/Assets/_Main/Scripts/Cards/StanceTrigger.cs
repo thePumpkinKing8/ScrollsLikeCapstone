@@ -10,6 +10,9 @@ public class StanceTrigger : ScriptableObject
     protected StanceData _cardsData;
     public List<CardEffect> Effects { get { return _effects; } }
 
+    public bool Temp { get { return _isTemp; } }
+    [SerializeField] protected bool _isTemp;
+
     public UnityEvent Event { get { return Effects[0].CardEffectors[0].Strategy.Event; } }
 
     [SerializeField] private List<CardEffect> _effects;

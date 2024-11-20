@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
-  m_Name: Block
+  m_Script: {fileID: 11500000, guid: 5101027089f35674fa670d84b0071742, type: 3}
+  m_Name: Bite
   m_EditorClassIdentifier: 
   _energyCost: 0
-  _cardName: Block
-  _cardType: 1
-  _cardImage: {fileID: 2800000, guid: 41c36dd0bf387ab4f95cc87a6e250c34, type: 3}
-  _cardDescription: Gain 4 block
+  _cardName: 
+  _cardType: 0
+  _cardImage: {fileID: 2800000, guid: 2909f5bd1df07ad47826d1756e15601e, type: 3}
+  _cardDescription: Deal 3 damage. Heal 5.
   _cardResolutionEffects:
-  - {fileID: 11400000, guid: 159d9d48b59e4fd4d9f51908af35b7ec, type: 2}
+  - {fileID: 11400000, guid: 78ee8dda0d0793845ad5eff041b166e4, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
+  _cardUses: 0
