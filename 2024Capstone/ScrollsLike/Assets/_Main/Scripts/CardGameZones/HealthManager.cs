@@ -7,7 +7,6 @@ using System;
 public interface ICardEffectable
 {
     void ApplyEffect(CardEffectType effectType, int value, CardData card);
-    void ApplyDamage(int value);
 
     public void AddEffect(StanceTrigger stance);
     public void RemoveEffect(StanceTrigger stance);
@@ -24,6 +23,8 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     public int Energy { get; private set; }
 
     public int Poison { get; private set; } = 0;
+
+    public int DamageMod { get; private set; }
 
     [HideInInspector] public int PlayerBlock { get; private set; }
     //[HideInInspector] public bool EnemyBlock;
@@ -70,10 +71,12 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         
     }
     //deals health damage to the player
-    public void PlayerHit(int damage)
+    public void PlayerHit(int damage, CardData data)
     {
         PoolObject effect;
-        if(PlayerBlock > 0)
+        if (data.CardType == CardType.Strike && data is EnemyCardData)
+            damage += EnemyManager.Instance.DamageMod;
+        if (PlayerBlock > 0)
         {
             if(damage > PlayerBlock)
             {
@@ -83,6 +86,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 effect.transform.SetParent(transform);
                 effect.transform.position = _statText.transform.position;
                 PlayerBlock = 0;
+
                 PlayerHealth -= remainder;
                 CardGameManager.Instance.Events.PlayerHit.Invoke();
             }
@@ -92,6 +96,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 effect.transform.SetAsLastSibling();
                 effect.transform.SetParent(transform);
                 effect.transform.position = _statText.transform.position;
+                
                 PlayerBlock -= damage;
             }
         }
@@ -101,6 +106,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             effect.transform.SetAsLastSibling();
             effect.transform.SetParent(transform);
             effect.transform.position = _statText.transform.position;
+
             PlayerHealth -= damage;
             Debug.Log("playerHit");
             CardGameManager.Instance.Events.PlayerHit.Invoke();
@@ -155,7 +161,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         switch (effectType)
         {
             case CardEffectType.Damage:
-                PlayerHit(value);
+                PlayerHit(value, card);
                 break;
             case CardEffectType.Heal:
                 GainHealth(value);
@@ -175,16 +181,15 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             case CardEffectType.UnblockPoison:               
                 GainPoison(value);               
                 break;
+            case CardEffectType.DamageBuff:
+                DamageMod += value;
+                break;
             case CardEffectType.None:
                 break;
         }
     }
 
-    public void ApplyDamage(int value)
-    {
-        PlayerHit(value);
-       // throw new System.NotImplementedException();
-    }
+
 
     public void AddEffect(StanceTrigger stance)
     {

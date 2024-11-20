@@ -78,7 +78,7 @@ public class CardEffect : ScriptableObject
 }
 public enum CardEffectType
 {
-    Damage, Heal, Block, Draw, Poison, UnblockPoison, None
+    Damage, Heal, Block, Draw, Poison, UnblockPoison,DamageBuff, None
 }
 [Serializable]
 public struct CardEffector

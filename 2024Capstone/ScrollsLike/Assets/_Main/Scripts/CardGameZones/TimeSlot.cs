@@ -58,6 +58,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     public void EnemyHit(int damage)
     {        
         PoolObject effect;
+        damage += HealthManager.Instance.DamageMod;
         if (EnemyManager.Instance.EnemyBlock > 0)
         {
             if (damage > EnemyManager.Instance.EnemyBlock)
@@ -145,6 +146,9 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
                 {
                     EnemyManager.Instance.GainPoison(value);
                 }
+                break;
+            case CardEffectType.DamageBuff:
+                EnemyManager.Instance.DamageMod += value;
                 break;
         }
     }
