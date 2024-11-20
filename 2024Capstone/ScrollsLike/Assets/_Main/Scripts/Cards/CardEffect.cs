@@ -59,7 +59,7 @@ public class CardEffect : ScriptableObject
                     }
                     else
                     {
-                        effected = (ICardEffectable)player;
+                        effected = (ICardEffectable)target;
                         effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
                         effect.Strategy?.ApplyEffect(effected, _cardsData);
                     }
