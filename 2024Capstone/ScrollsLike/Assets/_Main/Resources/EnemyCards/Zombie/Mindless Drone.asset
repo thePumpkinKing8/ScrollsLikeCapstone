@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5101027089f35674fa670d84b0071742, type: 3}
-  m_Name: PowerUp
+  m_Name: Mindless Drone
   m_EditorClassIdentifier: 
-  _energyCost: 0
-  _cardName: PowerUp
-  _cardType: 1
-  _cardImage: {fileID: 2800000, guid: a1a9ed3dc586e6d4da416f5c9f7f8923, type: 3}
-  _cardDescription: Increase Damage by 2 permanently
-  _cardResolutionEffects:
-  - {fileID: 11400000, guid: feddb2b9610f3874893cab532e0b7bb1, type: 2}
+  _energyCost: 1
+  _cardName: 
+  _cardType: 0
+  _cardImage: {fileID: 0}
+  _cardDescription: 
+  _cardResolutionEffects: []
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
   _cardUses: 0
