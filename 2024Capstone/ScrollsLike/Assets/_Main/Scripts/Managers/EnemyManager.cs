@@ -25,6 +25,8 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public int Poison { get; private set; } = 0;
 
+    [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>();
+
     //value tracking variables. IE variables that track momentary information some effects may care about
     public int DamageBlocked { get; private set; }
 
@@ -77,6 +79,21 @@ public class EnemyManager : Singleton<EnemyManager>
     public void ClearBlock()
     {
         EnemyBlock = 0;
+        
+        foreach(StanceTrigger trigger in StatusEffects)
+        {
+            if(trigger.Temp)
+            {
+                StartCoroutine(ClearStatus(trigger));
+            }
+        }
+    }
+
+    IEnumerator ClearStatus(StanceTrigger temp)
+    {
+        yield return new WaitForSeconds(1);
+        StatusEffects.Remove(temp);
+        yield return null;
     }
 
     public EnemyCardData PlayAbility()
@@ -94,11 +111,13 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void AddEffect(StanceTrigger stance)
     {
+        StatusEffects.Add(stance);
         stance.Event.AddListener(delegate { TriggerStatus(stance); });
     }
 
     public void RemoveEffect(StanceTrigger stance)
     {
+        StatusEffects.Remove(stance);
         stance.Event.RemoveListener(() => TriggerStatus(stance));
     }
 
@@ -110,4 +129,6 @@ public class EnemyManager : Singleton<EnemyManager>
             RemoveEffect(stance);
         }
     }
+
+    
 }

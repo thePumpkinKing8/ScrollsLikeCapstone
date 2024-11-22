@@ -26,6 +26,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
 
     public int DamageMod { get; private set; }
 
+    [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>();
     [HideInInspector] public int PlayerBlock { get; private set; }
     //[HideInInspector] public bool EnemyBlock;
 
@@ -36,10 +37,10 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         Energy = 0;
         PlayerHealth = _startingHealth;
         _statText = GetComponentInChildren<TextMeshProUGUI>();
-        CardGameManager.Instance.Events.DrawPhaseStartEvent.AddListener(TriggerPoison);
+        CardGameManager.Instance.Events.DrawPhaseEndEvent.AddListener(TriggerPoison);
     }
 
-    [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>(); 
+    
 
     // Update is called once per frame
     void Update()
@@ -136,6 +137,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
 
     public void TriggerPoison()
     {
+        Debug.Log(Poison);
         if(Poison > 0)
         {
             PlayerHealth -= Poison;
@@ -147,6 +149,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     public void GainPoison(int value)
     {
         Poison += value;
+        CardGameManager.Instance.EffectDone();
     }
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
@@ -173,7 +176,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 CardGameManager.Instance.DrawCard(value);
                 break;
             case CardEffectType.Poison:
-                if(PlayerBlock > 0)
+                if(PlayerBlock >= 0)
                 {
                     GainPoison(value);
                 }
