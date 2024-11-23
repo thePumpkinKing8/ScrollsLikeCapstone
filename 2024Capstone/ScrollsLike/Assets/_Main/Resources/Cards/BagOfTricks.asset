@@ -18,6 +18,6 @@ MonoBehaviour:
   _cardImage: {fileID: 2800000, guid: 98db862bd9ee91f4188cb313e7d23eb9, type: 3}
   _cardDescription: Draws 2 cards
   _cardResolutionEffects:
-  - {fileID: 11400000, guid: 659d2a9612fba78438bc20a0d4c108cc, type: 2}
+  - {fileID: 11400000, guid: 266c6518d696c0e459179fede0d389ea, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []

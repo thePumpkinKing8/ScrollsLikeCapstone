@@ -29,7 +29,11 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         if (Active)
             color.color = Color.gray;
         else
-           color.color = Color.white;
+        {
+            color.color = Color.white;
+            CardGameManager.Instance.CheckGameEnd();
+        }
+           
     }
 
     public void SetUp(int health)
@@ -149,6 +153,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
                 break;
             case CardEffectType.DamageBuff:
                 EnemyManager.Instance.DamageMod += value;
+                CardGameManager.Instance.EffectDone();
                 break;
         }
     }

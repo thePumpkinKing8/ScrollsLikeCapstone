@@ -154,7 +154,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
     {
-        yield return new WaitForSeconds(4);
+        //yield return new WaitForSeconds(4);
         GameManager.Instance.PlayerLoses();
         yield return null;
     }
@@ -168,12 +168,14 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 break;
             case CardEffectType.Heal:
                 GainHealth(value);
+                CardGameManager.Instance.EffectDone();
                 break;
             case CardEffectType.Block:
                 GainBlock(value);
                 break;
             case CardEffectType.Draw:
                 CardGameManager.Instance.DrawCard(value);
+                CardGameManager.Instance.EffectDone();
                 break;
             case CardEffectType.Poison:
                 if(PlayerBlock >= 0)

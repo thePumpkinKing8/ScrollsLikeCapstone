@@ -55,11 +55,11 @@ public class GameManager : Singleton<GameManager>
     {
         HealthRemaining = HealthManager.Instance.PlayerHealth;
         WoundsRemaining = HealthManager.Instance.Wounds;
-        SceneManager.LoadScene("Anna_Gym");
+        SceneManager.LoadScene("CardGame");
     }
 
     public void PlayerLoses()
     {
-        SceneManager.LoadScene("Anna_Gym");
+        SceneManager.LoadScene("CardGame");
     }
 }

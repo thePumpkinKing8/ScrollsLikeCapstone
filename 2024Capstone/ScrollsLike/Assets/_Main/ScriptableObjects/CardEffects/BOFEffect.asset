@@ -10,16 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b87dd08995229ed479a77f8be654c60a, type: 3}
-  m_Name: CoatedMane
+  m_Name: BOFEffect
   m_EditorClassIdentifier: 
   CardEffectors:
-  - Type: 2
-    EffectValue: 8
-    TargetSelf: 0
+  - Type: 3
+    EffectValue: 2
+    TargetSelf: 1
     Strategy: {fileID: 0}
-  - Type: 7
-    EffectValue: 0
-    TargetSelf: 0
-    Strategy: {fileID: 11400000, guid: a90296b4c3d378d45aebb09951f65bbb, type: 2}
   _requireTarget: 0
   _isAOE: 0

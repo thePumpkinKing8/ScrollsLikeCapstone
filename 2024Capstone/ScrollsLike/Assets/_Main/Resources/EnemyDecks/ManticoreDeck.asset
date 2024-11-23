@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb865fe6187bf1142a9f175bace11476, type: 3}
   m_Name: ManticoreDeck
   m_EditorClassIdentifier: 
-  _deck: []
+  _deck:
+  - {fileID: 11400000, guid: 5a454f08626be2e46b691c79fc8b1871, type: 2}
+  - {fileID: 11400000, guid: 5a454f08626be2e46b691c79fc8b1871, type: 2}
+  - {fileID: 11400000, guid: 11f81e67a10d108458056a22a5c50ea3, type: 2}
+  - {fileID: 11400000, guid: 11f81e67a10d108458056a22a5c50ea3, type: 2}
+  - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
+  - {fileID: 11400000, guid: 9e861a3ac0b284848a66d76c60463c1d, type: 2}
+  - {fileID: 11400000, guid: 7ba5a0346b3c7704691ba66ccf320203, type: 2}
+  - {fileID: 11400000, guid: 7ba5a0346b3c7704691ba66ccf320203, type: 2}
+  - {fileID: 11400000, guid: a2a03b6b93258664e9a97dec5753e603, type: 2}
+  - {fileID: 11400000, guid: e866b1e7720b8504d837851d1b2c8864, type: 2}
   _enemyDifficulty: 0
-  _health: 0
+  _health: 10
