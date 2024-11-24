@@ -6,7 +6,6 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float speed = 1f;
     private List<Vector3> patrolPoints;
-    private int currentPatrolIndex = 0;
     private Vector3 targetPosition;
 
     private DungeonLevelLoader dungeonLevelLoader;
@@ -20,10 +19,11 @@ public class EnemyController : MonoBehaviour
             .Select(p => new Vector3(p.x, transform.position.y, p.y))
             .ToList();
 
-        // Set the first target position
+        // Set a random starting patrol point
         if (patrolPoints.Count > 0)
         {
-            targetPosition = patrolPoints[currentPatrolIndex];
+            int randomIndex = Random.Range(0, patrolPoints.Count);
+            targetPosition = patrolPoints[randomIndex];
         }
     }
 
@@ -38,9 +38,8 @@ public class EnemyController : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
-            // Move to the next patrol point
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
-            targetPosition = patrolPoints[currentPatrolIndex];
+            // Pick a random new patrol point as the target
+            targetPosition = patrolPoints[Random.Range(0, patrolPoints.Count)];
         }
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
