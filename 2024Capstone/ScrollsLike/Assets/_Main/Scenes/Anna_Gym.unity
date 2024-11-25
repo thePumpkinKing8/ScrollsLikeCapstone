@@ -1870,10 +1870,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014254f558f12224688e5d65ac2e361f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkClip: {fileID: 8300000, guid: 6614cd3031bfbf844a82fe0201d46019, type: 3}
-  damageClip: {fileID: 8300000, guid: 3470fce63f924e646b60561e3271f5fe, type: 3}
-  healClip: {fileID: 8300000, guid: 679796c8e6637a9419bf0785ee944f29, type: 3}
-  slashClip: {fileID: 8300000, guid: 67fc54ff1d251d04784610ba6a6e44d0, type: 3}
+  sounds:
+  - name: 
+    clip: {fileID: 8300000, guid: 3470fce63f924e646b60561e3271f5fe, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 679796c8e6637a9419bf0785ee944f29, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 67fc54ff1d251d04784610ba6a6e44d0, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 6614cd3031bfbf844a82fe0201d46019, type: 3}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &1668349870
 Transform:
   m_ObjectHideFlags: 0

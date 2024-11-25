@@ -1,65 +1,89 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : MonoBehaviour
 {
-    // Audio clips for different actions
-    [Header("Audio Clips")]
-    public AudioClip walkClip;
-    public AudioClip damageClip;
-    public AudioClip healClip;
-    public AudioClip slashClip;
+    public static AudioManager Instance;
 
-    private AudioSource audioSource;
-
-    protected override void Awake()
+    [System.Serializable]
+    public class Sound
     {
-        base.Awake();
-        audioSource = GetComponent<AudioSource>();
+        public string name;
+        public AudioClip clip;
+        [Range(0f, 1f)] public float volume = 1f;
+        [Range(0.1f, 3f)] public float pitch = 1f;
+        public bool loop = false;
 
-        if (audioSource == null)
+        [HideInInspector] public AudioSource source;
+    }
+
+    [SerializeField] private Sound[] sounds;
+
+    private void Awake()
+    {
+        if (Instance == null)
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        foreach (Sound s in sounds)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+            s.source.volume = s.volume;
+            s.source.pitch = s.pitch;
+            s.source.loop = s.loop;
         }
     }
 
-    public void PlayWalkSound()
+    public void Play(string soundName)
     {
-        PlaySound(walkClip);
-    }
-
-    public void PlayDamageSound()
-    {
-        PlaySound(damageClip);
-    }
-
-    public void PlayHealSound()
-    {
-        PlaySound(healClip);
-    }
-
-    public void PlaySlashSound()
-    {
-        PlaySound(slashClip);
-    }
-
-    // New StopSound method to stop currently playing audio
-    public void StopSound()
-    {
-        if (audioSource.isPlaying)
+        Sound s = FindSound(soundName);
+        if (s != null)
         {
-            audioSource.Stop();
+            s.source.Play();
+        }
+        else
+        {
+            Debug.LogWarning($"Sound '{soundName}' not found!");
         }
     }
 
-    private void PlaySound(AudioClip clip)
+    public void Stop(string soundName)
     {
-        if (clip != null)
+        Sound s = FindSound(soundName);
+        if (s != null)
         {
-            audioSource.clip = clip;
-            audioSource.Play();
+            s.source.Stop();
         }
+        else
+        {
+            Debug.LogWarning($"Sound '{soundName}' not found!");
+        }
+    }
+
+    public void SetVolume(string soundName, float volume)
+    {
+        Sound s = FindSound(soundName);
+        if (s != null)
+        {
+            s.source.volume = Mathf.Clamp01(volume);
+        }
+        else
+        {
+            Debug.LogWarning($"Sound '{soundName}' not found!");
+        }
+    }
+
+    private Sound FindSound(string name)
+    {
+        return System.Array.Find(sounds, sound => sound.name == name);
     }
 }
