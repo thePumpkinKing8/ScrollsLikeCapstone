@@ -38,15 +38,11 @@ public class DungeonLevelLoader : MonoBehaviour
     void InstantiateGround()
     {
         for (int i = 0; i < levelData.levelWidth; i++)
-            {
+        {
             for (int j = 0; j < levelData.levelHeight; j++)
             {
-                int objectType = levelData.grid[i, j];
-                if (objectType != 1) // Tile is not a wall
-                {
-                    Vector3 groundPosition = new Vector3(i, 0, j);
-                    Instantiate(groundPrefab, groundPosition, Quaternion.identity, transform);
-                }                    
+                Vector3 groundPosition = new Vector3(i, 0, j);
+                Instantiate(groundPrefab, groundPosition, Quaternion.identity, transform);
             }
         }
     }
@@ -60,9 +56,11 @@ public class DungeonLevelLoader : MonoBehaviour
             for (int j = 0; j < levelData.levelHeight; j++)
             {
                 int objectType = levelData.grid[i, j];
+                if (objectType < 0 || objectType >= objectPrefabs.Length || objectPrefabs[objectType] == null) continue;
+
                 Vector3 spawnPosition = new Vector3(i, 0, j);
 
-                if (objectType == 3) // Player
+                if (objectType == 2) // Player
                 {
                     if (player != null)
                     {
@@ -74,14 +72,15 @@ public class DungeonLevelLoader : MonoBehaviour
                         player.tag = "Player";
                     }
                 }
-                else if (objectType != -1) // Other objects
+                else
                 {
-                    Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity, transform);
+                    // Slightly raise walls or other objects above the ground
+                    float yOffset = objectType == 1 ? 0.5f : 0f; // Example: Raise walls
+                    Instantiate(objectPrefabs[objectType], spawnPosition + Vector3.up * yOffset, Quaternion.identity, transform);
                 }
             }
         }
     }
-
 
     void InstantiateRoof()
     {
@@ -100,7 +99,7 @@ public class DungeonLevelLoader : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            Destroy(child.gameObject); // Destroy all instantiated objects from the current level
+            Destroy(child.gameObject); // Destroy all objects from the current level
         }
 
         currentLevelIndex++;
@@ -113,5 +112,4 @@ public class DungeonLevelLoader : MonoBehaviour
             Debug.Log("All levels completed!");
         }
     }
-
 }
