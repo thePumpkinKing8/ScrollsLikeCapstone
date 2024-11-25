@@ -13,8 +13,10 @@ public class LevelEditor : EditorWindow
     float gridPadding = 2;
     int currentOption = 1;
 
-    Color[] options = { Color.black, Color.white, Color.red, Color.blue, Color.green, Color.yellow };
-    string[] names = { "Blank", "Wall", "Boss", "Player", "Patrol Point", "LevelExit" };
+    Color[] options = { Color.black, Color.white, Color.blue, Color.red, Color.grey, Color.magenta, Color.green, Color.yellow };
+    string[] names = { "Blank", "Wall", "Player", "Manticore", "Knight", "Skeleton", "Patrol Point", "LevelExit" };
+
+
 
     private LevelData myData;
     private string levelFileName = "Level.txt";
@@ -101,7 +103,7 @@ public class LevelEditor : EditorWindow
 
                 if (mouseDown && r.Contains(e.mousePosition))
                 {
-                    if (currentOption == 4) // Patrol Point
+                    if (currentOption == 6) // Patrol Point
                     {
                         Vector2Int patrolPoint = new Vector2Int(i, j);
 
