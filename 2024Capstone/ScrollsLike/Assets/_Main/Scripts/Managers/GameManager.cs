@@ -69,6 +69,8 @@ public class GameManager : Singleton<GameManager>
     public void CardRewards()
     {
         LevelActive = false;
+        var rew = FindObjectOfType<RewardScreen>();
+        rew.gameObject.SetActive(true);
     }
 
     public void ResumeGame()

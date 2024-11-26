@@ -9,22 +9,18 @@ public class RewardScreen : MonoBehaviour
     [SerializeField] private Transform _rewardThree;
     [SerializeField] private Transform _cardSpot;
 
-    private GameCard _cardOne;
-    private GameCard _cardTwo;
-    private GameCard _cardThree;
-
     private CardData _selectedCard;
 
     private GameCard[] rewards = new GameCard[3];
 
-    private void Start()
+    private void OnEnable()
     {     
         _selectedCard = null;
         var cards = Resources.LoadAll<CardData>("Cards");
 
         for (int i = 0; i < 3; i++)
         {
-            rewards[i] = PoolManager.Instance.Spawn("Card").GetComponent<GameCard>();
+            rewards[i] = PoolManager.Instance.Spawn("UICard").GetComponent<GameCard>();
             rewards[i].ReferenceCardData = cards[Random.Range(0, cards.Length)];
             rewards[i].transform.SetParent(_cardSpot);
             rewards[i].transform.position = _cardSpot.position;
@@ -52,5 +48,6 @@ public class RewardScreen : MonoBehaviour
             GameManager.Instance.PlayersDeck.AddCardToDeck(_selectedCard);
         
         gameObject.SetActive(false);
+        GameManager.Instance.ResumeGame();
     }
 }
