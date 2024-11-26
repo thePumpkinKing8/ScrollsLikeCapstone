@@ -128,7 +128,5 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             RemoveEffect(stance);
         }
-    }
-
-    
+    }    
 }

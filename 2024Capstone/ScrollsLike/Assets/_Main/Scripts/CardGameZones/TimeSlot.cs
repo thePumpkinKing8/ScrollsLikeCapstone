@@ -14,32 +14,48 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     private int _maxHealth;
     public int SlotHealth {get; private set; }
     
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI _text;
 
    
 
     private void Awake()
     {
         Active = true;
+        SlotHealth = 1;
     }
-    public void ToggleActive()
+    public void ToggleActive(bool activate)
     {
-        Active = !Active;
+        
         var color = GetComponent<Image>();
-        if (Active)
+        if (activate)
+        {
             color.color = Color.gray;
+            Active = true;
+        }
+            
         else
         {
             color.color = Color.white;
+            Active = false;
             CardGameManager.Instance.CheckGameEnd();
-        }
-           
+        }          
     }
 
+
+    private void Update()
+    {
+        //_text.text = SlotHealth.ToString();
+        if(SlotHealth <= 0)
+        {
+            ToggleActive(false);
+            ClearSlot();
+            _text.text = "dead";
+        }
+    }
     public void SetUp(int health)
     {
         _maxHealth = health;
-        text.text = _maxHealth.ToString();
+        _text.text = _maxHealth.ToString();
         SlotHealth = health;
 
     }
@@ -89,12 +105,10 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
             effect.transform.position = transform.position;
             SlotHealth -= damage;
         }
-        text.text = SlotHealth.ToString();
+        _text.text = SlotHealth.ToString();
         if (SlotHealth <= 0)
         {
-            ToggleActive();
-            ClearSlot();
-            text.text = "dead";
+
         }
     }
 
@@ -116,14 +130,14 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     {
         if(!Active)
         {
-            ToggleActive();
+            ToggleActive(true);
         }
         SlotHealth += value;
         if(SlotHealth > _maxHealth)
         {
             SlotHealth = _maxHealth;
         }
-        text.text = SlotHealth.ToString();
+        _text.text = SlotHealth.ToString();
     }
 
     public void ResolveEnemyEffect()
