@@ -21,12 +21,15 @@ public class GameManager : Singleton<GameManager>
     public int LevelIndex { get { return _levelIndex; } }
     private int _levelIndex = 0;
 
+    public bool LevelActive { get; private set; }
+
     protected override void Awake()
     {
         DontDestroyOnLoad(this);
         PlayersDeck.Initialize();
         WoundsRemaining = _maxWounds;
         HealthRemaining = _maxHealth;
+        LevelActive = true;
     }
 
     public void GoToCombat(EnemyDeck opponent)
@@ -38,8 +41,7 @@ public class GameManager : Singleton<GameManager>
     
     public void CardGameStart()
     {
-        EnemyManager.Instance.SetUp(_opponent);
-        
+        EnemyManager.Instance.SetUp(_opponent);      
     }
 
     public void NextLevel()
@@ -55,11 +57,22 @@ public class GameManager : Singleton<GameManager>
     {
         HealthRemaining = HealthManager.Instance.PlayerHealth;
         WoundsRemaining = HealthManager.Instance.Wounds;
-        SceneManager.LoadScene("CardGame");
+        SceneManager.LoadScene("Anna_Gym");
+        CardRewards();
     }
 
     public void PlayerLoses()
     {
-        SceneManager.LoadScene("CardGame");
+        SceneManager.LoadScene("Anna_Gym");
+    }
+
+    public void CardRewards()
+    {
+        LevelActive = false;
+    }
+
+    public void ResumeGame()
+    {
+        LevelActive = true;
     }
 }
