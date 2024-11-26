@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b256ad46353bfc149bc26b6c8d8388ea, type: 3}
   m_Name: FoolsGuardTrigger
   m_EditorClassIdentifier: 
-  _effects: []
+  _isTemp: 0
+  _effects:
+  - {fileID: 11400000, guid: 467778da585d7ee47893d6b1b5a1f1e6, type: 2}

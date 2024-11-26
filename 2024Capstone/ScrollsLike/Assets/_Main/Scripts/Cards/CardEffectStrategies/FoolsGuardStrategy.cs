@@ -6,8 +6,6 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "FoolsGuardStrategy", menuName = "SOs/CardStrategy/FoolsGuardStrategy")]
 public class FoolsGuardStrategy : CardEffectStrategy
 {
-
-
     private void OnEnable()
     {
         _event = _cardEventData.PlayerHit;

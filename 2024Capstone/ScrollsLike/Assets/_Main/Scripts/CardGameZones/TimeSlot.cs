@@ -16,6 +16,8 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     
     [SerializeField] private TextMeshProUGUI text;
 
+   
+
     private void Awake()
     {
         Active = true;
@@ -27,7 +29,11 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         if (Active)
             color.color = Color.gray;
         else
-           color.color = Color.white;
+        {
+            color.color = Color.white;
+            CardGameManager.Instance.CheckGameEnd();
+        }
+           
     }
 
     public void SetUp(int health)
@@ -56,6 +62,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     public void EnemyHit(int damage)
     {        
         PoolObject effect;
+        damage += HealthManager.Instance.DamageMod;
         if (EnemyManager.Instance.EnemyBlock > 0)
         {
             if (damage > EnemyManager.Instance.EnemyBlock)
@@ -89,6 +96,11 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
             ClearSlot();
             text.text = "dead";
         }
+    }
+
+    public void PoisonDamage(int value)
+    {
+        SlotHealth -= value;
     }
     
     public void GainBlock(int value)
@@ -133,11 +145,36 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
             case CardEffectType.Block:
                 GainBlock(value);
                 break;
+            case CardEffectType.Poison:
+                if(EnemyManager.Instance.EnemyBlock <= 0)
+                {
+                    EnemyManager.Instance.GainPoison(value);
+                }
+                break;
+            case CardEffectType.DamageBuff:
+                EnemyManager.Instance.DamageMod += value;
+                CardGameManager.Instance.EffectDone();
+                break;
         }
     }
 
     public void ApplyDamage(int value)
     {
         EnemyHit(value);
+    }
+
+    public void AddEffect(StanceTrigger stance)
+    {
+        stance.Event.AddListener(delegate { TriggerStatus(stance); });
+    }
+
+    public void RemoveEffect(StanceTrigger stance)
+    {
+        stance.Event.RemoveListener(() => TriggerStatus(stance));
+    }
+
+    public void TriggerStatus(StanceTrigger stance)
+    {
+        EffectManager.Instance.ActivateEffect(stance.Effects);
     }
 }

@@ -18,10 +18,18 @@ public class EnemyManager : Singleton<EnemyManager>
     }
     private int _enemyHealth;
 
+    [HideInInspector] public int DamageMod;
     public int EnemyBlock { get; private set; }
 
     [SerializeField] private TextMeshProUGUI _blockText;
-    
+
+    public int Poison { get; private set; } = 0;
+
+    [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>();
+
+    //value tracking variables. IE variables that track momentary information some effects may care about
+    public int DamageBlocked { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,7 +48,11 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void BlockHit(int damage)
     {
+        DamageBlocked = damage >= EnemyBlock ? damage - (damage - EnemyBlock) : damage;
         EnemyBlock -= damage;
+        if(EnemyBlock < 0)
+            EnemyBlock = 0;
+        CardGameManager.Instance.Events.EnemyBlocked.Invoke();
     }
 
     public void EnemyGainBlock(int value)
@@ -48,9 +60,40 @@ public class EnemyManager : Singleton<EnemyManager>
         EnemyBlock += value;
     }
 
+    public void GainPoison(int value)
+    {
+        Poison += value;
+    }
+
+    public void StatusActivate()
+    {
+        foreach(TimeSlot enemy in CardGameManager.Instance.EnemySlot)
+        {
+            if(enemy.Active)
+            {
+                enemy.PoisonDamage(Poison);
+            }
+        }       
+    }
+
     public void ClearBlock()
     {
         EnemyBlock = 0;
+        
+        foreach(StanceTrigger trigger in StatusEffects)
+        {
+            if(trigger.Temp)
+            {
+                StartCoroutine(ClearStatus(trigger));
+            }
+        }
+    }
+
+    IEnumerator ClearStatus(StanceTrigger temp)
+    {
+        yield return new WaitForSeconds(1);
+        StatusEffects.Remove(temp);
+        yield return null;
     }
 
     public EnemyCardData PlayAbility()
@@ -65,4 +108,27 @@ public class EnemyManager : Singleton<EnemyManager>
         GameManager.Instance.PlayerWins();
         yield return null;
     }
+
+    public void AddEffect(StanceTrigger stance)
+    {
+        StatusEffects.Add(stance);
+        stance.Event.AddListener(delegate { TriggerStatus(stance); });
+    }
+
+    public void RemoveEffect(StanceTrigger stance)
+    {
+        StatusEffects.Remove(stance);
+        stance.Event.RemoveListener(() => TriggerStatus(stance));
+    }
+
+    public void TriggerStatus(StanceTrigger stance)
+    {
+        EffectManager.Instance.ActivateEffect(stance.Effects);
+        if(stance.Temp)
+        {
+            RemoveEffect(stance);
+        }
+    }
+
+    
 }

@@ -9,7 +9,7 @@ public class CardDamageStrategy : CardEffectStrategy
     {
         //make sure your target has a way to add damage
         //target.
-        target.ApplyDamage(Damage);
+
     }
 }
 

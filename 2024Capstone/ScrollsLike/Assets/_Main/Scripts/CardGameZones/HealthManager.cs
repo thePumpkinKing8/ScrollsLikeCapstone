@@ -7,7 +7,9 @@ using System;
 public interface ICardEffectable
 {
     void ApplyEffect(CardEffectType effectType, int value, CardData card);
-    void ApplyDamage(int value);
+
+    public void AddEffect(StanceTrigger stance);
+    public void RemoveEffect(StanceTrigger stance);
 }
 //Should probably be changed to player manager
 public class HealthManager : Singleton<HealthManager>, ICardEffectable
@@ -20,8 +22,11 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     [SerializeField] private TextMeshProUGUI _poisonText;
     public int Energy { get; private set; }
 
-    private int _poison = 0;
+    public int Poison { get; private set; } = 0;
 
+    public int DamageMod { get; private set; }
+
+    [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>();
     [HideInInspector] public int PlayerBlock { get; private set; }
     //[HideInInspector] public bool EnemyBlock;
 
@@ -32,10 +37,10 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         Energy = 0;
         PlayerHealth = _startingHealth;
         _statText = GetComponentInChildren<TextMeshProUGUI>();
-        CardGameManager.Instance.Events.DrawPhaseStartEvent.AddListener(TriggerPoison);
+        CardGameManager.Instance.Events.DrawPhaseEndEvent.AddListener(TriggerPoison);
     }
 
-    [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>(); 
+    
 
     // Update is called once per frame
     void Update()
@@ -58,7 +63,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         }
 
         _statText.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()} \nBlock:{PlayerBlock.ToString()} \nEnergy:{Energy.ToString()}";
-        _poisonText.text = $"Poison:{_poison}";
+        _poisonText.text = $"Poison:{Poison}";
 
         if(PlayerHealth > _startingHealth)
         {
@@ -67,10 +72,12 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         
     }
     //deals health damage to the player
-    public void PlayerHit(int damage)
+    public void PlayerHit(int damage, CardData data)
     {
         PoolObject effect;
-        if(PlayerBlock > 0)
+        if (data.CardType == CardType.Strike && data is EnemyCardData)
+            damage += EnemyManager.Instance.DamageMod;
+        if (PlayerBlock > 0)
         {
             if(damage > PlayerBlock)
             {
@@ -80,6 +87,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 effect.transform.SetParent(transform);
                 effect.transform.position = _statText.transform.position;
                 PlayerBlock = 0;
+
                 PlayerHealth -= remainder;
                 CardGameManager.Instance.Events.PlayerHit.Invoke();
             }
@@ -89,6 +97,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 effect.transform.SetAsLastSibling();
                 effect.transform.SetParent(transform);
                 effect.transform.position = _statText.transform.position;
+                
                 PlayerBlock -= damage;
             }
         }
@@ -98,6 +107,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             effect.transform.SetAsLastSibling();
             effect.transform.SetParent(transform);
             effect.transform.position = _statText.transform.position;
+
             PlayerHealth -= damage;
             Debug.Log("playerHit");
             CardGameManager.Instance.Events.PlayerHit.Invoke();
@@ -127,17 +137,24 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
 
     public void TriggerPoison()
     {
-        if(_poison > 0)
+        Debug.Log(Poison);
+        if(Poison > 0)
         {
-            PlayerHealth -= _poison;
-            _poison -= 1;
+            PlayerHealth -= Poison;
+            Poison -= 1;
         }
         
+    }
+
+    public void GainPoison(int value)
+    {
+        Poison += value;
+        CardGameManager.Instance.EffectDone();
     }
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
     {
-        yield return new WaitForSeconds(4);
+        //yield return new WaitForSeconds(4);
         GameManager.Instance.PlayerLoses();
         yield return null;
     }
@@ -147,30 +164,37 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         switch (effectType)
         {
             case CardEffectType.Damage:
-                PlayerHit(value);
+                PlayerHit(value, card);
                 break;
             case CardEffectType.Heal:
                 GainHealth(value);
+                CardGameManager.Instance.EffectDone();
                 break;
             case CardEffectType.Block:
                 GainBlock(value);
                 break;
             case CardEffectType.Draw:
                 CardGameManager.Instance.DrawCard(value);
+                CardGameManager.Instance.EffectDone();
                 break;
             case CardEffectType.Poison:
-                _poison += value;
+                if(PlayerBlock >= 0)
+                {
+                    GainPoison(value);
+                }
+                break;
+            case CardEffectType.UnblockPoison:               
+                GainPoison(value);               
+                break;
+            case CardEffectType.DamageBuff:
+                DamageMod += value;
                 break;
             case CardEffectType.None:
                 break;
         }
     }
 
-    public void ApplyDamage(int value)
-    {
-        PlayerHit(value);
-       // throw new System.NotImplementedException();
-    }
+
 
     public void AddEffect(StanceTrigger stance)
     {
@@ -188,5 +212,9 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     public void TriggerStatus(StanceTrigger stance)
     {
         EffectManager.Instance.ActivateEffect(stance.Effects) ;
+        if (stance.Temp)
+        {
+            RemoveEffect(stance);
+        }
     }
 }

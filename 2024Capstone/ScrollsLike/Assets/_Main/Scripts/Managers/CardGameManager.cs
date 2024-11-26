@@ -291,6 +291,18 @@ public class CardGameManager : Singleton<CardGameManager>
     #endregion
 
     #region AdditionalEnemyLogic
+    public void CheckGameEnd()
+    {
+        foreach(TimeSlot slot in _timeSlots)
+        {
+            if(slot.Active)
+            {
+                return;
+            }
+            
+        }
+        GameManager.Instance.PlayerWins();
+    }
 
     #endregion
 

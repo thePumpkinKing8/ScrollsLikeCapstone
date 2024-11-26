@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        Look();
+
     }
 
     public void HandleMovment(Vector2 move)
@@ -44,19 +44,12 @@ public class PlayerController : MonoBehaviour
         _horizontal = new Vector3(move.x, 0, move.y);
     }
 
-    public void HandleLook(Vector2 lookDirection)
-    {
-
-    }
 
     private void Move()
     {
-        //_rb.velocity = new Vector3(_horizontal.x * _speed, _rb.velocity.y, _horizontal.z * _speed);
-        _rb.velocity = (transform.forward * (_horizontal.z * _speed)) + new Vector3(0, _rb.velocity.y, 0) + (transform.right * (_horizontal.x * _speed));
+        if(GameManager.Instance.LevelActive)
+            _rb.velocity = (transform.forward * (_horizontal.z * _speed)) + new Vector3(0, _rb.velocity.y, 0) + (transform.right * (_horizontal.x * _speed));
     }
 
-    private void Look()
-    {
 
-    }
 }
