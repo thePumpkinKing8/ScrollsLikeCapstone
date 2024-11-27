@@ -944,7 +944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &646559068
 Camera:
   m_ObjectHideFlags: 0
@@ -1384,6 +1384,7 @@ MonoBehaviour:
   _maxHealth: 14
   _playerDeck: {fileID: 11400000, guid: 3604ab3c9d763694298deec54df5e405, type: 2}
   _opponent: {fileID: 11400000, guid: 2b9353d279d3e9a46a3d7dedbf9eab2c, type: 2}
+  _rewardScreen: {fileID: 0}
 --- !u!4 &859144639
 Transform:
   m_ObjectHideFlags: 0
@@ -1840,7 +1841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1180938938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2780,6 +2781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e38338fa790cb04fb9b5ba9faf62123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cards: []
   DamageMod: 0
   _blockText: {fileID: 1141509940}
   StatusEffects: []

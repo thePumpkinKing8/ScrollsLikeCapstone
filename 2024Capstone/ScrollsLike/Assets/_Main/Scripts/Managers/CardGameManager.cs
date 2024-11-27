@@ -13,7 +13,6 @@ public class CardGameManager : Singleton<CardGameManager>
     [SerializeField] private DeckManager _deckManager;
 
     //play phase functions
-    private int _timeSlotIndex;
     [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[4];
     public TimeSlot[] EnemySlot { get { return _timeSlots; } }
 
@@ -307,11 +306,6 @@ public class CardGameManager : Singleton<CardGameManager>
     #endregion
 
     #region OtherGameFunctions
-    public void HandleShuffleToDeck(List<CardData> cards)
-    {
-        _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
-        _discardPile.ShuffleCardsToDeck();
-    }
 
     public void DiscardCard(CardData card)
     {
@@ -331,7 +325,7 @@ public class CardGameManager : Singleton<CardGameManager>
     public void DrawFromDeckFailed() //shuffles discard pile into deck if there are no cards to draw from
     {
         _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
-        _discardPile.ShuffleCardsToDeck();
+        Invoke("_discardPile.ShuffleCardsToDeck", 1);
     }
     #endregion
 }

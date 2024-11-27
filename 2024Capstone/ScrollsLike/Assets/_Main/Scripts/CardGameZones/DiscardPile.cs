@@ -18,6 +18,7 @@ public class DiscardPile : MonoBehaviour
     public void AddCard(CardData discardedCard)
     {
         _discardedCards.Add(discardedCard);
+        Debug.Log(_discardedCards.Count);
     }
 
     public void ShuffleCardsToDeck()

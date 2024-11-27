@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public GameState State { get; private set; }
     public Transform Player { get { return _player; } set { _player = value;}}
     private Transform _player;
 
@@ -21,22 +22,29 @@ public class GameManager : Singleton<GameManager>
     public int LevelIndex { get { return _levelIndex; } }
     private int _levelIndex = 0;
 
+    [SerializeField] private RewardScreen _rewardScreen;
+
     public bool LevelActive { get; private set; }
 
     protected override void Awake()
     {
+        base.Awake();
         DontDestroyOnLoad(this);
         PlayersDeck.Initialize();
         WoundsRemaining = _maxWounds;
         HealthRemaining = _maxHealth;
         LevelActive = true;
+        State = GameState.Dungeon;
     }
 
     public void GoToCombat(EnemyDeck opponent)
     {
+        if (State == GameState.CardGame)
+            return;
         _opponent = opponent;
         _playerPosition = Player.position;
-        SceneManager.LoadScene("CardGame");
+        SceneManager.LoadScene("CardGame", LoadSceneMode.Additive);
+        State = GameState.CardGame;
     }
     
     public void CardGameStart()
@@ -57,7 +65,8 @@ public class GameManager : Singleton<GameManager>
     {
         HealthRemaining = HealthManager.Instance.PlayerHealth;
         WoundsRemaining = HealthManager.Instance.Wounds;
-        SceneManager.LoadScene("Anna_Gym");
+        Scene scene = SceneManager.GetSceneByName("CardGame");
+        SceneManager.UnloadSceneAsync(scene);
         CardRewards();
     }
 
@@ -69,8 +78,7 @@ public class GameManager : Singleton<GameManager>
     public void CardRewards()
     {
         LevelActive = false;
-        var rew = FindObjectOfType<RewardScreen>();
-        rew.gameObject.SetActive(true);
+        _rewardScreen.gameObject.SetActive(true);
     }
 
     public void ResumeGame()
@@ -78,3 +86,11 @@ public class GameManager : Singleton<GameManager>
         LevelActive = true;
     }
 }
+
+public enum GameState
+{ 
+    Dungeon,
+    CardGame,
+    Pause
+}
+

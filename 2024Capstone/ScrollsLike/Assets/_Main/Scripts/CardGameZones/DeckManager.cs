@@ -47,6 +47,7 @@ public class DeckManager : MonoBehaviour
         {
             CardGameManager.Instance.DrawFromDeckFailed();
         }
+
         var drawnCard = _deck[0];
         _deck.Remove(drawnCard);
         return drawnCard;
