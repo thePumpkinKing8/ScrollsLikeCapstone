@@ -34,6 +34,10 @@ public class EnemyManager : Singleton<EnemyManager>
 
     protected override void Awake()
     {
+        if (GameManager.Instance.State != GameState.CardGame)
+        {
+            Destroy(gameObject, 1);
+        }
         base.Awake();
     }
 

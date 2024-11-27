@@ -26,6 +26,10 @@ public class CardGameManager : Singleton<CardGameManager>
 
     protected override void Awake()
     {
+        if(GameManager.Instance.State != GameState.CardGame)
+        {
+            Destroy(gameObject,1);
+        }
         base.Awake();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -126,6 +130,8 @@ public class CardGameManager : Singleton<CardGameManager>
 
     private void Start()
     {
+        if (GameManager.Instance.State != GameState.CardGame)
+            return;
         GameManager.Instance.CardGameStart();
         Invoke("GameStart", 1);
     }

@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class RewardScreen : MonoBehaviour
 {
-    [SerializeField] private Transform _rewardOne;
-    [SerializeField] private Transform _rewardTwo;
-    [SerializeField] private Transform _rewardThree;
     [SerializeField] private Transform _cardSpot;
 
     private CardData _selectedCard;
 
-    private GameCard[] rewards = new GameCard[3];
+    private UICard[] rewards = new UICard[3];
 
     private void OnEnable()
     {     
@@ -20,14 +17,26 @@ public class RewardScreen : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            rewards[i] = PoolManager.Instance.Spawn("UICard").GetComponent<GameCard>();
+            rewards[i] = PoolManager.Instance.Spawn("UICard").GetComponent<UICard>();
             rewards[i].ReferenceCardData = cards[Random.Range(0, cards.Length)];
             rewards[i].transform.SetParent(_cardSpot);
             rewards[i].transform.position = _cardSpot.position;
+            rewards[i].SetScreenRef(this);
         }
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        foreach (UICard card in rewards)
+        {
+            card.OnDeSpawn();
+        }
+        
     }
     public void SkipReward()
     {
@@ -36,10 +45,16 @@ public class RewardScreen : MonoBehaviour
 
     public void CardSelect(CardData card)
     {
-        if(_selectedCard = card)//if a card is clicked a second time this deselects that card
+        Debug.Log("clicked");
+        if(_selectedCard == card) //if a card is clicked a second time this deselects that card
+        {
             _selectedCard = null;
+        }
+
         else
             _selectedCard = card;
+
+        Debug.Log(_selectedCard.name);
     }
 
     public void ComfirmReward()

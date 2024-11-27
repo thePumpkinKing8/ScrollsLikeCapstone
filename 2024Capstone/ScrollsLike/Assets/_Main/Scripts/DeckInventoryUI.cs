@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class DeckInventoryUI : Singleton<DeckInventoryUI>
 {
-    [SerializeField] private GameObject cardPrefab;
-    [SerializeField] private Transform gridParent;
-    [SerializeField] private GameObject inventoryUI;
+   // [SerializeField] private GameObject _cardPrefab;
+    [SerializeField] private Transform _gridParent;
+    [SerializeField] private GameObject _inventoryUI;
 
     private bool isInventoryOpen = false;
 
     private void Start()
     {
-        inventoryUI.SetActive(false);
+        _inventoryUI.SetActive(false);
+        PopulateDeckUI();
+    }
+
+    private void OnEnable()
+    {
         PopulateDeckUI();
     }
 
@@ -23,11 +28,12 @@ public class DeckInventoryUI : Singleton<DeckInventoryUI>
         if (GameManager.Instance != null)
         {
             List<CardData> deck = GameManager.Instance.PlayersDeck.Deck;
+            Debug.Log(deck.Count);
             foreach (CardData card in deck)
             {
-                GameObject cardObject = Instantiate(cardPrefab, gridParent);
-                GameCard gameCard = cardObject.GetComponent<GameCard>();
+                GameCard gameCard = PoolManager.Instance.Spawn("Card").GetComponent<GameCard>();
                 gameCard.ReferenceCardData = card;
+                gameCard.transform.SetParent(_gridParent);
             }
         }
         else
@@ -38,7 +44,7 @@ public class DeckInventoryUI : Singleton<DeckInventoryUI>
 
     private void ClearExistingCards()
     {
-        foreach (Transform child in gridParent)
+        foreach (Transform child in _gridParent)
         {
             Destroy(child.gameObject);
         }
@@ -58,8 +64,9 @@ public class DeckInventoryUI : Singleton<DeckInventoryUI>
 
     private void OpenInventory()
     {
+        GameManager.Instance.SetPause();
         isInventoryOpen = true;
-        inventoryUI.SetActive(true);
+        _inventoryUI.SetActive(true);
         Time.timeScale = 0; 
         Cursor.lockState = CursorLockMode.None; 
         Cursor.visible = true;
@@ -68,8 +75,9 @@ public class DeckInventoryUI : Singleton<DeckInventoryUI>
     private void CloseInventory()
     {
         isInventoryOpen = false;
-        inventoryUI.SetActive(false);
+        _inventoryUI.SetActive(false);
         Time.timeScale = 1;
+        GameManager.Instance.ResumeGame();
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
     }

@@ -19,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     public PlayerDeck PlayersDeck { get { return _playerDeck; } }
     [SerializeField] private PlayerDeck _playerDeck;
     [SerializeField] private EnemyDeck _opponent;
+    private GameObject _enemyRef;
     public int LevelIndex { get { return _levelIndex; } }
     private int _levelIndex = 0;
 
@@ -37,14 +38,23 @@ public class GameManager : Singleton<GameManager>
         State = GameState.Dungeon;
     }
 
-    public void GoToCombat(EnemyDeck opponent)
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            PlayerWins();
+        }
+    }
+    public void GoToCombat(EnemyDeck opponent, GameObject obj)
     {
         if (State == GameState.CardGame)
             return;
+        _enemyRef = obj;
         _opponent = opponent;
         _playerPosition = Player.position;
-        SceneManager.LoadScene("CardGame", LoadSceneMode.Additive);
         State = GameState.CardGame;
+        SceneManager.LoadScene("CardGame", LoadSceneMode.Additive);
+        
     }
     
     public void CardGameStart()
@@ -68,6 +78,7 @@ public class GameManager : Singleton<GameManager>
         Scene scene = SceneManager.GetSceneByName("CardGame");
         SceneManager.UnloadSceneAsync(scene);
         CardRewards();
+        Destroy(_enemyRef);
     }
 
     public void PlayerLoses()
@@ -84,6 +95,13 @@ public class GameManager : Singleton<GameManager>
     public void ResumeGame()
     {
         LevelActive = true;
+        State = GameState.Dungeon;
+        
+    }
+
+    public void SetPause()
+    {
+        State = GameState.Pause;
     }
 }
 
