@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d32613cecea49498c61eb38f624402, type: 3}
+  m_Name: FoolsGuard
+  m_EditorClassIdentifier: 
+  _energyCost: 2
+  _cardName: Fool's Guard
+  _cardType: 3
+  _cardImage: {fileID: 2800000, guid: fce7c2bae107b914fac06170395887cd, type: 3}
+  _cardDescription: Whenever you take damage deal damage = to your resolved stances
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: 60218babeec82b64fae388728cd7d5d0, type: 2}
+  _cardOnDrawEffects: []
+  _cardOnDiscardEffects: []
+  _triggeredEffects:
+  - {fileID: 11400000, guid: d174fb50f2dcb5142bde1cc9e448a184, type: 2}

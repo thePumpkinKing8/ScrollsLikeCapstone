@@ -18,8 +18,9 @@ public class HandController : Singleton<HandController>
     protected override void Awake()
     {
         base.Awake();
+        _drawDelay = CardGameManager.Instance.DrawDelay;
+        
         CardGameManager.Instance.Events.CardDrawnEvent.AddListener(CardDrawn);
-        CardGameManager.Instance.Events.GameStartEvent.AddListener(GameStart);
         CardGameManager.Instance.Events.AddCardToHand.AddListener(AddCard);
         CardGameManager.Instance.Events.PlayCard.AddListener(RemoveCard);
     }
@@ -29,6 +30,7 @@ public class HandController : Singleton<HandController>
     {
         GameCard newCard = PoolManager.Instance.Spawn("Card").GetComponent<GameCard>();
         newCard.transform.SetParent(transform, true);
+        newCard.SetSize();
         newCard.ReferenceCardData = drawnCard;       
         _cardsInHand.Add(newCard);
         SetHandOrder();
@@ -36,15 +38,20 @@ public class HandController : Singleton<HandController>
 
     public void GameStart()
     {
-        StartCoroutine(DrawCards(_startingHandSize));
+        StartCoroutine(DrawCards(_startingHandSize,true));
     }
 
     public void DrawPhase()
     {
         if(_cardsInHand.Count < _maxCardsInHand)
         {
-            StartCoroutine(DrawCards(_cardsDrawnPerTurn));
+            StartCoroutine(DrawCards(_cardsDrawnPerTurn, true));
         }
+    }
+
+    public void DrawFromEffect(int numberOfCards)
+    {
+        StartCoroutine(DrawCards(numberOfCards));
     }
 
     public void RemoveCard(GameCard card)
@@ -69,7 +76,7 @@ public class HandController : Singleton<HandController>
     }
 
     //draws the player multiple cards at the start if the draw phase
-    IEnumerator DrawCards(int numberOfCards)
+    IEnumerator DrawCards(int numberOfCards, bool drawPhase = false)
     {
         Debug.Log(numberOfCards);
         for(int i = 0; i < numberOfCards; i++)
@@ -77,7 +84,6 @@ public class HandController : Singleton<HandController>
 
             if (_cardsInHand.Count < _maxCardsInHand)
             {
-                bool trigger = false;
                 CardGameManager.Instance.DrawCard();
                 yield return new WaitForSeconds(_drawDelay);
             }
@@ -85,7 +91,8 @@ public class HandController : Singleton<HandController>
                 break;
         }
         SetHandOrder();
-        CardGameManager.Instance.PrepPhaseStart();
+        if(drawPhase)
+            CardGameManager.Instance.PrepPhaseStart();
         yield return null;
     }
 }

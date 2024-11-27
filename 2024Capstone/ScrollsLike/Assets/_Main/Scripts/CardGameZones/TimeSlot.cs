@@ -4,113 +4,177 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TimeSlot : MonoBehaviour
+public class TimeSlot : MonoBehaviour, ICardEffectable
 {
-    public List<GameCard> PlayerCards
-    {
-        get { return _playersCards; }
-        private set { _playersCards = value; }
-    }
-    private List<GameCard> _playersCards = new List<GameCard>();
-    public EnemyCardData EnemyCard { get; private set; } 
+   
+    public EnemyCard EnemyData { get; private set; } 
 
-    private bool _active = false;
-    private bool _isPlaying = false;
+    public bool Active{ get; private set; } // whether this slot can be targeted or not
+
+    private int _maxHealth;
+    public int SlotHealth {get; private set; }
+    
     [SerializeField] private TextMeshProUGUI text;
+
+   
 
     private void Awake()
     {
+        Active = true;
     }
     public void ToggleActive()
     {
-        _active = !_active;
+        Active = !Active;
         var color = GetComponent<Image>();
-        if (!_active)
+        if (Active)
             color.color = Color.gray;
         else
-            color.color = Color.red;
-        text.text = $"Opponent Will\n{EnemyCard.CardDescription}";
-    }
-
-    public void CardResolved()
-    {
-        _isPlaying = false;
-    }
-
-    //adds a card to the timeslot 
-    public void AddCard(GameCard card)
-    {
-        if(PlayerCards.Count >= 3)
         {
-            CardGameManager.Instance.AddCardToHand(card);
+            color.color = Color.white;
+            CardGameManager.Instance.CheckGameEnd();
         }
-        else
-        {
-            PlayerCards.Add(card);
-            card.transform.SetParent(transform, true);
-            card.transform.position = this.transform.position;
-            card.transform.localScale = Vector3.zero;
-            card.SetOrder(PlayerCards.Count, true);
-        }
-        
+           
     }
 
-    public void RemoveCard(GameCard card)
+    public void SetUp(int health)
     {
-        CardGameManager.Instance.AddCardToHand(card);
-        GameCard removedCard = PlayerCards.Find( x => x == card);
-        removedCard.OnDeSpawn();
-        PlayerCards.Remove(removedCard);
-       
+        _maxHealth = health;
+        text.text = _maxHealth.ToString();
+        SlotHealth = health;
+
     }
 
-    public void DiscardCard(GameCard card)
-    {       
-            CardGameManager.Instance.HandleCardDiscard(card.ReferenceCardData);
-            card.OnDeSpawn();   
+    public void ClearSlot()
+    {
+        EnemyData?.OnDeSpawn();
+        EnemyData = null;
     }
+
+
 
     public void AddEnemyEffect(EnemyCardData card)
     {
-        EnemyCard = card;
-        text.text = "???";
+        EnemyData =  PoolManager.Instance.Spawn("EnemyCard").GetComponent<EnemyCard>(); 
+        EnemyData.transform.SetParent(transform);
+        EnemyData.ReferenceCardData = card;
     }
 
-    public void ResolvePlayerEffects()
+    public void EnemyHit(int damage)
+    {        
+        PoolObject effect;
+        damage += HealthManager.Instance.DamageMod;
+        if (EnemyManager.Instance.EnemyBlock > 0)
+        {
+            if (damage > EnemyManager.Instance.EnemyBlock)
+            {
+                int remainder = damage - EnemyManager.Instance.EnemyBlock;
+                effect = PoolManager.Instance.Spawn("BlockBreakEffect");
+                effect.transform.SetParent(transform);
+                effect.transform.position = transform.position;
+                EnemyManager.Instance.BlockHit(EnemyManager.Instance.EnemyBlock);
+                SlotHealth -= remainder;
+            }
+            else
+            {
+                effect = PoolManager.Instance.Spawn("AttackEffect");
+                effect.transform.SetParent(transform);
+                effect.transform.position = transform.position;
+                EnemyManager.Instance.BlockHit(damage);
+            }
+        }
+        else
+        {
+            effect = PoolManager.Instance.Spawn("AttackEffect");
+            effect.transform.SetParent(transform);
+            effect.transform.position = transform.position;
+            SlotHealth -= damage;
+        }
+        text.text = SlotHealth.ToString();
+        if (SlotHealth <= 0)
+        {
+            ToggleActive();
+            ClearSlot();
+            text.text = "dead";
+        }
+    }
+
+    public void PoisonDamage(int value)
     {
-        StartCoroutine("ResolvePlayer");
-        
+        SlotHealth -= value;
     }
-
-    //plays activates an ability based on the card type. in the future enemies will have a similar system to the players cards
     
-
-    //discards the played card
-    public void CleanUpPhase()
+    public void GainBlock(int value)
     {
-        foreach(GameCard card in PlayerCards)
-        {
-            CardGameManager.Instance.DiscardCard(card.ReferenceCardData);
-            card.OnDeSpawn();
-        }
-        PlayerCards.Clear();
+        var effect = PoolManager.Instance.Spawn("BlockGainEffect");
+        effect.transform.SetParent(transform);
+        effect.transform.position = transform.position;
+        EnemyManager.Instance.EnemyGainBlock(value);
     }
 
-    IEnumerator ResolvePlayer()
+
+    public void EnemyHeal(int value)
     {
-        foreach(GameCard card in PlayerCards)
+        if(!Active)
         {
-            card.SetOrder(5);
-            _isPlaying = true;
-            EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, this);       
-            yield return new WaitUntil(() => _isPlaying == false);
+            ToggleActive();
         }
-        _isPlaying = true;
-        EffectManager.Instance.ActivateEffect(EnemyCard.CardResolutionEffects, this);
-        yield return new WaitUntil(() => _isPlaying == false);
-        CardGameManager.Instance.MoveToNext();
-        CardGameManager.Instance.ResolveSlot();
-        yield return null;
+        SlotHealth += value;
+        if(SlotHealth > _maxHealth)
+        {
+            SlotHealth = _maxHealth;
+        }
+        text.text = SlotHealth.ToString();
     }
 
+    public void ResolveEnemyEffect()
+    {
+        EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects, this);
+        Debug.Log("enemy effect");
+    }
+
+    public void ApplyEffect(CardEffectType effectType, int value, CardData card)
+    {
+        switch (effectType)
+        {
+            case CardEffectType.Damage:
+                ApplyDamage(value);
+                break;
+            case CardEffectType.Heal:
+                EnemyHeal(value);
+                break;
+            case CardEffectType.Block:
+                GainBlock(value);
+                break;
+            case CardEffectType.Poison:
+                if(EnemyManager.Instance.EnemyBlock <= 0)
+                {
+                    EnemyManager.Instance.GainPoison(value);
+                }
+                break;
+            case CardEffectType.DamageBuff:
+                EnemyManager.Instance.DamageMod += value;
+                CardGameManager.Instance.EffectDone();
+                break;
+        }
+    }
+
+    public void ApplyDamage(int value)
+    {
+        EnemyHit(value);
+    }
+
+    public void AddEffect(StanceTrigger stance)
+    {
+        stance.Event.AddListener(delegate { TriggerStatus(stance); });
+    }
+
+    public void RemoveEffect(StanceTrigger stance)
+    {
+        stance.Event.RemoveListener(() => TriggerStatus(stance));
+    }
+
+    public void TriggerStatus(StanceTrigger stance)
+    {
+        EffectManager.Instance.ActivateEffect(stance.Effects);
+    }
 }

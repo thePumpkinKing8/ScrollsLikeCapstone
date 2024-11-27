@@ -6,9 +6,5 @@ using UnityEngine;
 public class BlockEffect : CardEffect
 {
     [SerializeField] private int _blockGain;
-    public override void Effect()
-    {
-        base.Effect();
-        CardGameManager.Instance.PlayerBlock(_blockGain);
-    }
+
 }

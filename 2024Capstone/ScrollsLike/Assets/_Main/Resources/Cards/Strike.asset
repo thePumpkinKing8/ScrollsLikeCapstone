@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
+  m_Name: Strike
+  m_EditorClassIdentifier: 
+  _energyCost: 0
+  _cardName: Slash
+  _cardType: 0
+  _cardImage: {fileID: 2800000, guid: e139840aa9d120044ab9ddb95033b481, type: 3}
+  _cardDescription: 'Deal 6 damage '
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: fcc286ab713723c448bc5ced9578d157, type: 2}
+  _cardOnDrawEffects: []
+  _cardOnDiscardEffects: []

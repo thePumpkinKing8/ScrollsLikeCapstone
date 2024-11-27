@@ -1,9 +1,11 @@
-using System;
+using System.Collections.Generic;
+using UnityEngine;
 
-[Serializable]
+[System.Serializable]
 public class LevelData
 {
     public int levelWidth;
-    public int levelHeight; 
+    public int levelHeight;
     public int[,] grid;
+    public List<Vector2Int> patrolPoints = new List<Vector2Int>();
 }

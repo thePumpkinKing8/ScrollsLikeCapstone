@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a1393b813520f4ead53f31818847ab, type: 3}
   m_Name: Heal Effect
   m_EditorClassIdentifier: 
+  CardEffectors:
+  - Type: 1
+    EffectValue: 5
+    TargetSelf: 1
+    Strategy: {fileID: 0}
+  _requireTarget: 0
   _amountHealed: 5

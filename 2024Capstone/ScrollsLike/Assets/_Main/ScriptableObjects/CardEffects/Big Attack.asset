@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b28218174036ca54491e7350eb38ce62, type: 3}
   m_Name: Big Attack
   m_EditorClassIdentifier: 
+  CardEffectors:
+  - Type: 0
+    EffectValue: 11
+    TargetSelf: 0
+    Strategy: {fileID: 0}
+  - Type: 0
+    EffectValue: 4
+    TargetSelf: 1
+    Strategy: {fileID: 0}
+  _requireTarget: 1
   _selfDamage: 4
   enDamage: 11

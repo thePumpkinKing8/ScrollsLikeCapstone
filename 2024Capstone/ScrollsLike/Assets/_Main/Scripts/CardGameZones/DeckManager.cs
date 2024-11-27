@@ -10,8 +10,7 @@ public class DeckManager : MonoBehaviour
     private List<CardData> _deck = new List<CardData>();
     private void Awake()
     {
-        CardGameManager.Instance.Events.DrawCardEvent.AddListener(DrawCard);
-        CardGameManager.Instance.Events.ShuffleCardsToDeck.AddListener(ShuffleCardsIn);
+
     }
 
     void Start()
@@ -42,7 +41,7 @@ public class DeckManager : MonoBehaviour
     /// returns the top card of the deck and removes it from the deck
     /// </summary>
     /// <returns></returns>
-    public void DrawCard()
+    public CardData DrawCard()
     {
         if(_deck.Count < 1)
         {
@@ -50,7 +49,7 @@ public class DeckManager : MonoBehaviour
         }
         var drawnCard = _deck[0];
         _deck.Remove(drawnCard);
-        CardGameManager.Instance.HandleCardDraw(drawnCard);
+        return drawnCard;
     }
 
     private void OnApplicationQuit() //clears added cards from the decks data. this will only be done by starting a new run or by losing in the full game

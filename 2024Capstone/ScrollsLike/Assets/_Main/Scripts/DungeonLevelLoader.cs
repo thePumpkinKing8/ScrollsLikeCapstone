@@ -38,35 +38,45 @@ public class DungeonLevelLoader : MonoBehaviour
     void InstantiateGround()
     {
         for (int i = 0; i < levelData.levelWidth; i++)
-            {
+        {
             for (int j = 0; j < levelData.levelHeight; j++)
             {
-                int objectType = levelData.grid[i, j];
-                if (objectType != 1) // Tile is not a wall
-                {
-                    Vector3 groundPosition = new Vector3(i, 0, j);
-                    Instantiate(groundPrefab, groundPosition, Quaternion.identity, transform);
-                }                    
+                Vector3 groundPosition = new Vector3(i, 0, j);
+                Instantiate(groundPrefab, groundPosition, Quaternion.identity, transform);
             }
         }
     }
 
     void InstantiateObjects()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
         for (int i = 0; i < levelData.levelWidth; i++)
         {
             for (int j = 0; j < levelData.levelHeight; j++)
             {
-                int objectType = levelData.grid[i, j]; 
-                if (objectType == 3)
+                int objectType = levelData.grid[i, j];
+                if (objectType < 0 || objectType >= objectPrefabs.Length || objectPrefabs[objectType] == null) continue;
+
+                Vector3 spawnPosition = new Vector3(i, 0, j);
+
+                if (objectType == 2) // Player
                 {
-                    Vector3 spawnPosition = new Vector3(i, 1, j);
-                    Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity, transform);
+                    if (player != null)
+                    {
+                        player.transform.position = spawnPosition + Vector3.up * 1;
+                    }
+                    else
+                    {
+                        player = Instantiate(objectPrefabs[objectType], spawnPosition + Vector3.up * 1, Quaternion.identity);
+                        player.tag = "Player";
+                    }
                 }
-                else if (objectType != -1) 
+                else
                 {
-                    Vector3 spawnPosition = new Vector3(i, 0, j);
-                    Instantiate(objectPrefabs[objectType], spawnPosition, Quaternion.identity, transform);
+                    // Slightly raise walls or other objects above the ground
+                    float yOffset = objectType == 1 ? 0.5f : 0f; // Example: Raise walls
+                    Instantiate(objectPrefabs[objectType], spawnPosition + Vector3.up * yOffset, Quaternion.identity, transform);
                 }
             }
         }
@@ -87,13 +97,15 @@ public class DungeonLevelLoader : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject); // Destroy all objects from the current level
+        }
+
         currentLevelIndex++;
         if (currentLevelIndex < levelFiles.Length)
         {
             LoadLevel(levelFiles[currentLevelIndex]);
-            InstantiateGround();
-            InstantiateObjects();
-            InstantiateRoof();
         }
         else
         {

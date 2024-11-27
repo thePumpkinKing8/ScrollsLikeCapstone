@@ -1,97 +1,47 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float speed = 1f;
-    private Vector2Int[] directions = new Vector2Int[]
-    {
-        new Vector2Int(0, 1),
-        new Vector2Int(0, -1),
-        new Vector2Int(1, 0),
-        new Vector2Int(-1, 0)
-    };
-
-    private Vector2Int currentDirection;
+    private List<Vector3> patrolPoints;
     private Vector3 targetPosition;
 
-    private float moveTimer = 0f;
-    private float moveInterval = 1f;
-
-    private Vector2Int nextPosInGrid;
     private DungeonLevelLoader dungeonLevelLoader;
-    private bool isWandering = true;
 
     private void Start()
     {
         dungeonLevelLoader = FindObjectOfType<DungeonLevelLoader>();
 
-        currentDirection = directions[Random.Range(0, directions.Length)];
-        nextPosInGrid = Vector2Int.FloorToInt(new Vector2(transform.position.x, transform.position.z));
-        targetPosition = transform.position; 
+        // Convert patrol points from grid to world positions
+        patrolPoints = dungeonLevelLoader.levelData.patrolPoints
+            .Select(p => new Vector3(p.x, transform.position.y, p.y))
+            .ToList();
+
+        // Set a random starting patrol point
+        if (patrolPoints.Count > 0)
+        {
+            int randomIndex = Random.Range(0, patrolPoints.Count);
+            targetPosition = patrolPoints[randomIndex];
+        }
     }
 
     private void Update()
     {
-        moveTimer += Time.deltaTime;
+        if (patrolPoints.Count == 0) return;
 
-        if (moveTimer >= moveInterval && isWandering)
-        {
-            Wander();
-            moveTimer = 0f; 
-        }
-
-        Move();
+        MoveTowardsPatrolPoint();
     }
 
-    void Wander()
+    private void MoveTowardsPatrolPoint()
     {
-        List<Vector2Int> options = new List<Vector2Int>();
-
-        foreach (Vector2Int dir in directions)
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
-            Vector2Int newPos = nextPosInGrid + dir;
-
-            if (IsWalkable(newPos))
-            {
-                options.Add(dir);
-            }
+            // Pick a random new patrol point as the target
+            targetPosition = patrolPoints[Random.Range(0, patrolPoints.Count)];
         }
 
-        // If there are no available options, reverse direction
-        if (options.Count == 0)
-        {
-            currentDirection = -currentDirection;
-        }
-        else
-        {
-            currentDirection = options[Random.Range(0, options.Count)]; 
-        }
-
-        Vector2Int newNextPos = nextPosInGrid + currentDirection;
-        if (IsWalkable(newNextPos)) 
-        {
-            nextPosInGrid = newNextPos;
-            targetPosition = new Vector3(nextPosInGrid.x, transform.position.y, nextPosInGrid.y);
-        }
-    }
-
-    void Move()
-    {
-        // Move towards the target position
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-    }
-
-    bool IsWalkable(Vector2Int position)
-    {
-        if (position.x < 0 || position.x >= dungeonLevelLoader.levelData.levelWidth ||
-            position.y < 0 || position.y >= dungeonLevelLoader.levelData.levelHeight)
-        {
-            return false; // Out of bounds
-        }
-
-        // Check if the tile in the grid is not a wall (1 is a wall)
-        return dungeonLevelLoader.levelData.grid[position.x, position.y] != 1;
     }
 }

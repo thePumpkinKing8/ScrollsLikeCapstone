@@ -29,21 +29,27 @@ public class CardEventData : ScriptableObject
     public UnityEvent CleanupPhaseStartEvent;
     public UnityEvent CleanupPhaseEndEvent;
 
+
+    public UnityEvent GameEnd;
     //input events
     public UnityEvent<GameCard> PlayCard;
     public UnityEvent MoveToNextSlot;
 
     //effect events
+    public UnityEvent EffectManagerPermission;
+
     public UnityEvent<List<CardEffect>> EffectPlayed;
     public UnityEvent EffectEnded;
 
     public UnityEvent<int> EnergyChange;
 
-    public UnityEvent<int> PlayerHit;
-    public UnityEvent<int> EnemyHit;
-    public UnityEvent<int> EnemyHeal;
-    public UnityEvent<CardData> StanceResolved;
-    public UnityEvent<int> PlayerGainsBlock;
+    public UnityEvent PlayerHit;
+    public UnityEvent EnemyHit;
+    public UnityEvent EnemyBlocked;
+    public UnityEvent EnemyHeal;
+    public UnityEvent StanceResolved;
+    public UnityEvent PlayerGainsBlock;
+    public UnityEvent AttackPlayed;
     #endregion
 
 

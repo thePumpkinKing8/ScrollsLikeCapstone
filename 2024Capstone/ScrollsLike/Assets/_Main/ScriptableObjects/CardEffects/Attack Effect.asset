@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d96aad1ad394b4e8d71f200a9b81cc, type: 3}
   m_Name: Attack Effect
   m_EditorClassIdentifier: 
-  damage: 8
+  CardEffectors:
+  - Type: 0
+    EffectValue: 6
+    TargetSelf: 0
+    Strategy: {fileID: 0}
+  _requireTarget: 1
+  damage: 6

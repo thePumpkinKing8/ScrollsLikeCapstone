@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEditor;
+using UnityEngine;
 
 public class LevelEditor : EditorWindow
 {
@@ -14,24 +13,13 @@ public class LevelEditor : EditorWindow
     float gridPadding = 2;
     int currentOption = 1;
 
-    Color[] options =
-    {
-        Color.black,
-        Color.white,
-        Color.red,
-        Color.blue
-    };
+    Color[] options = { Color.black, Color.white, Color.blue, Color.red, Color.grey, Color.magenta, Color.green, Color.yellow };
+    string[] names = { "Blank", "Wall", "Player", "Manticore", "Knight", "Skeleton", "Patrol Point", "LevelExit" };
 
-    string[] names =
-    {
-        "Blank",
-        "Wall",
-        "Boss",
-        "Player"
-    };
+
 
     private LevelData myData;
-    private string levelFileName = "Level.txt"; 
+    private string levelFileName = "Level.txt";
 
     [MenuItem("Window/Level Editor")]
     public static void ShowWindow()
@@ -43,9 +31,16 @@ public class LevelEditor : EditorWindow
     {
         GUILayout.Label("Level Editor", EditorStyles.boldLabel);
 
+        // Initialize level data if null
         if (myData == null)
         {
-            LoadLevelData();
+            myData = new LevelData
+            {
+                levelWidth = 10,
+                levelHeight = 10,
+                grid = new int[10, 10],
+                patrolPoints = new List<Vector2Int>()
+            };
         }
 
         myData.levelWidth = EditorGUILayout.IntField("Level Width", myData.levelWidth);
@@ -53,12 +48,19 @@ public class LevelEditor : EditorWindow
 
         levelFileName = EditorGUILayout.TextField("Level File Name", levelFileName);
 
+        // Load button
+        if (GUILayout.Button("Load"))
+        {
+            LoadLevelData();
+        }
+
         // Reset button
         if (GUILayout.Button("Reset"))
         {
             if (EditorUtility.DisplayDialog("Reset", "Warning. This will clear your level. Are you sure?", "Yes", "...no"))
             {
                 myData.grid = new int[myData.levelWidth, myData.levelHeight];
+                myData.patrolPoints.Clear();
             }
         }
 
@@ -87,17 +89,47 @@ public class LevelEditor : EditorWindow
             EditorGUI.DrawRect(r, options[i]);
         }
 
+        // Ensure grid is initialized
+        if (myData.grid == null || myData.grid.GetLength(0) != myData.levelWidth || myData.grid.GetLength(1) != myData.levelHeight)
+        {
+            myData.grid = new int[myData.levelWidth, myData.levelHeight];
+        }
+
         for (int i = 0; i < myData.grid.GetLength(0); i++)
         {
             for (int j = 0; j < myData.grid.GetLength(1); j++)
             {
                 Rect r = new Rect(leftPadding + i * (gridSize + gridPadding), 180 + (myData.grid.GetLength(1) - j) * (gridSize + gridPadding), gridSize, gridSize);
+
                 if (mouseDown && r.Contains(e.mousePosition))
                 {
-                    myData.grid[i, j] = currentOption;
+                    if (currentOption == 6) // Patrol Point
+                    {
+                        Vector2Int patrolPoint = new Vector2Int(i, j);
+
+                        // Toggle patrol point: add if it doesn’t exist, remove if it does
+                        if (myData.patrolPoints.Contains(patrolPoint))
+                        {
+                            myData.patrolPoints.Remove(patrolPoint);
+                        }
+                        else
+                        {
+                            myData.patrolPoints.Add(patrolPoint);
+                        }
+                    }
+                    else
+                    {
+                        myData.grid[i, j] = currentOption;
+                    }
                 }
-                int objectType = myData.grid[i, j];
-                EditorGUI.DrawRect(r, options[objectType]);
+
+                Color cellColor = options[myData.grid[i, j]];
+                if (myData.patrolPoints.Contains(new Vector2Int(i, j)))
+                {
+                    cellColor = Color.green;
+                }
+
+                EditorGUI.DrawRect(r, cellColor);
             }
         }
 
@@ -115,15 +147,21 @@ public class LevelEditor : EditorWindow
 
     private void LoadLevelData()
     {
-        if (File.Exists("Assets/" + levelFileName))
+        string path = "Assets/" + levelFileName;
+
+        if (File.Exists(path))
         {
-            string myDataString = File.ReadAllText("Assets/" + levelFileName);
-            myData = JsonConvert.DeserializeObject<LevelData>(myDataString);
+            string levelJson = File.ReadAllText(path);
+            myData = JsonConvert.DeserializeObject<LevelData>(levelJson);
+
+            if (myData.patrolPoints == null)
+            {
+                myData.patrolPoints = new List<Vector2Int>();
+            }
         }
         else
         {
-            myData = new LevelData();
-            myData.grid = new int[myData.levelWidth, myData.levelHeight];
+            Debug.LogError("File not found: " + path);
         }
     }
 

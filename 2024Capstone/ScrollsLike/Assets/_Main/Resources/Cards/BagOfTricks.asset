@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
+  m_Name: BagOfTricks
+  m_EditorClassIdentifier: 
+  _energyCost: 0
+  _cardName: Bag of Tricks
+  _cardType: 1
+  _cardImage: {fileID: 2800000, guid: 98db862bd9ee91f4188cb313e7d23eb9, type: 3}
+  _cardDescription: Draws 2 cards
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: 266c6518d696c0e459179fede0d389ea, type: 2}
+  _cardOnDrawEffects: []
+  _cardOnDiscardEffects: []
