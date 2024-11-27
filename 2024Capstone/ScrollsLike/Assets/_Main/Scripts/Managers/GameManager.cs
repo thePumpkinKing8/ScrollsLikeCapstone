@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public GameState State { get; private set; }
     public Transform Player { get { return _player; } set { _player = value;}}
     private Transform _player;
 
@@ -18,25 +19,42 @@ public class GameManager : Singleton<GameManager>
     public PlayerDeck PlayersDeck { get { return _playerDeck; } }
     [SerializeField] private PlayerDeck _playerDeck;
     [SerializeField] private EnemyDeck _opponent;
+    private GameObject _enemyRef;
     public int LevelIndex { get { return _levelIndex; } }
     private int _levelIndex = 0;
+
+    [SerializeField] private RewardScreen _rewardScreen;
 
     public bool LevelActive { get; private set; }
 
     protected override void Awake()
     {
+        base.Awake();
         DontDestroyOnLoad(this);
         PlayersDeck.Initialize();
         WoundsRemaining = _maxWounds;
         HealthRemaining = _maxHealth;
         LevelActive = true;
+        State = GameState.Dungeon;
     }
 
-    public void GoToCombat(EnemyDeck opponent)
+    private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            PlayerWins();
+        }
+    }
+    public void GoToCombat(EnemyDeck opponent, GameObject obj)
+    {
+        if (State == GameState.CardGame)
+            return;
+        _enemyRef = obj;
         _opponent = opponent;
         _playerPosition = Player.position;
-        SceneManager.LoadScene("CardGame");
+        State = GameState.CardGame;
+        SceneManager.LoadScene("CardGame", LoadSceneMode.Additive);
+        
     }
     
     public void CardGameStart()
@@ -57,8 +75,10 @@ public class GameManager : Singleton<GameManager>
     {
         HealthRemaining = HealthManager.Instance.PlayerHealth;
         WoundsRemaining = HealthManager.Instance.Wounds;
-        SceneManager.LoadScene("Anna_Gym");
+        Scene scene = SceneManager.GetSceneByName("CardGame");
+        SceneManager.UnloadSceneAsync(scene);
         CardRewards();
+        Destroy(_enemyRef);
     }
 
     public void PlayerLoses()
@@ -69,12 +89,26 @@ public class GameManager : Singleton<GameManager>
     public void CardRewards()
     {
         LevelActive = false;
-        var rew = FindObjectOfType<RewardScreen>();
-        rew.gameObject.SetActive(true);
+        _rewardScreen.gameObject.SetActive(true);
     }
 
     public void ResumeGame()
     {
         LevelActive = true;
+        State = GameState.Dungeon;
+        
+    }
+
+    public void SetPause()
+    {
+        State = GameState.Pause;
     }
 }
+
+public enum GameState
+{ 
+    Dungeon,
+    CardGame,
+    Pause
+}
+

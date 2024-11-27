@@ -1,10 +1,12 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 public class EnemyManager : Singleton<EnemyManager>
 {
     private EnemyDeck _deck;
+    public List<EnemyCardData> _cards = new List<EnemyCardData>(); 
     public int EnemyHealth
     {
         get
@@ -32,12 +34,20 @@ public class EnemyManager : Singleton<EnemyManager>
 
     protected override void Awake()
     {
+        if (GameManager.Instance.State != GameState.CardGame)
+        {
+            Destroy(gameObject, 1);
+        }
         base.Awake();
     }
 
     public void SetUp(EnemyDeck deck)
     {
         _deck = deck;
+        foreach(EnemyCardData enemyCard in deck.Deck)
+        {
+            _cards.Add(enemyCard);
+        }
         EnemyHealth = deck.Health;
     }
     // Update is called once per frame
@@ -96,10 +106,19 @@ public class EnemyManager : Singleton<EnemyManager>
         yield return null;
     }
 
+  
     public EnemyCardData PlayAbility()
     {
-        EnemyCardData card = _deck.Deck[Random.Range(0,_deck.Deck.Count)];
+        System.Random rand = new(DateTime.Now.Millisecond);
+        int seed = rand.Next(_cards.Count);
+        EnemyCardData card = _cards[seed];
+        _cards.Remove(card);
         return card;
+    }
+
+    public void AddCard(EnemyCardData card)
+    {
+        _cards.Add(card);
     }
 
     IEnumerator EndGame(string message)

@@ -47,9 +47,15 @@ public class DeckManager : MonoBehaviour
         {
             CardGameManager.Instance.DrawFromDeckFailed();
         }
+
         var drawnCard = _deck[0];
         _deck.Remove(drawnCard);
         return drawnCard;
+    }
+
+    public void DisplayDeck()
+    {
+        DeckInventoryUI.Instance.ToggleInventory(Deck);
     }
 
     private void OnApplicationQuit() //clears added cards from the decks data. this will only be done by starting a new run or by losing in the full game
