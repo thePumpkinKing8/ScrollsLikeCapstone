@@ -84,11 +84,12 @@ public class GameCard : PoolObject
 
     public void OnHover()
     {
-        if (_inHand)
+        if (_inHand && !_playMode)
         {          
             transform.localScale = _baseSize * _hoverSizeIncrease;
+            GetComponent<Canvas>().overrideSorting = true;
         }
-        SetOrder(14);
+        
     }
 
     public void HoverExit()
@@ -96,8 +97,9 @@ public class GameCard : PoolObject
         if (_inHand && !_playMode)
         {           
             transform.localScale = _baseSize;
+            GetComponent<Canvas>().overrideSorting = false;
         }
-        SetOrder(_slotSortOrder);
+        
         
     }
 
@@ -158,13 +160,10 @@ public class GameCard : PoolObject
         HealthManager.Instance.ChangeEnergy(EnergyCost);
     }
 
-    public void SetOrder(int num, bool changeDefault = false)
+    public void SetOrder(int num)
     {
         GetComponent<Canvas>().sortingOrder = num;
-        if(changeDefault)
-        {
-            _slotSortOrder = num;
-        }
+        
     }
 
     public override void OnDeSpawn()

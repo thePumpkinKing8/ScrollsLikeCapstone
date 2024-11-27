@@ -207,41 +207,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProtoWinUI
       objectReference: {fileID: 0}
-    - target: {fileID: 182832885438303555, guid: 600e228d22e17e348b05356ea3df4c14,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1826386364728681492, guid: 600e228d22e17e348b05356ea3df4c14,
-        type: 3}
-      propertyPath: m_Spacing
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 1826386364728681492, guid: 600e228d22e17e348b05356ea3df4c14,
-        type: 3}
-      propertyPath: m_Padding.m_Left
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1826386364728681492, guid: 600e228d22e17e348b05356ea3df4c14,
-        type: 3}
-      propertyPath: m_ChildScaleWidth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1826386364728681492, guid: 600e228d22e17e348b05356ea3df4c14,
-        type: 3}
-      propertyPath: m_ChildScaleHeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1826386364728681492, guid: 600e228d22e17e348b05356ea3df4c14,
-        type: 3}
-      propertyPath: m_ChildControlWidth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1826386364728681492, guid: 600e228d22e17e348b05356ea3df4c14,
-        type: 3}
-      propertyPath: m_ChildControlHeight
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5437360810326449534, guid: 600e228d22e17e348b05356ea3df4c14,
         type: 3}
       propertyPath: m_Pivot.x

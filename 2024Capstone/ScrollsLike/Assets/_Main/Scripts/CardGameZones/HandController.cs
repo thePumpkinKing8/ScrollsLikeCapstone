@@ -69,7 +69,7 @@ public class HandController : Singleton<HandController>
         int i = 1;
         foreach (GameCard card in _cardsInHand)
         {            
-            card.SetOrder(i, true);
+            card.SetOrder(i);
             card.SetHandParent(this);
             i++;
         }
