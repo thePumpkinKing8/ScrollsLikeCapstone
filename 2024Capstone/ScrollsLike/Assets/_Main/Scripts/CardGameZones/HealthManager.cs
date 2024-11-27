@@ -26,6 +26,9 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
 
     public int DamageMod { get; private set; }
 
+    public DeathScreen deadManager;
+    private bool isDead;
+
     [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>();
     [HideInInspector] public int PlayerBlock { get; private set; }
     //[HideInInspector] public bool EnemyBlock;
@@ -48,8 +51,9 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         if(PlayerHealth <= 0)
         {
             Wounds--;
-            if (Wounds <= 0)
+            if (Wounds <= 0 && !isDead)
             {
+                deadManager.onDead();
                 Debug.Log("Lose");
                 StartCoroutine(EndGame("Lose"));
             }
