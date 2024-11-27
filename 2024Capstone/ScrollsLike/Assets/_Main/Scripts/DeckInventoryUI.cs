@@ -52,9 +52,9 @@ public class DeckInventoryUI : Singleton<DeckInventoryUI>
 
     private void ClearExistingCards()
     {
-        foreach (Transform child in _gridParent)
+        foreach (PoolObject child in _gridParent.GetComponentsInChildren<PoolObject>())
         {
-            Destroy(child.gameObject);
+            child.OnDeSpawn();
         }
     }
 
