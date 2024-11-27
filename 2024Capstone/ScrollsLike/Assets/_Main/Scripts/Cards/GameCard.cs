@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class GameCard : PoolObject
 {
@@ -31,6 +30,8 @@ public class GameCard : PoolObject
         }
     }
 
+    public UnityEvent CancelPlayEvent;
+
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _title;
     [SerializeField] private TextMeshProUGUI _cardType;
@@ -45,6 +46,8 @@ public class GameCard : PoolObject
     public int EnergyCost { get; private set; }
 
     private int _slotSortOrder = 1;
+
+    private bool _playMode;
     
     // Start is called before the first frame update
     public void SetUpCard()
@@ -90,7 +93,7 @@ public class GameCard : PoolObject
 
     public void HoverExit()
     {
-        if (_inHand)
+        if (_inHand && !_playMode)
         {           
             transform.localScale = _baseSize;
         }
@@ -121,6 +124,15 @@ public class GameCard : PoolObject
                 PlayCard();   
             }           
         }
+        else if (CardGameManager.Instance.CurrentPhase == Phase.TargetMode)
+        {
+            if (_playMode && _inHand)
+            {
+                Debug.Log("cancel");
+                CancelPlayEvent.Invoke();
+                CancelPlay();
+            }
+        }
     }
 
     public void PlayCard()
@@ -135,14 +147,14 @@ public class GameCard : PoolObject
                 return;
         }
         CardGameManager.Instance.PlayCard(this);
-        transform.localScale = _baseSize;
-        _inHand = false;
-        
+        _playMode = true;     
     }
 
     //refund spent energy if player decides to not play card
     public void CancelPlay()
     {
+        CancelPlayEvent?.Invoke();
+        _playMode = false;
         HealthManager.Instance.ChangeEnergy(EnergyCost);
     }
 
@@ -157,7 +169,9 @@ public class GameCard : PoolObject
 
     public override void OnDeSpawn()
     {
+        _playMode = false;
         _inHand = false;
+        transform.localScale = _baseSize;
         base.OnDeSpawn();
     }
 }

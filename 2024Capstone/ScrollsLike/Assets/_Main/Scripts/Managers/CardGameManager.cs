@@ -184,6 +184,7 @@ public class CardGameManager : Singleton<CardGameManager>
     #endregion 
 
     #region PlayPhase
+    private IEnumerator _numerator;
     public void PlayCard(GameCard card)
     {
         if(CurrentPhase != Phase.PlayPhase)
@@ -202,7 +203,8 @@ public class CardGameManager : Singleton<CardGameManager>
             if(effect.RequiresTarget)
             {
                 Debug.Log("requires target");
-                StartCoroutine(WaitForTargetSelect(card));
+                _numerator = WaitForTargetSelect(card);
+                StartCoroutine(_numerator);
                 return;
             }
         }
@@ -236,13 +238,22 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         CurrentPhase = Phase.TargetMode;
         _waitForTarget = true;
+        Action action = () => TargetCancel(card);
+        card.CancelPlayEvent.AddListener(action.Invoke);
         yield return new WaitUntil(() => _waitForTarget == false);
         Debug.Log("target selected");
         EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, EffectTarget);
         DiscardCard(card.ReferenceCardData);
         card.OnDeSpawn();
         CurrentPhase = Phase.PlayPhase;
-        yield return null;
+    }
+
+    private void TargetCancel(GameCard card)
+    {
+        StopCoroutine(_numerator);
+        CurrentPhase = Phase.PlayPhase;
+        Debug.Log("target canceled");
+        _waitForTarget = false;
     }
 
     public void SetTarget(TimeSlot target)
