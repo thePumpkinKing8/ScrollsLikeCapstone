@@ -13,15 +13,7 @@ public class EnemyCard : PoolObject
         }
         set
         {
-            if (_cardData == null)
-            {
-                _cardData = value;
-                
-            }
-            else
-            {
-                return;
-            }
+            _cardData = value;
         }
     }
 
@@ -37,6 +29,22 @@ public class EnemyCard : PoolObject
     private Vector3 _baseSize;
     // Start is called before the first frame update
     void Start()
+    {
+        _description.text = _cardData.CardDescription;
+        _title.text = _cardData.CardName;
+        _cardType.text = _cardData.CardType.ToString();
+        if (_cardData.CardImage != null)
+        {
+            _image.texture = _cardData.CardImage;
+        }
+        _baseSize = transform.localScale;
+    }
+
+    public override void OnSpawn()
+    {
+        
+    }
+    public void CardSetUp()
     {
         _description.text = _cardData.CardDescription;
         _title.text = _cardData.CardName;

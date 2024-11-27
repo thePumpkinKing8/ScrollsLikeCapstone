@@ -45,7 +45,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     private void Update()
     {
         //_text.text = SlotHealth.ToString();
-        if(SlotHealth <= 0)
+        if(SlotHealth <= 0 && EnemyData != null)
         {
             ToggleActive(false);
             ClearSlot();
@@ -62,6 +62,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     public void ClearSlot()
     {
+        EnemyManager.Instance.AddCard(EnemyData.ReferenceCardData);
         EnemyData?.OnDeSpawn();
         EnemyData = null;
     }
@@ -73,6 +74,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         EnemyData =  PoolManager.Instance.Spawn("EnemyCard").GetComponent<EnemyCard>(); 
         EnemyData.transform.SetParent(transform);
         EnemyData.ReferenceCardData = card;
+        EnemyData.CardSetUp();
     }
 
     public void EnemyHit(int damage)

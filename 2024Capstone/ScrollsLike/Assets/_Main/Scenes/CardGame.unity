@@ -1593,7 +1593,7 @@ GameObject:
   - component: {fileID: 1141509941}
   - component: {fileID: 1141509940}
   m_Layer: 5
-  m_Name: EnmeyBlock
+  m_Name: EnemyBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
