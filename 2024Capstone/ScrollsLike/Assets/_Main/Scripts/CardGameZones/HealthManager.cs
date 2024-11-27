@@ -127,6 +127,9 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
 
     public void GainHealth(int value)
     {
+        var effect = PoolManager.Instance.Spawn("HealEffect");
+        effect.transform.SetAsLastSibling();
+        effect.transform.SetParent(transform);
         PlayerHealth += value;
     }
 
@@ -142,6 +145,10 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         {
             PlayerHealth -= Poison;
             Poison -= 1;
+
+            var effect = PoolManager.Instance.Spawn("PoisonEffect");
+            effect.transform.SetAsLastSibling();
+            effect.transform.SetParent(transform);
         }
         
     }
@@ -149,7 +156,10 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     public void GainPoison(int value)
     {
         Poison += value;
-        CardGameManager.Instance.EffectDone();
+        
+        var effect = PoolManager.Instance.Spawn("PoisonEffect");
+        effect.transform.SetAsLastSibling();
+        effect.transform.SetParent(transform);
     }
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)
