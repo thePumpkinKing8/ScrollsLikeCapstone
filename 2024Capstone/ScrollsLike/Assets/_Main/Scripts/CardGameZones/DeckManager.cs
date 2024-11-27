@@ -55,7 +55,9 @@ public class DeckManager : MonoBehaviour
 
     public void DisplayDeck()
     {
-        DeckInventoryUI.Instance.ToggleInventory(Deck);
+        var displayDeck = Deck;
+        displayDeck.OrderBy(x => Random.value).ToList();
+        DeckInventoryUI.Instance.ToggleInventory(displayDeck);
     }
 
     private void OnApplicationQuit() //clears added cards from the decks data. this will only be done by starting a new run or by losing in the full game
