@@ -8,7 +8,8 @@ public class DeckInventoryUI : Singleton<DeckInventoryUI>
     [SerializeField] private Transform _gridParent;
     [SerializeField] private GameObject _inventoryUI;
 
-    private bool isInventoryOpen = false;
+    private bool _isInventoryOpen = false;
+    private bool _wasDungeon;
 
     private void Start()
     {
@@ -21,19 +22,26 @@ public class DeckInventoryUI : Singleton<DeckInventoryUI>
         PopulateDeckUI();
     }
 
-    public void PopulateDeckUI()
+    public void PopulateDeckUI(List<CardData> cardsToDisplay = null)
     {
         ClearExistingCards();
 
+        
+
         if (GameManager.Instance != null)
         {
-            List<CardData> deck = GameManager.Instance.PlayersDeck.Deck;
+            List<CardData> deck = new List<CardData>();
+            if (cardsToDisplay != null)
+                deck = cardsToDisplay;
+            else
+                deck = GameManager.Instance.PlayersDeck.Deck;
             Debug.Log(deck.Count);
             foreach (CardData card in deck)
             {
                 GameCard gameCard = PoolManager.Instance.Spawn("Card").GetComponent<GameCard>();
                 gameCard.ReferenceCardData = card;
                 gameCard.transform.SetParent(_gridParent);
+                gameCard.GetComponent<Canvas>().overrideSorting = false;
             }
         }
         else
@@ -50,35 +58,47 @@ public class DeckInventoryUI : Singleton<DeckInventoryUI>
         }
     }
 
-    public void ToggleInventory()
+    public void ToggleInventory(List<CardData> cardsToDisplay = null)
     {
-        if (isInventoryOpen)
+        if (_isInventoryOpen)
         {
             CloseInventory();
         }
         else
         {
-            OpenInventory();
+            OpenInventory(cardsToDisplay);
         }
     }
 
-    private void OpenInventory()
+    private void OpenInventory(List<CardData> cardsToDisplay = null)
     {
-        GameManager.Instance.SetPause();
-        isInventoryOpen = true;
+        if(GameManager.Instance.State == GameState.Dungeon)
+        {
+            _wasDungeon = true;
+            GameManager.Instance.SetPause();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        
+        _isInventoryOpen = true;
         _inventoryUI.SetActive(true);
+        PopulateDeckUI(cardsToDisplay);
         Time.timeScale = 0; 
-        Cursor.lockState = CursorLockMode.None; 
-        Cursor.visible = true;
+        
     }
 
     private void CloseInventory()
     {
-        isInventoryOpen = false;
+        _isInventoryOpen = false;
         _inventoryUI.SetActive(false);
         Time.timeScale = 1;
-        GameManager.Instance.ResumeGame();
-        Cursor.lockState = CursorLockMode.Locked; 
-        Cursor.visible = false;
+        if(_wasDungeon)
+        {
+            GameManager.Instance.ResumeGame();
+            _wasDungeon = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }      
+        
     }
 }

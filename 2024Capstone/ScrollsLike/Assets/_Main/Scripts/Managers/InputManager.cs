@@ -31,7 +31,7 @@ public class InputManager : Singleton<InputManager>
 
     private void ToggleInventory(InputAction.CallbackContext context)
     {
-        if (DeckInventoryUI.Instance != null)
+        if (DeckInventoryUI.Instance != null && GameManager.Instance.State != GameState.CardGame)
         {
             DeckInventoryUI.Instance.ToggleInventory();
         }

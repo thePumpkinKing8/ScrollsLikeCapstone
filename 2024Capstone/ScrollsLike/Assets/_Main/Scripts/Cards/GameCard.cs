@@ -75,7 +75,8 @@ public class GameCard : PoolObject
     public void SetHandParent(HandController hand)
     {
         _handController = hand;
-        _inHand = true;        
+        _inHand = true;
+        GetComponent<Canvas>().overrideSorting = false;
     }
 
     public void OnHover()
