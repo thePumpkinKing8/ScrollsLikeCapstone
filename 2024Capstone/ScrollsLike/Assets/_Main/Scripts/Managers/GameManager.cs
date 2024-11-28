@@ -83,7 +83,8 @@ public class GameManager : Singleton<GameManager>
 
     public void PlayerLoses()
     {
-        SceneManager.LoadScene("Anna_Gym");
+        Debug.Log("Dead");
+        //SceneManager.LoadScene("Anna_Gym");
     }
 
     public void CardRewards()
