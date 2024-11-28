@@ -28,6 +28,9 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
 
     [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>();
     [HideInInspector] public int PlayerBlock { get; private set; }
+
+    [SerializeField] private Image _fillableBar;
+    [SerializeField] private GameObject _blockContainer;
     //[HideInInspector] public bool EnemyBlock;
 
     // Start is called before the first frame update
@@ -62,7 +65,17 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 
         }
 
-        _statText.text = $"Health:{PlayerHealth.ToString()} \nWounds:{Wounds.ToString()} \nBlock:{PlayerBlock.ToString()} \nEnergy:{Energy.ToString()}";
+        if(PlayerBlock > 0)
+        {
+            _statText.text = PlayerBlock.ToString();
+            _blockContainer.SetActive(true);
+        }
+        else
+        {
+            _blockContainer.SetActive(false);
+            _fillableBar.fillAmount = ((float)PlayerHealth / (float)_startingHealth);
+            _statText.text = PlayerHealth.ToString();
+        }
         _poisonText.text = $"Poison:{Poison}";
 
         if(PlayerHealth > _startingHealth)
@@ -84,7 +97,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 int remainder = damage - PlayerBlock;
                 effect = PoolManager.Instance.Spawn("BlockBreakEffect");
                 effect.transform.SetAsLastSibling();
-                effect.transform.SetParent(transform);
+                effect.transform.SetParent(_fillableBar.transform);
                 effect.transform.position = _statText.transform.position;
                 PlayerBlock = 0;
 
@@ -95,7 +108,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             {
                 effect = PoolManager.Instance.Spawn("BlockHitEffect");
                 effect.transform.SetAsLastSibling();
-                effect.transform.SetParent(transform);
+                effect.transform.SetParent(_fillableBar.transform);
                 effect.transform.position = _statText.transform.position;
                 
                 PlayerBlock -= damage;
@@ -105,7 +118,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         {
             effect = PoolManager.Instance.Spawn("AttackEffect");
             effect.transform.SetAsLastSibling();
-            effect.transform.SetParent(transform);
+            effect.transform.SetParent(_fillableBar.transform);
             effect.transform.position = _statText.transform.position;
 
             PlayerHealth -= damage;
@@ -120,13 +133,16 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     {
         var effect = PoolManager.Instance.Spawn("BlockGainEffect");
         effect.transform.SetAsLastSibling();
-        effect.transform.SetParent(transform);
+        effect.transform.SetParent(_fillableBar.transform);
         effect.transform.position = _statText.transform.position;
         PlayerBlock += amount;
     }
 
     public void GainHealth(int value)
     {
+        var effect = PoolManager.Instance.Spawn("HealEffect");
+        effect.transform.SetAsLastSibling();
+        effect.transform.SetParent(_fillableBar.transform);
         PlayerHealth += value;
     }
 
@@ -142,6 +158,10 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         {
             PlayerHealth -= Poison;
             Poison -= 1;
+
+            var effect = PoolManager.Instance.Spawn("PoisonEffect");
+            effect.transform.SetParent(_fillableBar.transform);
+            effect.transform.SetAsLastSibling();           
         }
         
     }
@@ -149,7 +169,10 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     public void GainPoison(int value)
     {
         Poison += value;
-        CardGameManager.Instance.EffectDone();
+        
+        var effect = PoolManager.Instance.Spawn("PoisonEffect");
+        effect.transform.SetAsLastSibling();
+        effect.transform.SetParent(transform);
     }
     //Ends the game and returns to the adventure sections
     IEnumerator EndGame(string message)

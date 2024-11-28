@@ -207,11 +207,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProtoWinUI
       objectReference: {fileID: 0}
-    - target: {fileID: 182832885438303555, guid: 600e228d22e17e348b05356ea3df4c14,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5437360810326449534, guid: 600e228d22e17e348b05356ea3df4c14,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2255,7 +2250,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_TargetDisplay: 0
 --- !u!224 &1676210151
 RectTransform:
