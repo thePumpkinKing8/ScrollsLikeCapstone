@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 2764842509506466914}
   - component: {fileID: 279092587222853205}
   m_Layer: 0
-  m_Name: LevelTrigger
+  m_Name: ExitTriggerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

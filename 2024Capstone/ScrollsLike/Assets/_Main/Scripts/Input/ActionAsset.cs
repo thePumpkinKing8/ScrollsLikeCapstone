@@ -153,18 +153,18 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
             ""id"": ""97438ab9-897c-4841-8984-2eacb32a4177"",
             ""actions"": [
                 {
-                    ""name"": ""PauseGame"",
+                    ""name"": ""OpenInventory"",
                     ""type"": ""Button"",
-                    ""id"": ""29da060b-57af-462e-b759-23e700972fa3"",
+                    ""id"": ""5aa9b3d5-5797-4810-9c26-39bc7b1d4908"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OpenInventory"",
+                    ""name"": ""PauseGame"",
                     ""type"": ""Button"",
-                    ""id"": ""5aa9b3d5-5797-4810-9c26-39bc7b1d4908"",
+                    ""id"": ""ab7fca67-60a3-4852-8376-e8a6b4491220"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -174,7 +174,18 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""3ed79081-dde7-427d-9ca7-2f041d3a823d"",
+                    ""id"": ""9e9f5bec-da2c-4ef6-9f6d-6af7aaba58f2"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""OpenInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""721051d9-355b-434b-8b3d-973c0ddd0fb1"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -185,12 +196,12 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9e9f5bec-da2c-4ef6-9f6d-6af7aaba58f2"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""id"": ""97f9bdb3-ae29-4e73-a70a-08f4d1227dc5"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""OpenInventory"",
+                    ""action"": ""PauseGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -216,8 +227,8 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_PauseGame = m_UI.FindAction("PauseGame", throwIfNotFound: true);
         m_UI_OpenInventory = m_UI.FindAction("OpenInventory", throwIfNotFound: true);
+        m_UI_PauseGame = m_UI.FindAction("PauseGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -333,14 +344,14 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
     // UI
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
-    private readonly InputAction m_UI_PauseGame;
     private readonly InputAction m_UI_OpenInventory;
+    private readonly InputAction m_UI_PauseGame;
     public struct UIActions
     {
         private @ActionAsset m_Wrapper;
         public UIActions(@ActionAsset wrapper) { m_Wrapper = wrapper; }
-        public InputAction @PauseGame => m_Wrapper.m_UI_PauseGame;
         public InputAction @OpenInventory => m_Wrapper.m_UI_OpenInventory;
+        public InputAction @PauseGame => m_Wrapper.m_UI_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -350,22 +361,22 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
-            @PauseGame.started += instance.OnPauseGame;
-            @PauseGame.performed += instance.OnPauseGame;
-            @PauseGame.canceled += instance.OnPauseGame;
             @OpenInventory.started += instance.OnOpenInventory;
             @OpenInventory.performed += instance.OnOpenInventory;
             @OpenInventory.canceled += instance.OnOpenInventory;
+            @PauseGame.started += instance.OnPauseGame;
+            @PauseGame.performed += instance.OnPauseGame;
+            @PauseGame.canceled += instance.OnPauseGame;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
         {
-            @PauseGame.started -= instance.OnPauseGame;
-            @PauseGame.performed -= instance.OnPauseGame;
-            @PauseGame.canceled -= instance.OnPauseGame;
             @OpenInventory.started -= instance.OnOpenInventory;
             @OpenInventory.performed -= instance.OnOpenInventory;
             @OpenInventory.canceled -= instance.OnOpenInventory;
+            @PauseGame.started -= instance.OnPauseGame;
+            @PauseGame.performed -= instance.OnPauseGame;
+            @PauseGame.canceled -= instance.OnPauseGame;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -408,7 +419,7 @@ public partial class @ActionAsset: IInputActionCollection2, IDisposable
     }
     public interface IUIActions
     {
-        void OnPauseGame(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
+        void OnPauseGame(InputAction.CallbackContext context);
     }
 }
