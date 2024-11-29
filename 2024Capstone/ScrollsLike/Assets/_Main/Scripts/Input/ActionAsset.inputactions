@@ -131,18 +131,18 @@
             "id": "97438ab9-897c-4841-8984-2eacb32a4177",
             "actions": [
                 {
-                    "name": "PauseGame",
+                    "name": "OpenInventory",
                     "type": "Button",
-                    "id": "29da060b-57af-462e-b759-23e700972fa3",
+                    "id": "5aa9b3d5-5797-4810-9c26-39bc7b1d4908",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenInventory",
+                    "name": "PauseGame",
                     "type": "Button",
-                    "id": "5aa9b3d5-5797-4810-9c26-39bc7b1d4908",
+                    "id": "ab7fca67-60a3-4852-8376-e8a6b4491220",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -152,7 +152,18 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "3ed79081-dde7-427d-9ca7-2f041d3a823d",
+                    "id": "9e9f5bec-da2c-4ef6-9f6d-6af7aaba58f2",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "OpenInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "721051d9-355b-434b-8b3d-973c0ddd0fb1",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
@@ -163,12 +174,12 @@
                 },
                 {
                     "name": "",
-                    "id": "9e9f5bec-da2c-4ef6-9f6d-6af7aaba58f2",
-                    "path": "<Keyboard>/tab",
+                    "id": "97f9bdb3-ae29-4e73-a70a-08f4d1227dc5",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "OpenInventory",
+                    "action": "PauseGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1611375503968295157}
   m_Layer: 3
-  m_Name: Ground
+  m_Name: GroundPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
