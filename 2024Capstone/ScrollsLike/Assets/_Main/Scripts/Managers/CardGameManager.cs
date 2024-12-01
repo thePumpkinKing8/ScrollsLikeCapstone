@@ -342,7 +342,7 @@ public class CardGameManager : Singleton<CardGameManager>
     public void DrawFromDeckFailed() //shuffles discard pile into deck if there are no cards to draw from
     {
         _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
-        Invoke("_discardPile.ShuffleCardsToDeck", 1);
+        _discardPile.ShuffleCardsToDeck();
     }
     #endregion
 }

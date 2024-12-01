@@ -29,6 +29,7 @@ public class DiscardPile : MonoBehaviour
     {
         _discardedCards.Clear();
         _pileObj.sprite = _emptyImg;
+        Debug.Log("clear");
     }
 
     public void RemoveACard(CardData chosenCard)
