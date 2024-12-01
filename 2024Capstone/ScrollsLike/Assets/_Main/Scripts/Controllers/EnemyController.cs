@@ -36,7 +36,8 @@ public class EnemyController : MonoBehaviour
     {
         if (patrolPoints.Count == 0) return;
 
-        MoveTowardsPatrolPoint();
+        if(GameManager.Instance.State == GameState.Dungeon)
+            MoveTowardsPatrolPoint();
     }
 
     private void MoveTowardsPatrolPoint()
