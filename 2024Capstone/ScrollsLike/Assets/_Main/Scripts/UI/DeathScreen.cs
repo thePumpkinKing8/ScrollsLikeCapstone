@@ -10,11 +10,7 @@ public class DeathScreen : MonoBehaviour
 
     private void Start()
     {
-        if (InputManager.Instance.IsDead)
-            InputManager.Instance.EnableGameplay();
 
-        DeathUI.SetActive(false);
-        isDead = false;
     }
 
     public void onDead()

@@ -84,6 +84,7 @@ public class GameManager : Singleton<GameManager>
     public void PlayerLoses()
     {
         State = GameState.Dead;
+        SceneManager.LoadScene("LoseScreen");
         //SceneManager.LoadScene("Anna_Gym");
     }
 
