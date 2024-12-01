@@ -13,7 +13,6 @@ public class CardGameManager : Singleton<CardGameManager>
     [SerializeField] private DeckManager _deckManager;
 
     //play phase functions
-    private int _timeSlotIndex;
     [SerializeField] private TimeSlot[] _timeSlots = new TimeSlot[4];
     public TimeSlot[] EnemySlot { get { return _timeSlots; } }
 
@@ -27,6 +26,10 @@ public class CardGameManager : Singleton<CardGameManager>
 
     protected override void Awake()
     {
+        if(GameManager.Instance.State != GameState.CardGame)
+        {
+            Destroy(gameObject,1);
+        }
         base.Awake();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -127,6 +130,8 @@ public class CardGameManager : Singleton<CardGameManager>
 
     private void Start()
     {
+        if (GameManager.Instance.State != GameState.CardGame)
+            return;
         GameManager.Instance.CardGameStart();
         Invoke("GameStart", 1);
     }
@@ -179,6 +184,7 @@ public class CardGameManager : Singleton<CardGameManager>
     #endregion 
 
     #region PlayPhase
+    private IEnumerator _numerator;
     public void PlayCard(GameCard card)
     {
         if(CurrentPhase != Phase.PlayPhase)
@@ -197,7 +203,8 @@ public class CardGameManager : Singleton<CardGameManager>
             if(effect.RequiresTarget)
             {
                 Debug.Log("requires target");
-                StartCoroutine(WaitForTargetSelect(card));
+                _numerator = WaitForTargetSelect(card);
+                StartCoroutine(_numerator);
                 return;
             }
         }
@@ -231,13 +238,22 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         CurrentPhase = Phase.TargetMode;
         _waitForTarget = true;
+        Action action = () => TargetCancel(card);
+        card.CancelPlayEvent.AddListener(action.Invoke);
         yield return new WaitUntil(() => _waitForTarget == false);
         Debug.Log("target selected");
         EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, EffectTarget);
         DiscardCard(card.ReferenceCardData);
         card.OnDeSpawn();
         CurrentPhase = Phase.PlayPhase;
-        yield return null;
+    }
+
+    private void TargetCancel(GameCard card)
+    {
+        StopCoroutine(_numerator);
+        CurrentPhase = Phase.PlayPhase;
+        Debug.Log("target canceled");
+        _waitForTarget = false;
     }
 
     public void SetTarget(TimeSlot target)
@@ -307,11 +323,6 @@ public class CardGameManager : Singleton<CardGameManager>
     #endregion
 
     #region OtherGameFunctions
-    public void HandleShuffleToDeck(List<CardData> cards)
-    {
-        _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
-        _discardPile.ShuffleCardsToDeck();
-    }
 
     public void DiscardCard(CardData card)
     {

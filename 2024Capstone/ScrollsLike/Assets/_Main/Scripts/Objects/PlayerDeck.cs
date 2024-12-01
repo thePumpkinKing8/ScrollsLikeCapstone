@@ -12,6 +12,7 @@ public class PlayerDeck : ScriptableObject
 
     public void Initialize()
     {
+        _deck.Clear();
         foreach (var card in _startingCards)
         {
             _deck.Add(card);

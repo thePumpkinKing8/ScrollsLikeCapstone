@@ -20,6 +20,6 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameManager.Instance.GoToCombat(EnemiesDeck);
+        GameManager.Instance.GoToCombat(EnemiesDeck, gameObject);
     }
 }

@@ -42,7 +42,6 @@ public class UICard : PoolObject
     [SerializeField] private float _hoverSizeIncrease = 1.25f;
     private Vector3 _baseSize;
 
-    private bool _inHand;
     public int EnergyCost { get; private set; }
 
     private RewardScreen _rewardScreen;
@@ -61,9 +60,12 @@ public class UICard : PoolObject
             _image.texture = _cardData.CardImage;
         }
         _baseSize = transform.localScale;
-        _rewardScreen = GetComponentInParent<RewardScreen>();
     }
 
+    public void SetScreenRef(RewardScreen screen)
+    {
+        _rewardScreen = screen;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -90,10 +92,6 @@ public class UICard : PoolObject
     public void OnCLick()
     {
         _rewardScreen.CardSelect(ReferenceCardData);
-    }
-
-    public void Select()
-    {
         _selected = true;
     }
 

@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class GameCard : PoolObject
 {
@@ -31,6 +30,8 @@ public class GameCard : PoolObject
         }
     }
 
+    public UnityEvent CancelPlayEvent;
+
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _title;
     [SerializeField] private TextMeshProUGUI _cardType;
@@ -45,6 +46,8 @@ public class GameCard : PoolObject
     public int EnergyCost { get; private set; }
 
     private int _slotSortOrder = 1;
+
+    private bool _playMode;
     
     // Start is called before the first frame update
     public void SetUpCard()
@@ -75,25 +78,28 @@ public class GameCard : PoolObject
     public void SetHandParent(HandController hand)
     {
         _handController = hand;
-        _inHand = true;        
+        _inHand = true;
+        GetComponent<Canvas>().overrideSorting = false;
     }
 
     public void OnHover()
     {
-        if (_inHand)
+        if (_inHand && !_playMode)
         {          
             transform.localScale = _baseSize * _hoverSizeIncrease;
+            GetComponent<Canvas>().overrideSorting = true;
         }
-        SetOrder(14);
+        
     }
 
     public void HoverExit()
     {
-        if (_inHand)
+        if (_inHand && !_playMode)
         {           
             transform.localScale = _baseSize;
+            GetComponent<Canvas>().overrideSorting = false;
         }
-        SetOrder(_slotSortOrder);
+        
         
     }
 
@@ -120,6 +126,15 @@ public class GameCard : PoolObject
                 PlayCard();   
             }           
         }
+        else if (CardGameManager.Instance.CurrentPhase == Phase.TargetMode)
+        {
+            if (_playMode && _inHand)
+            {
+                Debug.Log("cancel");
+                CancelPlayEvent.Invoke();
+                CancelPlay();
+            }
+        }
     }
 
     public void PlayCard()
@@ -134,29 +149,28 @@ public class GameCard : PoolObject
                 return;
         }
         CardGameManager.Instance.PlayCard(this);
-        transform.localScale = _baseSize;
-        _inHand = false;
-        
+        _playMode = true;     
     }
 
     //refund spent energy if player decides to not play card
     public void CancelPlay()
     {
+        CancelPlayEvent?.Invoke();
+        _playMode = false;
         HealthManager.Instance.ChangeEnergy(EnergyCost);
     }
 
-    public void SetOrder(int num, bool changeDefault = false)
+    public void SetOrder(int num)
     {
         GetComponent<Canvas>().sortingOrder = num;
-        if(changeDefault)
-        {
-            _slotSortOrder = num;
-        }
+        
     }
 
     public override void OnDeSpawn()
     {
+        _playMode = false;
         _inHand = false;
+        transform.localScale = _baseSize;
         base.OnDeSpawn();
     }
 }

@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
 
     public void HandleLook(Vector2 axis)
     {
-        if(GameManager.Instance.LevelActive)
+        if(GameManager.Instance.State == GameState.Dungeon)
             _xAxis = axis.x * _sensitivity;
         //_yAxis = -axis.y * _sensitivity;
     }

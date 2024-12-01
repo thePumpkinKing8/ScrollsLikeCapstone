@@ -19,11 +19,16 @@ public class EnemyController : MonoBehaviour
             .Select(p => new Vector3(p.x, transform.position.y, p.y))
             .ToList();
 
+        // Debugging patrol points
+        foreach (var point in patrolPoints)
+        {
+            Debug.Log($"Patrol Point: {point}, Walkable: {IsWalkable(point)}");
+        }
+
         // Set a random starting patrol point
         if (patrolPoints.Count > 0)
         {
-            int randomIndex = Random.Range(0, patrolPoints.Count);
-            targetPosition = patrolPoints[randomIndex];
+            targetPosition = patrolPoints[Random.Range(0, patrolPoints.Count)];
         }
     }
 
@@ -31,17 +36,60 @@ public class EnemyController : MonoBehaviour
     {
         if (patrolPoints.Count == 0) return;
 
-        MoveTowardsPatrolPoint();
+        if(GameManager.Instance.State == GameState.Dungeon)
+            MoveTowardsPatrolPoint();
     }
 
     private void MoveTowardsPatrolPoint()
     {
+        // Check if the enemy has reached the current target position
         if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
-            // Pick a random new patrol point as the target
-            targetPosition = patrolPoints[Random.Range(0, patrolPoints.Count)];
+            // Pick a new patrol point
+            targetPosition = GetNextValidPatrolPoint();
         }
 
+        // Move towards the target position
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+    }
+
+    private Vector3 GetNextValidPatrolPoint()
+    {
+        Vector3 newPatrolPoint = targetPosition; // Default to the current position if no valid point is found
+        int attempts = 0;
+
+        // Attempt to find a valid point
+        while (attempts < patrolPoints.Count)
+        {
+            Vector3 candidatePoint = patrolPoints[Random.Range(0, patrolPoints.Count)];
+
+            if (candidatePoint != targetPosition && IsWalkable(candidatePoint))
+            {
+                newPatrolPoint = candidatePoint;
+                break;
+            }
+
+            attempts++;
+        }
+
+        return newPatrolPoint;
+    }
+
+    private bool IsWalkable(Vector3 position)
+    {
+        // Convert world position to grid coordinates
+        Vector2Int gridPosition = new Vector2Int(Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.z));
+
+        // Check boundaries
+        if (gridPosition.x < 0 || gridPosition.x >= dungeonLevelLoader.levelData.levelWidth ||
+            gridPosition.y < 0 || gridPosition.y >= dungeonLevelLoader.levelData.levelHeight)
+        {
+            return false; // Out of bounds
+        }
+
+        // Check grid data for walls or obstacles (e.g., 1 = wall)
+        bool isWalkable = dungeonLevelLoader.levelData.grid[gridPosition.x, gridPosition.y] != 1;
+        Debug.Log($"Grid Pos {gridPosition} is Walkable: {isWalkable}");
+        return isWalkable;
     }
 }
