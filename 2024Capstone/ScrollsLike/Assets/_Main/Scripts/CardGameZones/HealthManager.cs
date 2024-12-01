@@ -157,7 +157,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
 
     public void TriggerPoison()
     {
-        Debug.Log(Poison);
+        PlayerBlock = 0;
         if(Poison > 0)
         {
             PlayerHealth -= Poison;

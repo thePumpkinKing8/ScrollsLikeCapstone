@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
   m_Name: ShieldBash
   m_EditorClassIdentifier: 
-  _energyCost: 1
-  _cardName: 
+  _energyCost: 0
+  _cardName: Shield Bash
   _cardType: 0
-  _cardImage: {fileID: 0}
-  _cardDescription: 
-  _cardResolutionEffects: []
+  _cardImage: {fileID: 2800000, guid: 512a49cf86bdc3941baecb72de58b02c, type: 3}
+  _cardDescription: Deal 4 Damage, Gain 4 Block
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: 7dd1146ca90624547b0fa8d2c85cf728, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []

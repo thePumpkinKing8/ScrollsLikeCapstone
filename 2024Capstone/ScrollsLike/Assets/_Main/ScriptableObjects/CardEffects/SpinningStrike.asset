@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87dd08995229ed479a77f8be654c60a, type: 3}
   m_Name: SpinningStrike
   m_EditorClassIdentifier: 
-  CardEffectors: []
+  CardEffectors:
+  - Type: 0
+    EffectValue: 6
+    TargetSelf: 0
+    Strategy: {fileID: 0}
   _requireTarget: 0
   _isAOE: 0
