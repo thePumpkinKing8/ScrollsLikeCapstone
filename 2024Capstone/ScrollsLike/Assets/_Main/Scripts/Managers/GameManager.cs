@@ -83,7 +83,7 @@ public class GameManager : Singleton<GameManager>
 
     public void PlayerLoses()
     {
-        Debug.Log("Dead");
+        State = GameState.Dead;
         //SceneManager.LoadScene("Anna_Gym");
     }
 
@@ -110,6 +110,7 @@ public enum GameState
 { 
     Dungeon,
     CardGame,
-    Pause
+    Pause,
+    Dead
 }
 
