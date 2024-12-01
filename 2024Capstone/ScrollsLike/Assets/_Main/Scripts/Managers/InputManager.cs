@@ -11,6 +11,7 @@ public class InputManager : Singleton<InputManager>
     public PlayerActionsData ActionsData { get { return _actions; } private set { _actions = value; } }
 
     public bool IsPaused { get; private set; } = false;
+    public bool IsDead { get; private set; } = false;
 
     private void OnEnable()
     {
