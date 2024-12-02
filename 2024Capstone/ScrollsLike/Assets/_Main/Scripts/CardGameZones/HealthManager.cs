@@ -80,7 +80,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             _fillableBar.fillAmount = ((float)PlayerHealth / (float)_startingHealth);
             _statText.text = PlayerHealth.ToString();
         }
-        _poisonText.text = $"Poison:{Poison}";
+        _poisonText.text = $"{Poison}";
 
         if(PlayerHealth > _startingHealth)
         {
