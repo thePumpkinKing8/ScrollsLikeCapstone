@@ -96,8 +96,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 8837ade00a7e17c4b915e9fb0f77cbec,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 7e934363c32b472458cc7642f584c313,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1377,8 +1379,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 485703032}
+  - component: {fileID: 485703033}
   m_Layer: 5
-  m_Name: Main Menu
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1408,6 +1411,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &485703033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485703031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5633cfdb41b276468e36e9dfa35a05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splashScreen: {fileID: 1445484831}
+  mainMenu: {fileID: 485703031}
 --- !u!1 &488897762
 GameObject:
   m_ObjectHideFlags: 0
@@ -3242,7 +3259,6 @@ GameObject:
   - component: {fileID: 1134943052}
   - component: {fileID: 1134943056}
   - component: {fileID: 1134943055}
-  - component: {fileID: 1134943054}
   - component: {fileID: 1134943053}
   m_Layer: 5
   m_Name: 'Exit '
@@ -3316,10 +3332,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1489254837}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
-        m_Mode: 6
+      - m_Target: {fileID: 1489254842}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: Quit
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3328,20 +3344,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1134943054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134943051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5633cfdb41b276468e36e9dfa35a05a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  splashScreen: {fileID: 0}
-  mainMenu: {fileID: 0}
 --- !u!114 &1134943055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6453,7 +6455,6 @@ GameObject:
   - component: {fileID: 2131516867}
   - component: {fileID: 2131516870}
   - component: {fileID: 2131516869}
-  - component: {fileID: 2131516871}
   - component: {fileID: 2131516868}
   m_Layer: 5
   m_Name: Play
@@ -6577,20 +6578,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2131516866}
   m_CullTransparentMesh: 1
---- !u!114 &2131516871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2131516866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5633cfdb41b276468e36e9dfa35a05a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  splashScreen: {fileID: 0}
-  mainMenu: {fileID: 0}
 --- !u!1 &2136395852
 GameObject:
   m_ObjectHideFlags: 0
