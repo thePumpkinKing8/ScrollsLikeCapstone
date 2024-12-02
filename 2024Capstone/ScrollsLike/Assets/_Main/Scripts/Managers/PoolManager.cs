@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PoolManager : Singleton<PoolManager>
 {
@@ -11,6 +12,28 @@ public class PoolManager : Singleton<PoolManager>
     // Start is called before the first frame update
     void Start()
     {
+        PoolManager.Instance.Load();
+    }
+
+    public void ClearPool() // avoids null object reference error when scenes are unloaded
+    {
+        foreach(Stack<PoolObject> objStack in stackDictionary.Values)
+        {
+            Stack<PoolObject> tempStack = new Stack<PoolObject>();
+            for(int i = 0; i < objStack.Count; i++)
+            {
+                PoolObject obj = objStack.Pop();
+                if(obj != null)
+                {
+                    tempStack.Push(obj);
+                }
+            }
+            foreach(PoolObject reAdd in tempStack)
+            {
+                objStack.Push(reAdd);
+            }
+        }
+        stackDictionary.Clear();
         PoolManager.Instance.Load();
     }
     private void Load()

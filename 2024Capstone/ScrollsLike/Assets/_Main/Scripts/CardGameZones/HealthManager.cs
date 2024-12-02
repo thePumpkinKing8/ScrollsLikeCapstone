@@ -56,7 +56,6 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             Wounds--;
             if (Wounds <= 0 && !isDead)
             {
-                deadManager.onDead();
                 Debug.Log("Lose");
                 StartCoroutine(EndGame("Lose"));
             }

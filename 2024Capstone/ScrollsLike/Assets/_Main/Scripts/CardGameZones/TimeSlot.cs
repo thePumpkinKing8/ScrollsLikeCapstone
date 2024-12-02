@@ -13,10 +13,14 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     private int _maxHealth;
     public int SlotHealth {get; private set; }
-    
-    [SerializeField] private TextMeshProUGUI _text;
 
-   
+
+    #region UI 
+    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private Image _fillableBar;
+    [SerializeField] private GameObject _shield;
+    #endregion
+
 
     private void Awake()
     {
@@ -44,8 +48,26 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     private void Update()
     {
+
+        if (EnemyManager.Instance.EnemyBlock > 0)
+        {
+            _text.text = EnemyManager.Instance.EnemyBlock.ToString();
+            _shield.SetActive(true);
+        }
+        else
+        {
+            _shield.SetActive(false);
+            _fillableBar.fillAmount = ((float)SlotHealth / (float)_maxHealth);
+            _text.text = SlotHealth.ToString();
+        }
+
+        if (SlotHealth > _maxHealth)
+        {
+            SlotHealth = _maxHealth;
+        }
+
         //_text.text = SlotHealth.ToString();
-        if(SlotHealth <= 0 && EnemyData != null)
+        if (SlotHealth <= 0 && EnemyData != null)
         {
             ToggleActive(false);
             ClearSlot();
