@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour
         // Debugging patrol points
         foreach (var point in patrolPoints)
         {
-            Debug.Log($"Patrol Point: {point}, Walkable: {IsWalkable(point)}");
+           // Debug.Log($"Patrol Point: {point}, Walkable: {IsWalkable(point)}");
         }
 
         // Set a random starting patrol point
@@ -89,7 +89,7 @@ public class EnemyController : MonoBehaviour
 
         // Check grid data for walls or obstacles (e.g., 1 = wall)
         bool isWalkable = dungeonLevelLoader.levelData.grid[gridPosition.x, gridPosition.y] != 1;
-        Debug.Log($"Grid Pos {gridPosition} is Walkable: {isWalkable}");
+       // Debug.Log($"Grid Pos {gridPosition} is Walkable: {isWalkable}");
         return isWalkable;
     }
 }

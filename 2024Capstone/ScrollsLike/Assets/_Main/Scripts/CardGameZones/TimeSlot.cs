@@ -48,6 +48,12 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     private void Update()
     {
+        if(!Active)
+        {
+            _text.text = 0.ToString();
+            _shield.SetActive(false);
+            return;
+        }
 
         if (EnemyManager.Instance.EnemyBlock > 0)
         {
@@ -129,7 +135,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
             effect.transform.position = transform.position;
             SlotHealth -= damage;
         }
-        _text.text = SlotHealth.ToString();
+
         if (SlotHealth <= 0)
         {
 
