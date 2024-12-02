@@ -145,6 +145,9 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     public void PoisonDamage(int value)
     {
         SlotHealth -= value;
+        var effect = PoolManager.Instance.Spawn("PoisonEffect");
+        effect.transform.SetParent(transform);
+        effect.transform.position = transform.position;
     }
     
     public void GainBlock(int value)

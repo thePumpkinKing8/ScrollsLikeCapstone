@@ -18,4 +18,4 @@ MonoBehaviour:
     TargetSelf: 0
     Strategy: {fileID: 0}
   _requireTarget: 0
-  _isAOE: 0
+  _isAOE: 1
