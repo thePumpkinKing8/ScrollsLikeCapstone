@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
   m_Name: PoisonStrike
   m_EditorClassIdentifier: 
-  _energyCost: 1
-  _cardName: 
+  _energyCost: 0
+  _cardName: Poison Strike
   _cardType: 0
-  _cardImage: {fileID: 0}
-  _cardDescription: 
-  _cardResolutionEffects: []
+  _cardImage: {fileID: 2800000, guid: 43fa13b5d007bf14d9de0ac77195aaee, type: 3}
+  _cardDescription: Deal  4 damage and apply 2 poison
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: 57b65812f08b0994f876d3f516768a14, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
