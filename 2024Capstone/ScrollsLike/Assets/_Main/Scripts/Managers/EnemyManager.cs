@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class EnemyManager : Singleton<EnemyManager>
 {
     private EnemyDeck _deck;
@@ -23,9 +24,10 @@ public class EnemyManager : Singleton<EnemyManager>
     [HideInInspector] public int DamageMod;
     public int EnemyBlock { get; private set; }
 
-    [SerializeField] private TextMeshProUGUI _blockText;
-
+    
     public int Poison { get; private set; } = 0;
+    [SerializeField] private GameObject _poisonUI;
+    [SerializeField] private TextMeshProUGUI _poisonText;
 
     [HideInInspector] public List<StanceTrigger> StatusEffects = new List<StanceTrigger>();
 
@@ -53,7 +55,16 @@ public class EnemyManager : Singleton<EnemyManager>
     // Update is called once per frame
     void Update()
     {
-        _blockText.text = $"Enemy Block:{EnemyBlock}";
+        //_blockText.text = $"Enemy Block:{EnemyBlock}";
+        if(Poison > 0)
+        {
+            _poisonUI.SetActive(true);
+            _poisonText.text = Poison.ToString();
+        }
+        else
+        {
+            _poisonUI.SetActive(false);
+        }
     }
 
     public void BlockHit(int damage)
@@ -148,4 +159,16 @@ public class EnemyManager : Singleton<EnemyManager>
             RemoveEffect(stance);
         }
     }    
+
+    public void TriggerPoison()
+    {
+        if(Poison > 0)
+        {
+            foreach(TimeSlot slot in CardGameManager.Instance.EnemySlot)
+            {
+                slot.PoisonDamage(Poison);
+            }
+            Poison -= 1;
+        }
+    }
 }

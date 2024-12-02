@@ -53,8 +53,6 @@ public class RewardScreen : MonoBehaviour
 
         else
             _selectedCard = card;
-
-        Debug.Log(_selectedCard.name);
     }
 
     public void ComfirmReward()

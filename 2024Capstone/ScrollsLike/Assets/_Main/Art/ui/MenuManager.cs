@@ -23,7 +23,7 @@ public class MenuManager : MonoBehaviour
     }
     public void Play()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Anna_Gym");
     }
 
     void OnClick()

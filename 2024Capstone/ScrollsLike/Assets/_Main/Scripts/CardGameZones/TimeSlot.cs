@@ -13,10 +13,14 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     private int _maxHealth;
     public int SlotHealth {get; private set; }
-    
-    [SerializeField] private TextMeshProUGUI _text;
 
-   
+
+    #region UI 
+    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private Image _fillableBar;
+    [SerializeField] private GameObject _shield;
+    #endregion
+
 
     private void Awake()
     {
@@ -44,8 +48,32 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     private void Update()
     {
+        if(!Active)
+        {
+            _text.text = 0.ToString();
+            _shield.SetActive(false);
+            return;
+        }
+
+        if (EnemyManager.Instance.EnemyBlock > 0)
+        {
+            _text.text = EnemyManager.Instance.EnemyBlock.ToString();
+            _shield.SetActive(true);
+        }
+        else
+        {
+            _shield.SetActive(false);
+            _fillableBar.fillAmount = ((float)SlotHealth / (float)_maxHealth);
+            _text.text = SlotHealth.ToString();
+        }
+
+        if (SlotHealth > _maxHealth)
+        {
+            SlotHealth = _maxHealth;
+        }
+
         //_text.text = SlotHealth.ToString();
-        if(SlotHealth <= 0 && EnemyData != null)
+        if (SlotHealth <= 0 && EnemyData != null)
         {
             ToggleActive(false);
             ClearSlot();
@@ -107,7 +135,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
             effect.transform.position = transform.position;
             SlotHealth -= damage;
         }
-        _text.text = SlotHealth.ToString();
+
         if (SlotHealth <= 0)
         {
 
@@ -117,6 +145,9 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
     public void PoisonDamage(int value)
     {
         SlotHealth -= value;
+        var effect = PoolManager.Instance.Spawn("PoisonEffect");
+        effect.transform.SetParent(transform);
+        effect.transform.position = transform.position;
     }
     
     public void GainBlock(int value)

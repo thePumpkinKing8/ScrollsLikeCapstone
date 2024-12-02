@@ -10,7 +10,8 @@ public class InputManager : Singleton<InputManager>
     [SerializeField] private PlayerActionsData _actions;
     public PlayerActionsData ActionsData { get { return _actions; } private set { _actions = value; } }
 
-    private bool isPaused = false;
+    public bool IsPaused { get; private set; } = false;
+    public bool IsDead { get; private set; } = false;
 
     private void OnEnable()
     {
@@ -35,7 +36,7 @@ public class InputManager : Singleton<InputManager>
 
     private void ToggleInventory(InputAction.CallbackContext context)
     {
-        if (DeckInventoryUI.Instance != null && GameManager.Instance.State != GameState.CardGame)
+        if (DeckInventoryUI.Instance != null && GameManager.Instance.State != GameState.CardGame && !IsPaused)
         {
             DeckInventoryUI.Instance.ToggleInventory();
         }
@@ -44,11 +45,11 @@ public class InputManager : Singleton<InputManager>
     private void TogglePause(InputAction.CallbackContext context)
     {
         if (PauseMenu.Instance != null)
-        {
+        {           
+            IsPaused = !IsPaused;
             PauseMenu.Instance.TogglePause();
-            isPaused = !isPaused;
 
-            if (isPaused)
+            if (IsPaused)
             {
                 _input.Gameplay.Disable(); 
             }
@@ -57,8 +58,16 @@ public class InputManager : Singleton<InputManager>
                 _input.Gameplay.Enable();
             }
 
-            Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = isPaused;
+            Cursor.lockState = IsPaused ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = IsPaused;
         }
+    }
+
+    public void EnableGameplay()
+    {
+        _input.Gameplay.Enable();
+        IsPaused = false;
+        Cursor.lockState = IsPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = IsPaused;
     }
 }

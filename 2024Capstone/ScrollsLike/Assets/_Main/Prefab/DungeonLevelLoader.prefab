@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2109743013795947158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6991595162198118770}
+  - component: {fileID: 8018843343057635109}
+  m_Layer: 0
+  m_Name: DungeonLevelLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6991595162198118770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109743013795947158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8018843343057635109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109743013795947158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5446ea5195a20bc4a92acf0b57e0264d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPrefabs:
+  - {fileID: 0}
+  - {fileID: 4160559209280494497, guid: ba99173b05774d046a2fb40fb270a8cb, type: 3}
+  - {fileID: 1098447560758140780, guid: c9af3dd43f29e454e82fd8dc07978867, type: 3}
+  - {fileID: 5627840854469443888, guid: 950c2655f5f8cfa459283bfd0ebefecc, type: 3}
+  - {fileID: 5627840854469443888, guid: 2dfe2410f2ad33041a73ca1090af0171, type: 3}
+  - {fileID: 5627840854469443888, guid: 17052fa605ca91945a1cda5d7fa48b4a, type: 3}
+  - {fileID: 0}
+  - {fileID: 8622431372724339656, guid: f4e8e601b4894254fa31c10930bf3884, type: 3}
+  roofPrefab: {fileID: 2477724797077034722, guid: d6734696a71005a41b3dd90415b3f13b,
+    type: 3}
+  groundPrefab: {fileID: 8553549014766895136, guid: ce6e4905ac528fd4ead32326bfc5d6a3,
+    type: 3}
+  levelData:
+    levelWidth: 0
+    levelHeight: 0
+    patrolPoints: []

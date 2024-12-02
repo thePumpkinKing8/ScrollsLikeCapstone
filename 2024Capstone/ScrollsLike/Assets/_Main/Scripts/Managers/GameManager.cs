@@ -31,11 +31,16 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         DontDestroyOnLoad(this);
-        PlayersDeck.Initialize();
+       
         WoundsRemaining = _maxWounds;
         HealthRemaining = _maxHealth;
         LevelActive = true;
         State = GameState.Dungeon;
+    }
+
+    private void Start()
+    {
+        PlayersDeck.Initialize();
     }
 
     private void Update()
@@ -77,13 +82,16 @@ public class GameManager : Singleton<GameManager>
         WoundsRemaining = HealthManager.Instance.Wounds;
         Scene scene = SceneManager.GetSceneByName("CardGame");
         SceneManager.UnloadSceneAsync(scene);
+        PoolManager.Instance.ClearPool();
         CardRewards();
         Destroy(_enemyRef);
     }
 
     public void PlayerLoses()
     {
-        Debug.Log("Dead");
+        State = GameState.Dead;
+        SceneManager.LoadScene("LoseScreen");
+        Destroy(gameObject);
         //SceneManager.LoadScene("Anna_Gym");
     }
 
@@ -110,6 +118,7 @@ public enum GameState
 { 
     Dungeon,
     CardGame,
-    Pause
+    Pause,
+    Dead
 }
 

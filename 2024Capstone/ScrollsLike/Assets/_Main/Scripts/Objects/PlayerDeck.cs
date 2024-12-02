@@ -17,6 +17,7 @@ public class PlayerDeck : ScriptableObject
         {
             _deck.Add(card);
         }
+        Debug.Log("int");
     }
     public void AddCardToDeck(CardData card)
     {
