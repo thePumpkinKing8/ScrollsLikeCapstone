@@ -1,16 +1,14 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelEndTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) 
+        if (other.CompareTag("Player"))
         {
-            DungeonLevelLoader levelLoader = FindObjectOfType<DungeonLevelLoader>();
-            if (levelLoader != null)
-            {
-                levelLoader.LoadNextLevel();
-            }
+            GameManager.Instance.ShowRestUI();
         }
     }
 }

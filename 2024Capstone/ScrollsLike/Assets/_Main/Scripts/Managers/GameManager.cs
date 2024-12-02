@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     public GameState State { get; private set; }
-    public Transform Player { get { return _player; } set { _player = value;}}
+    public Transform Player { get { return _player; } set { _player = value; } }
     private Transform _player;
 
     public Vector3 PlayerPosition { get { return _playerPosition; } set { _playerPosition = value; } }
@@ -24,6 +22,7 @@ public class GameManager : Singleton<GameManager>
     private int _levelIndex = 0;
 
     [SerializeField] private RewardScreen _rewardScreen;
+    [SerializeField] private GameObject restUIPrefab;
 
     public bool LevelActive { get; private set; }
 
@@ -31,7 +30,7 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         DontDestroyOnLoad(this);
-       
+
         WoundsRemaining = _maxWounds;
         HealthRemaining = _maxHealth;
         LevelActive = true;
@@ -45,11 +44,12 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             PlayerWins();
         }
     }
+
     public void GoToCombat(EnemyDeck opponent, GameObject obj)
     {
         if (State == GameState.CardGame)
@@ -59,18 +59,17 @@ public class GameManager : Singleton<GameManager>
         _playerPosition = Player.position;
         State = GameState.CardGame;
         SceneManager.LoadScene("CardGame", LoadSceneMode.Additive);
-        
     }
-    
+
     public void CardGameStart()
     {
-        EnemyManager.Instance.SetUp(_opponent);      
+        EnemyManager.Instance.SetUp(_opponent);
     }
 
     public void NextLevel()
     {
         _levelIndex++;
-        if(_levelIndex >= 5)
+        if (_levelIndex >= 5)
         {
             Debug.Log("Game won");
         }
@@ -92,7 +91,6 @@ public class GameManager : Singleton<GameManager>
         State = GameState.Dead;
         SceneManager.LoadScene("LoseScreen");
         Destroy(gameObject);
-        //SceneManager.LoadScene("Anna_Gym");
     }
 
     public void CardRewards()
@@ -105,20 +103,39 @@ public class GameManager : Singleton<GameManager>
     {
         LevelActive = true;
         State = GameState.Dungeon;
-        
     }
 
     public void SetPause()
     {
         State = GameState.Pause;
+        Time.timeScale = 0f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None; 
+    }
+
+    public void ShowRestUI()
+    {
+        if (restUIPrefab != null)
+        {
+            restUIPrefab.SetActive(true);
+            SetPause(); 
+        }
+    }
+
+    public void HideRestUI()
+    {
+        if (restUIPrefab != null)
+        {
+            restUIPrefab.SetActive(false);
+            ResumeGame();
+        }
     }
 }
 
 public enum GameState
-{ 
+{
     Dungeon,
     CardGame,
     Pause,
     Dead
 }
-
