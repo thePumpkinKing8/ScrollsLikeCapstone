@@ -10,7 +10,7 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
     // To add a new sound, create a scriptable object using the AudioSO class and assign the values to it, then add it to the _audioSOs list in the inspector of the AudioManager object in the scene.
     // Make sure to assign sfx to an sfx mixer group and music to a music mixer group
 
-    public static BlakesAudioManager Instance;
+
 
     private AudioSO[] _audioSOs;
 
@@ -29,27 +29,19 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
         _audioPairs = new Dictionary<string, AudioSO>();
         _poolSize = _audioSOs.Length; // Amount of audio sources we will instantiate depends on how many clips we have
 
-        if (Instance == null)
-        {
-            Instance = this;
-            //DontDestroyOnLoad(this.gameObject);
 
-            foreach (var audioData in _audioSOs)
+
+        foreach (var audioData in _audioSOs)
+        {
+            // Populate dictionary
+            if (!_audioPairs.ContainsKey(audioData.AudioName))
             {
-                // Populate dictionary
-                if (!_audioPairs.ContainsKey(audioData.AudioName))
-                {
-                    _audioPairs.Add(audioData.AudioName, audioData);
-                }
+                _audioPairs.Add(audioData.AudioName, audioData);
             }
         }
-        else if (Instance != this)
-        {
-            Destroy(Instance.gameObject);
 
-            Instance = this;
-            //DontDestroyOnLoad(this.gameObject);
-        }
+
+       
 
         _audioPool = new List<AudioSource>();
 
