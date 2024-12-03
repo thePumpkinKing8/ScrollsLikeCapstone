@@ -154,6 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a9f0157444cbb4fb06a00a011276c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pileObj: {fileID: 0}
+  _emptyImg: {fileID: 0}
+  _notEmptyImg: {fileID: 0}
 --- !u!114 &23764214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd021cbfd83f1c1479e404f9dd468fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  _text: {fileID: 0}
+  _fillableBar: {fileID: 0}
+  _shield: {fileID: 0}
 --- !u!114 &128912044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,7 +309,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 39468a1994e415a479bb634ff0363bdf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a0d1e0bea1693c4590fce9a1734cf5d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -657,7 +662,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd021cbfd83f1c1479e404f9dd468fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  _text: {fileID: 0}
+  _fillableBar: {fileID: 0}
+  _shield: {fileID: 0}
 --- !u!114 &395946716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1501,6 +1508,8 @@ MonoBehaviour:
   _maxHealth: 14
   _playerDeck: {fileID: 11400000, guid: 3604ab3c9d763694298deec54df5e405, type: 2}
   _opponent: {fileID: 11400000, guid: 2c2afdb94a398d943b0a60211a05757c, type: 2}
+  _rewardScreen: {fileID: 0}
+  restUIPrefab: {fileID: 0}
 --- !u!4 &859144639
 Transform:
   m_ObjectHideFlags: 0
@@ -1593,7 +1602,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd021cbfd83f1c1479e404f9dd468fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 1928910052}
+  _text: {fileID: 0}
+  _fillableBar: {fileID: 0}
+  _shield: {fileID: 0}
 --- !u!114 &1029377798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2189,7 +2200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd021cbfd83f1c1479e404f9dd468fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 2003411684}
+  _text: {fileID: 0}
+  _fillableBar: {fileID: 0}
+  _shield: {fileID: 0}
 --- !u!114 &1339104865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2354,6 +2367,7 @@ MonoBehaviour:
   - {fileID: 2045106223}
   - {fileID: 1964064622}
   - {fileID: 1029377797}
+  _drawDelay: 0.5
 --- !u!4 &1506081699
 Transform:
   m_ObjectHideFlags: 0
@@ -2422,6 +2436,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingHealth: 14
   Wounds: 3
+  _statText: {fileID: 0}
+  _poisonText: {fileID: 0}
+  deadManager: {fileID: 0}
+  StatusEffects: []
+  _fillableBar: {fileID: 0}
+  _blockContainer: {fileID: 0}
 --- !u!114 &1609500034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2759,7 +2779,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e38338fa790cb04fb9b5ba9faf62123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthText: {fileID: 1141509940}
+  _cards: []
+  DamageMod: 0
+  _poisonUI: {fileID: 0}
+  _poisonText: {fileID: 0}
+  StatusEffects: []
 --- !u!4 &1718433301
 Transform:
   m_ObjectHideFlags: 0
@@ -2852,7 +2876,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd021cbfd83f1c1479e404f9dd468fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  _text: {fileID: 0}
+  _fillableBar: {fileID: 0}
+  _shield: {fileID: 0}
 --- !u!114 &1814130395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2873,7 +2899,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 39468a1994e415a479bb634ff0363bdf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a0d1e0bea1693c4590fce9a1734cf5d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2948,7 +2974,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f3c8c523a7749684c8856bab90752186, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ebc278b7ffff1094fb69a7349d60cf91, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3178,7 +3204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd021cbfd83f1c1479e404f9dd468fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 495453661}
+  _text: {fileID: 0}
+  _fillableBar: {fileID: 0}
+  _shield: {fileID: 0}
 --- !u!114 &1964064623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3294,7 +3322,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd021cbfd83f1c1479e404f9dd468fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  _text: {fileID: 0}
+  _fillableBar: {fileID: 0}
+  _shield: {fileID: 0}
 --- !u!114 &1974089254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3545,7 +3575,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd021cbfd83f1c1479e404f9dd468fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 1656802811}
+  _text: {fileID: 0}
+  _fillableBar: {fileID: 0}
+  _shield: {fileID: 0}
 --- !u!114 &2045106224
 MonoBehaviour:
   m_ObjectHideFlags: 0
