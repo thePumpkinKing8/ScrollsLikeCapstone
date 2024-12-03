@@ -7,18 +7,20 @@ using UnityEngine.UI;
 public class VolumeSettings : MonoBehaviour
 {
 
-    public AudioMixer audio;
-    public GameObject ON;
-    public GameObject OFF;
+    [SerializeField] AudioMixer volAudio;
+    [SerializeField] GameObject ON;
+    [SerializeField] GameObject OFF;
+    [SerializeField] Slider volumeSlider;
 
-    public void SetVolume(float vol)
+    public void SetVolume()
     {
-        audio.SetFloat("vol", vol);
-        Debug.Log("Volume set to " + vol);
+        float volume = volumeSlider.value;
+        volAudio.SetFloat("vol", volume);
+   
     }
     public void On()
     {
-        AudioListener.volume = 0;
+        AudioListener.volume = -80;
         ON.SetActive(false);
         OFF.SetActive(true);
     }
