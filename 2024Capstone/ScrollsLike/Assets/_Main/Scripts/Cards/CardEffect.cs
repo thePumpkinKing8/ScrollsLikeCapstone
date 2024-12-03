@@ -33,7 +33,7 @@ public class CardEffect : ScriptableObject
             {
                 effected = (ICardEffectable)player;
                 effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
-                effect.Strategy?.ApplyEffect(effected, _cardsData);
+                effect.Strategy?.ApplyEffect(effected, effect.EffectValue, _cardsData);
             }
             else
             {
@@ -42,7 +42,7 @@ public class CardEffect : ScriptableObject
                 {
                     effected = (ICardEffectable)target;
                     effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
-                    effect.Strategy?.ApplyEffect(effected, _cardsData);
+                    effect.Strategy?.ApplyEffect(effected,effect.EffectValue ,_cardsData);
                 }
                 else
                 {
@@ -55,7 +55,7 @@ public class CardEffect : ScriptableObject
                             {
                                 effected = (ICardEffectable)slot;
                                 effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
-                                effect.Strategy?.ApplyEffect(effected, _cardsData);
+                                effect.Strategy?.ApplyEffect(effected, effect.EffectValue, _cardsData);
                             }
                         }
                         continue;
@@ -65,7 +65,7 @@ public class CardEffect : ScriptableObject
                     {
                         effected = (ICardEffectable)target;
                         effected.ApplyEffect(effect.Type, effect.EffectValue, _cardsData);
-                        effect.Strategy?.ApplyEffect(effected, _cardsData);
+                        effect.Strategy?.ApplyEffect(effected, effect.EffectValue, _cardsData);
                     }
                     
                 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TrackingManager : Singleton<TrackingManager>
 {
+    public int PreviousBlock { get; set; } = 0;
     public int StrikesPlayed { get; private set; } = 0;
 
 

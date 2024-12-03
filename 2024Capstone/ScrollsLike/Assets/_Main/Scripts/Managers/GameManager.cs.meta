@@ -3,7 +3,11 @@ guid: 71ccbbc57d3fa9a45b472f34cec76827
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _playerDeck: {instanceID: 0}
+  - _opponent: {instanceID: 0}
+  - _rewardScreen: {instanceID: 0}
+  - restUIPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

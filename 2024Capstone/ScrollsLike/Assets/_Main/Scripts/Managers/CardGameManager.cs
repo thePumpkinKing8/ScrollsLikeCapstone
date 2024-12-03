@@ -26,7 +26,7 @@ public class CardGameManager : Singleton<CardGameManager>
 
     protected override void Awake()
     {
-        if(GameManager.Instance.State != GameState.CardGame)
+        if (GameManager.Instance.State != GameState.CardGame)
         {
             Destroy(gameObject,1);
         }
@@ -39,6 +39,7 @@ public class CardGameManager : Singleton<CardGameManager>
     public void DrawPhaseStart()
     {
         CurrentPhase = Phase.DrawPhase;
+        Events.DrawPhaseStartEvent.Invoke();
         DrawPhaseEnd();
     }
    
@@ -76,6 +77,7 @@ public class CardGameManager : Singleton<CardGameManager>
     public void CleanupPhaseStart()
     {
         CurrentPhase = Phase.CleanupPhase;
+        HealthManager.Instance.ClearBlock();
         Events.CleanupPhaseStartEvent.Invoke();
         CleanupPhaseEnd();
     }
@@ -237,6 +239,7 @@ public class CardGameManager : Singleton<CardGameManager>
     IEnumerator WaitForTargetSelect(GameCard card)
     {
         CurrentPhase = Phase.TargetMode;
+        card.GetComponentInChildren<TargetFade>().IsCard = true;
         _waitForTarget = true;
         Action action = () => TargetCancel(card);
         card.CancelPlayEvent.AddListener(action.Invoke);
@@ -247,6 +250,7 @@ public class CardGameManager : Singleton<CardGameManager>
         card.OnDeSpawn();
         CurrentPhase = Phase.PlayPhase;
     }
+
 
     private void TargetCancel(GameCard card)
     {
