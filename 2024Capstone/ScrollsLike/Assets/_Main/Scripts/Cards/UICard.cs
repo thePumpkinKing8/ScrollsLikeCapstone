@@ -102,8 +102,9 @@ public class UICard : PoolObject
     }
 
     public void HoverExit()
-    {                
-        transform.localScale = _baseSize;    
+    {            
+        if(!_selected)
+            transform.localScale = _baseSize;    
     }
 
     //what the card does when its clicked
@@ -116,6 +117,7 @@ public class UICard : PoolObject
     public void DeSelect()
     {
         _selected = false;
+        transform.localScale = _baseSize;
     }
 
     public override void OnDeSpawn()
