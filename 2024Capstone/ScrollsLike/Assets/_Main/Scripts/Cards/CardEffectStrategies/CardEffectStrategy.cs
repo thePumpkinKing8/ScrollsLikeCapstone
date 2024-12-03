@@ -9,7 +9,6 @@ public abstract class CardEffectStrategy : ScriptableObject
     protected UnityEvent _event;
     public virtual void ApplyEffect(ICardEffectable target,int value , CardData card)
     {
-
         //whatever logic you have for applying an effect
     }
 }
