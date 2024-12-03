@@ -13,11 +13,17 @@ public class RestUI : MonoBehaviour
 
     public void OnRestButtonClicked()
     {
-        GameManager.Instance.HideRestUI(); 
+        GameManager.Instance.FullyRegenerateHealth();
+        GameManager.Instance.HideRestUI();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         DungeonLevelLoader levelLoader = FindObjectOfType<DungeonLevelLoader>();
         if (levelLoader != null)
         {
             levelLoader.LoadNextLevel();
         }
     }
+
 }
