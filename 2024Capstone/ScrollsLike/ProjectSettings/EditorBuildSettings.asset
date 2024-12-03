@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Main/Scenes/LoseScreen.unity
     guid: 22d3bbfc036cefa45be8d641dbf072e2
+  - enabled: 0
+    path: Assets/_Main/Scenes/TutorialPurpose/TestCard.unity
+    guid: c731bcf2d1893844f8d34ee03f5676dc
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 8a925477d59c71f48aaa1bc8324f02f7,
       type: 2}

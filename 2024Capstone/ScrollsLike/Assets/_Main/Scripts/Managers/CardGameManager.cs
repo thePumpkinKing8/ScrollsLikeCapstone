@@ -39,6 +39,7 @@ public class CardGameManager : Singleton<CardGameManager>
     public void DrawPhaseStart()
     {
         CurrentPhase = Phase.DrawPhase;
+        Events.DrawPhaseStartEvent.Invoke();
         DrawPhaseEnd();
     }
    
@@ -76,6 +77,7 @@ public class CardGameManager : Singleton<CardGameManager>
     public void CleanupPhaseStart()
     {
         CurrentPhase = Phase.CleanupPhase;
+        HealthManager.Instance.ClearBlock();
         Events.CleanupPhaseStartEvent.Invoke();
         CleanupPhaseEnd();
     }
