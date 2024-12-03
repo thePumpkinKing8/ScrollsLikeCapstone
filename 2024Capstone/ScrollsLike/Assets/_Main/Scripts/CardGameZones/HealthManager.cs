@@ -155,9 +155,14 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
         Energy += amount;
     }
 
+    public void ClearBlock()
+    {
+        TrackingManager.Instance.PreviousBlock = PlayerBlock;
+        PlayerBlock = 0;
+    }
+
     public void TriggerPoison()
     {
-        PlayerBlock = 0;
         if(Poison > 0)
         {
             PlayerHealth -= Poison;

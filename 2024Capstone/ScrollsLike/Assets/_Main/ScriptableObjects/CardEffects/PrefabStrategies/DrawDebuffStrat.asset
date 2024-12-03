@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebdd8ab752f855740b9696fe28181be2, type: 3}
-  m_Name: Stance Effect
+  m_Script: {fileID: 11500000, guid: fd9541fb082fcd9469f6a54fae4f0942, type: 3}
+  m_Name: DrawDebuffStrat
   m_EditorClassIdentifier: 
-  CardEffectors:
-  - Type: 7
-    EffectValue: 0
-    TargetSelf: 1
-    Strategy: {fileID: 11400000, guid: 0cb0cf7a53a31d446ae63117719a5828, type: 2}
-  _requireTarget: 0
-  _isAOE: 0
+  _cardEventData: {fileID: 11400000, guid: 8b91a1c7913a69a4cb70de4c1ef30b26, type: 2}

@@ -11,7 +11,7 @@ public class CardBurnStrategy : CardEffectStrategy
         _event = _cardEventData.GameEnd;
         _event.AddListener(RemoveCards);
     }
-    public override void ApplyEffect(ICardEffectable target, CardData card)
+    public override void ApplyEffect(ICardEffectable target,int value ,CardData card)
     {
         GameManager.Instance.PlayersDeck.RemoveCardFromDeck(card);
     }

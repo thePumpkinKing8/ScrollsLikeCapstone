@@ -11,6 +11,7 @@ public class HandController : Singleton<HandController>
     [SerializeField] private int _maxCardsInHand = 12;
     [SerializeField] private int _cardsDrawnPerTurn = 3;
     [SerializeField] private int _startingHandSize = 8;
+    public int DrawMod { get; set; } = 0;
 
     private List<GameCard> _cardsInHand = new List<GameCard>(); 
     
@@ -78,8 +79,8 @@ public class HandController : Singleton<HandController>
     //draws the player multiple cards at the start if the draw phase
     IEnumerator DrawCards(int numberOfCards, bool drawPhase = false)
     {
-        Debug.Log(numberOfCards);
-        for(int i = 0; i < numberOfCards; i++)
+        Debug.Log(numberOfCards + DrawMod);
+        for(int i = 0; i < numberOfCards + DrawMod; i++)
         {
 
             if (_cardsInHand.Count < _maxCardsInHand)
@@ -93,6 +94,7 @@ public class HandController : Singleton<HandController>
         SetHandOrder();
         if(drawPhase)
             CardGameManager.Instance.PrepPhaseStart();
+        DrawMod = 0;
         yield return null;
     }
 }
