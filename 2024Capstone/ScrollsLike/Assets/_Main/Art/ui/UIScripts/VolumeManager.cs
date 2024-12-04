@@ -20,7 +20,7 @@ public class VolumeSettings : MonoBehaviour
     }
     public void On()
     {
-        AudioListener.volume = -80;
+        AudioListener.volume = 0;
         ON.SetActive(false);
         OFF.SetActive(true);
     }
