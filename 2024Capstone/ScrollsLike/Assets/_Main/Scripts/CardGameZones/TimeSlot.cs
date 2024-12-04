@@ -75,8 +75,8 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         //_text.text = SlotHealth.ToString();
         if (SlotHealth <= 0 && EnemyData != null)
         {
-            ToggleActive(false);
             ClearSlot();
+            ToggleActive(false);
             _text.text = "dead";
         }
     }
@@ -90,7 +90,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
 
     public void ClearSlot()
     {
-        EnemyManager.Instance.AddCard(EnemyData.ReferenceCardData);
+        EnemyManager.Instance.AddCard(EnemyData?.ReferenceCardData);
         EnemyData?.OnDeSpawn();
         EnemyData = null;
     }
@@ -170,11 +170,17 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         {
             SlotHealth = _maxHealth;
         }
+        var effect = PoolManager.Instance.Spawn("HealEffect");
+        effect.transform.SetParent(transform);
+        effect.transform.position = transform.position;
         _text.text = SlotHealth.ToString();
     }
 
     public void ResolveEnemyEffect()
     {
+        if(EnemyData == null)
+            return;
+
         EffectManager.Instance.ActivateEffect(EnemyData.ReferenceCardData.CardResolutionEffects, this);
         Debug.Log("enemy effect");
     }

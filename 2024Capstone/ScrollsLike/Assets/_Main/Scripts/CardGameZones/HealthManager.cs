@@ -223,6 +223,9 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
             case CardEffectType.DamageBuff:
                 DamageMod += value;
                 break;
+            case CardEffectType.Mill:
+                CardGameManager.Instance.MillCard(value);
+                break;
             case CardEffectType.None:
                 break;
         }

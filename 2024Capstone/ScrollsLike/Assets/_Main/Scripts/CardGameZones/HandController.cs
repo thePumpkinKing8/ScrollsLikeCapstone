@@ -89,7 +89,11 @@ public class HandController : Singleton<HandController>
                 yield return new WaitForSeconds(_drawDelay);
             }
             else
+            {
+                Debug.Log("To Many Cards");
                 break;
+            }
+                
         }
         SetHandOrder();
         if(drawPhase)

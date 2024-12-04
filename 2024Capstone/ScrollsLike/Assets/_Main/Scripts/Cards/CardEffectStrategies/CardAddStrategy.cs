@@ -6,13 +6,12 @@ using UnityEngine;
 public class CardAddStrategy : CardEffectStrategy
 {
     [SerializeField] private CardData _cardData;
-    [SerializeField] private int _numberOfCards = 1;
     public override void ApplyEffect(ICardEffectable target,int value, CardData card)
     {
-        for(int i = 0; i<= _numberOfCards; i++)
+        for(int i = 0; i < value; i++)
         {
-            GameManager.Instance.PlayersDeck.AddCardToDeck(_cardData);
+            CardGameManager.Instance.AddCardToDeck(_cardData);
         }
-       
+        CardGameManager.Instance.EffectDone();
     }
 }

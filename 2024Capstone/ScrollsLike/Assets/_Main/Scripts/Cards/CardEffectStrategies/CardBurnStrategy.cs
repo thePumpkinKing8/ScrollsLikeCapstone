@@ -13,7 +13,7 @@ public class CardBurnStrategy : CardEffectStrategy
     }
     public override void ApplyEffect(ICardEffectable target,int value ,CardData card)
     {
-        GameManager.Instance.PlayersDeck.RemoveCardFromDeck(card);
+        CardGameManager.Instance.RemoveDiscard(card);
     }
 
     public void RemoveCards()

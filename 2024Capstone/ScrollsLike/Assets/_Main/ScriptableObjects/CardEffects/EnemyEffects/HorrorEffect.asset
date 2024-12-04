@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: HorrorEffect
   m_EditorClassIdentifier: 
   CardEffectors:
-  - Type: 5
-    EffectValue: 0
+  - Type: 8
+    EffectValue: 2
     TargetSelf: 1
     Strategy: {fileID: 11400000, guid: 69751c3e687a48242a49601ca3115381, type: 2}
   _requireTarget: 0
