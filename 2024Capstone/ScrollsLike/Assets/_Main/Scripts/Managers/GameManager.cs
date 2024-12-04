@@ -81,8 +81,8 @@ public class GameManager : Singleton<GameManager>
         WoundsRemaining = HealthManager.Instance.Wounds;
         Scene scene = SceneManager.GetSceneByName("CardGame");
         SceneManager.UnloadSceneAsync(scene);
-        PoolManager.Instance.ClearPool();
         CardRewards();
+        PoolManager.Instance.ClearPool();
         Destroy(_enemyRef);
     }
 
@@ -103,7 +103,12 @@ public class GameManager : Singleton<GameManager>
     {
         LevelActive = true;
         State = GameState.Dungeon;
+        Time.timeScale = 1f; 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked; 
+        PoolManager.Instance.ClearPool();
     }
+
 
     public void SetPause()
     {
@@ -129,6 +134,12 @@ public class GameManager : Singleton<GameManager>
             restUIPrefab.SetActive(false);
             ResumeGame();
         }
+    }
+
+    public void FullyRegenerateHealth()
+    {
+        HealthRemaining = _maxHealth;
+        Debug.Log("Player health fully regenerated.");
     }
 }
 

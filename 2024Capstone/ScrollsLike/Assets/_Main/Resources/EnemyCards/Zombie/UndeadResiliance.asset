@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: UndeadResiliance
   m_EditorClassIdentifier: 
   _energyCost: 1
-  _cardName: Undead Resiliance
+  _cardName: Regeneration
   _cardType: 1
   _cardImage: {fileID: 2800000, guid: 0f08f81106dc2fe46823ea0aba5172b5, type: 3}
   _cardDescription: Restore a dead limb to 50% HP
-  _cardResolutionEffects: []
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: 3b8a43e8db3e49a4e82d1c8bf844e2dc, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
   _cardUses: 0

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Mindless Drone
   m_EditorClassIdentifier: 
   _energyCost: 0
-  _cardName: Mindless drone
+  _cardName: Mindless
   _cardType: 1
   _cardImage: {fileID: 2800000, guid: 11328fe2d771c9d40b3e7d58a4c6aefb, type: 3}
-  _cardDescription: Remove your active stance to discard
-  _cardResolutionEffects: []
+  _cardDescription: Gains 5 Block, Heal 5
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: 8e2e6244c26384743b10dd919e456d78, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
   _cardUses: 0

@@ -1099,8 +1099,12 @@ MonoBehaviour:
   _description: {fileID: 4005214541595324601}
   _title: {fileID: 3218546042635696829}
   _cardType: {fileID: 9125127196233500678}
+  _typeImage: {fileID: 2159112960458693767}
   _energyCost: {fileID: 1635512117430316181}
   _image: {fileID: 3729403853336409188}
+  _strikeImage: {fileID: 21300000, guid: e448f57efc8fcff46bb31d7dff83c7b5, type: 3}
+  _guardImage: {fileID: 21300000, guid: 7ed5096757bd2ef4a811536a61a21598, type: 3}
+  _stanceImage: {fileID: 21300000, guid: a36e7f3e1f1d6c54aad2737b778fbedc, type: 3}
   _hoverSizeIncrease: 1.15
 --- !u!114 &7114376997264550892
 MonoBehaviour:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BladeShatter
   m_EditorClassIdentifier: 
   _energyCost: 1
-  _cardName: Blade Shatter
+  _cardName: Parry
   _cardType: 1
   _cardImage: {fileID: 2800000, guid: 9dbccd38df2c7f64d9a118e91d5647ea, type: 3}
   _cardDescription: Gain 5 block, Draw a card

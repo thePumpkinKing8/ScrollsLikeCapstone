@@ -53,6 +53,16 @@ public class DeckManager : MonoBehaviour
         return drawnCard;
     }
 
+    public CardData MillCard()
+    {
+        if(_deck.Count < 1)
+            return null;
+
+        var milledCard = _deck[0];
+        _deck.Remove(milledCard);
+        return milledCard;
+    }
+
     public void DisplayDeck()
     {
         var displayDeck = Deck;

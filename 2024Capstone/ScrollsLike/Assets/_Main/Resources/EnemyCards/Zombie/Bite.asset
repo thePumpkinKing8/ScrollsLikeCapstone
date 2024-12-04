@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bite
   m_EditorClassIdentifier: 
   _energyCost: 0
-  _cardName: 
+  _cardName: Bite
   _cardType: 0
   _cardImage: {fileID: 2800000, guid: 2909f5bd1df07ad47826d1756e15601e, type: 3}
   _cardDescription: Deal 3 damage. Heal 5.

@@ -7,9 +7,8 @@ public class DiscardPile : MonoBehaviour
     public List<CardData> DiscardedCards { get { return _discardedCards; } }
     private List<CardData> _discardedCards = new List<CardData>();
 
-    [SerializeField] private Image _pileObj;
-    [SerializeField] private Sprite _emptyImg;
-    [SerializeField] private Sprite _notEmptyImg;
+    [SerializeField] private GameObject _pileObj;
+
 
     private void Awake()
     {
@@ -17,18 +16,19 @@ public class DiscardPile : MonoBehaviour
     }
     private void Start()
     {
-       
+       if(_discardedCards.Count < 1)
+            _pileObj.SetActive(false);
     }
     public void AddCard(CardData discardedCard)
     {
         _discardedCards.Add(discardedCard);
-        _pileObj.sprite = _notEmptyImg;
+        _pileObj.SetActive(true);
     }
 
     public void ShuffleCardsToDeck()
     {
         _discardedCards.Clear();
-        _pileObj.sprite = _emptyImg;
+        _pileObj.SetActive(false);
         Debug.Log("clear");
     }
 

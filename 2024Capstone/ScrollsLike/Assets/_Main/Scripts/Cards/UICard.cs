@@ -35,6 +35,12 @@ public class UICard : PoolObject
     [SerializeField] private TextMeshProUGUI _description;
     [SerializeField] private TextMeshProUGUI _title;
     [SerializeField] private TextMeshProUGUI _cardType;
+    [SerializeField] private Image _typeImage;
+    [Header("Type Images")]
+    [SerializeField] private Sprite _strikeImage;
+    [SerializeField] private Sprite _guardImage;
+    [SerializeField] private Sprite _stanceImage;
+
     [SerializeField] private TextMeshProUGUI _energyCost;
     [SerializeField] private RawImage _image;
 
@@ -53,6 +59,18 @@ public class UICard : PoolObject
         _description.text = _cardData.CardDescription;
         _title.text = _cardData.CardName;
         _cardType.text = _cardData.CardType.ToString();
+        switch (_cardData.CardType)
+        {
+            case CardType.Strike:
+                _typeImage.sprite = _strikeImage;
+                break;
+            case CardType.Guard:
+                _typeImage.sprite = _guardImage;
+                break;
+            case CardType.Stance:
+                _typeImage.sprite = _stanceImage;
+                break;
+        }
         EnergyCost = _cardData.EnergyCost;
         _energyCost.text = _cardData.EnergyCost.ToString();
         if(_cardData.CardImage != null)
@@ -84,8 +102,9 @@ public class UICard : PoolObject
     }
 
     public void HoverExit()
-    {                
-        transform.localScale = _baseSize;    
+    {            
+        if(!_selected)
+            transform.localScale = _baseSize;    
     }
 
     //what the card does when its clicked
@@ -98,6 +117,7 @@ public class UICard : PoolObject
     public void DeSelect()
     {
         _selected = false;
+        transform.localScale = _baseSize;
     }
 
     public override void OnDeSpawn()

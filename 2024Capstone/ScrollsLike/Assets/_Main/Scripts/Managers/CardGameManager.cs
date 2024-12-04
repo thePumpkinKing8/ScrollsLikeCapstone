@@ -333,6 +333,17 @@ public class CardGameManager : Singleton<CardGameManager>
         _discardPile.AddCard(card);
     }
 
+    public CardData RemoveDiscard(CardData card)
+    {
+        if(_discardPile.DiscardedCards.Contains(card))
+        {
+            _discardPile.DiscardedCards.Remove(card);
+            return card;
+        }
+        else
+            return null;
+    }
+
     public void DrawCard(int num = 1)
     {
         for(int i = 0; i < num; i++)
@@ -342,6 +353,30 @@ public class CardGameManager : Singleton<CardGameManager>
             HandController.Instance.CardDrawn(card);
         }
     }
+
+    public IEnumerator MillCard(int num)
+    {
+        for (int i = 0; i <= num; i++)
+        {
+            CardData card = _deckManager.MillCard();
+            if (card == null)
+            {
+                break;
+            }
+            _discardPile.AddCard(card);
+            yield return new WaitForSeconds(_drawDelay);
+        }
+        EffectDone();
+        yield return null;
+    }
+
+    public void AddCardToDeck(CardData card)
+    {
+        _deckManager.Deck.Add(card);
+        _deckManager.Shuffle();
+    }
+
+   
 
     public void DrawFromDeckFailed() //shuffles discard pile into deck if there are no cards to draw from
     {
