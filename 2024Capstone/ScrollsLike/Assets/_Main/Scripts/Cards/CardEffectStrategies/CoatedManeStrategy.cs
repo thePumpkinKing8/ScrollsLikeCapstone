@@ -9,7 +9,7 @@ public class CoatedManeStrategy : CardEffectStrategy
     {
         _event = _cardEventData.EnemyBlocked;
     }
-    public override void ApplyEffect(ICardEffectable target, CardData card)
+    public override void ApplyEffect(ICardEffectable target, int value, CardData card)
     {
         HealthManager.Instance.ApplyEffect(CardEffectType.Damage, EnemyManager.Instance.DamageBlocked, card);
         

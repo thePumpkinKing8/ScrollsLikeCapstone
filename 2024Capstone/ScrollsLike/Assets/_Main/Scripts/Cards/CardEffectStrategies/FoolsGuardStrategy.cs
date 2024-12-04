@@ -10,7 +10,7 @@ public class FoolsGuardStrategy : CardEffectStrategy
     {
         _event = _cardEventData.PlayerHit;
     }
-    public override void ApplyEffect(ICardEffectable target, CardData card)
+    public override void ApplyEffect(ICardEffectable target,int value ,CardData card)
     {
         target.ApplyEffect(CardEffectType.Damage,TrackingManager.Instance.StrikesPlayed , card);
         Debug.Log(TrackingManager.Instance.StrikesPlayed);

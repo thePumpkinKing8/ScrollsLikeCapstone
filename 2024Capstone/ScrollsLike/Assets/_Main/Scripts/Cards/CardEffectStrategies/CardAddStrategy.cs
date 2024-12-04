@@ -7,7 +7,7 @@ public class CardAddStrategy : CardEffectStrategy
 {
     [SerializeField] private CardData _cardData;
     [SerializeField] private int _numberOfCards = 1;
-    public override void ApplyEffect(ICardEffectable target, CardData card)
+    public override void ApplyEffect(ICardEffectable target,int value, CardData card)
     {
         for(int i = 0; i<= _numberOfCards; i++)
         {

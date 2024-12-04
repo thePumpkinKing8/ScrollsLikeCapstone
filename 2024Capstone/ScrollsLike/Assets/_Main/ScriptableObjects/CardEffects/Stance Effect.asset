@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Stance Effect
   m_EditorClassIdentifier: 
   CardEffectors:
-  - Type: 4
+  - Type: 7
     EffectValue: 0
     TargetSelf: 1
     Strategy: {fileID: 11400000, guid: 0cb0cf7a53a31d446ae63117719a5828, type: 2}
   _requireTarget: 0
+  _isAOE: 0

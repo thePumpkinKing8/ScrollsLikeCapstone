@@ -6,7 +6,7 @@ using UnityEngine;
 public class ApplyStatusStrategy : CardEffectStrategy
 {
     [SerializeField] private StanceTrigger _statusEffect;
-    public override void ApplyEffect(ICardEffectable target, CardData card)
+    public override void ApplyEffect(ICardEffectable target, int value, CardData card)
     {
         target.AddEffect(_statusEffect);
     }
