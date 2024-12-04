@@ -44,15 +44,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        HideAll();
         SceneManager.LoadScene("Anna_Gym");
-    }
-
-    public void HideAll()
-    {
-        mainMenu.SetActive(false);
-        tutorial.SetActive(false);
-        options.SetActive(false);
     }
 
     public void EnableMainMenu()
