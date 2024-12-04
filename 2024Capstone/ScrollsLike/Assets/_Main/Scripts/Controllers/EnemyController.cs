@@ -37,18 +37,22 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        if (patrolPoints.Count == 0 || GameManager.Instance.State != GameState.Dungeon) return;
-
-        CheckIfStuck();
-
-        if (IsPlayerInChaseRange())
+        if(GameManager.Instance.State == GameState.Dungeon)
         {
-            ChasePlayer();
+            if (patrolPoints.Count == 0 || GameManager.Instance.State != GameState.Dungeon) return;
+
+            CheckIfStuck();
+
+            if (IsPlayerInChaseRange())
+            {
+                ChasePlayer();
+            }
+            else
+            {
+                MoveTowardsPatrolPoint();
+            }
         }
-        else
-        {
-            MoveTowardsPatrolPoint();
-        }
+        
     }
 
     private bool IsPlayerInChaseRange()

@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if(GameManager.Instance.LevelActive)
+        if(GameManager.Instance.State == GameState.Dungeon)
             _rb.velocity = (transform.forward * (_horizontal.z * _speed)) + new Vector3(0, _rb.velocity.y, 0) + (transform.right * (_horizontal.x * _speed));
     }
 

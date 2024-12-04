@@ -80,6 +80,7 @@ public class HandController : Singleton<HandController>
     IEnumerator DrawCards(int numberOfCards, bool drawPhase = false)
     {
         Debug.Log(numberOfCards + DrawMod);
+        Debug.Log($"Number of cards in hand is {_cardsInHand.Count}");
         for(int i = 0; i < numberOfCards + DrawMod; i++)
         {
 
@@ -99,6 +100,7 @@ public class HandController : Singleton<HandController>
         if(drawPhase)
             CardGameManager.Instance.PrepPhaseStart();
         DrawMod = 0;
+        Debug.Log($"Number of cards in hand, after drawing, is {_cardsInHand.Count}");
         yield return null;
     }
 }

@@ -245,6 +245,7 @@ public class CardGameManager : Singleton<CardGameManager>
         card.CancelPlayEvent.AddListener(action.Invoke);
         yield return new WaitUntil(() => _waitForTarget == false);
         Debug.Log("target selected");
+        HandController.Instance.RemoveCard(card);
         EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, EffectTarget);
         DiscardCard(card.ReferenceCardData);
         card.OnDeSpawn();
@@ -380,6 +381,8 @@ public class CardGameManager : Singleton<CardGameManager>
 
     public void DrawFromDeckFailed() //shuffles discard pile into deck if there are no cards to draw from
     {
+        if (_discardPile.DiscardedCards.Count < 1)
+            return;
         _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
         _discardPile.ShuffleCardsToDeck();
     }

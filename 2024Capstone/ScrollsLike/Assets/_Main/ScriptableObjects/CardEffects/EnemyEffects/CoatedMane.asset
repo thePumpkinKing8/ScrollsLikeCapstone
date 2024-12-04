@@ -17,7 +17,7 @@ MonoBehaviour:
     EffectValue: 8
     TargetSelf: 0
     Strategy: {fileID: 0}
-  - Type: 7
+  - Type: 8
     EffectValue: 0
     TargetSelf: 0
     Strategy: {fileID: 11400000, guid: a90296b4c3d378d45aebb09951f65bbb, type: 2}

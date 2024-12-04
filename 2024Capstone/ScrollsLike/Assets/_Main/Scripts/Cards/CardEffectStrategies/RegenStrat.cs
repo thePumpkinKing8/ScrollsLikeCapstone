@@ -13,8 +13,8 @@ public class RegenStrat : CardEffectStrategy
             {
                 slot.EnemyHeal(EnemyManager.Instance.EnemyHealth / 2);
                 return;
-            }
-            
+            }            
         }
+        CardGameManager.Instance.EffectDone();
     }
 }

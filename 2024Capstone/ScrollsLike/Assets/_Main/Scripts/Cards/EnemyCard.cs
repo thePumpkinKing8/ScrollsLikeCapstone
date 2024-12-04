@@ -30,7 +30,7 @@ public class EnemyCard : PoolObject
     // Start is called before the first frame update
     void Start()
     {
-        _description.text = _cardData.CardDescription;
+        _description.text = _cardData.CardDescription != null ? _cardData.CardDescription : "";
         _title.text = _cardData.CardName;
         _cardType.text = _cardData.CardType.ToString();
         if (_cardData.CardImage != null)

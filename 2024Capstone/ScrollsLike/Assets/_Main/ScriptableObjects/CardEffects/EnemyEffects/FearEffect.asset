@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FearEffect
   m_EditorClassIdentifier: 
   CardEffectors:
-  - Type: 5
+  - Type: 8
     EffectValue: 0
     TargetSelf: 1
     Strategy: {fileID: 11400000, guid: 3078d611940032a43a2029173848c5a6, type: 2}
