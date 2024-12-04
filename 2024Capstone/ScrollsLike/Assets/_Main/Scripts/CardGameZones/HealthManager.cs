@@ -212,7 +212,7 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 CardGameManager.Instance.EffectDone();
                 break;
             case CardEffectType.Poison:
-                if(PlayerBlock >= 0)
+                if(PlayerBlock <= 0)
                 {
                     GainPoison(value);
                 }
