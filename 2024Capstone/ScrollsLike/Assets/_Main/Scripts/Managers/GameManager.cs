@@ -69,7 +69,7 @@ public class GameManager : Singleton<GameManager>
     public void NextLevel()
     {
         _levelIndex++;
-        if (_levelIndex >= 5)
+        if (_levelIndex >= 2)
         {
             Debug.Log("Game won");
         }
