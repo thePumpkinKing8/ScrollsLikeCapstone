@@ -24,6 +24,9 @@ public class CardGameManager : Singleton<CardGameManager>
     public TimeSlot EffectTarget { get; private set; }
     private bool _waitForTarget = false;
 
+    #region public info
+    public int CardsInDiscard { get { return _discardPile.DiscardedCards.Count; } }
+    #endregion
     protected override void Awake()
     {
         if (GameManager.Instance.State != GameState.CardGame)

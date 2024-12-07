@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5101027089f35674fa670d84b0071742, type: 3}
+  m_Name: EmptyStare
+  m_EditorClassIdentifier: 
+  _energyCost: 1
+  _cardName: Empty Stare
+  _cardType: 1
+  _cardImage: {fileID: 2800000, guid: e8b523040b3df6a4baeed5a970cc2142, type: 3}
+  _cardDescription: Put top 5 cards of deck into discard
+  _cardResolutionEffects: []
+  _cardOnDrawEffects: []
+  _cardOnDiscardEffects: []
+  _cardUses: 0
