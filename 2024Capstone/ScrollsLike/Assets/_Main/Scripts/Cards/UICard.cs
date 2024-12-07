@@ -8,10 +8,7 @@ public class UICard : PoolObject
 {
     public CardData ReferenceCardData
     {
-        get
-        {
-            return _cardData;
-        }
+        get { return _cardData; }
         set
         {
             _cardData = value;
@@ -24,10 +21,7 @@ public class UICard : PoolObject
 
     public CardType CardsType
     {
-        get
-        {
-            return ReferenceCardData.CardType;
-        }
+        get { return ReferenceCardData.CardType; }
     }
 
     [SerializeField] private TextMeshProUGUI _description;
@@ -52,9 +46,16 @@ public class UICard : PoolObject
 
     public void SetUpCard()
     {
+        if (_cardData == null)
+        {
+            Debug.LogError("Card data is null.");
+            return;
+        }
+
         _description.text = _cardData.CardDescription;
         _title.text = _cardData.CardName;
         _cardType.text = _cardData.CardType.ToString();
+
         switch (_cardData.CardType)
         {
             case CardType.Strike:
@@ -67,28 +68,21 @@ public class UICard : PoolObject
                 _typeImage.sprite = _stanceImage;
                 break;
         }
+
         EnergyCost = _cardData.EnergyCost;
         _energyCost.text = _cardData.EnergyCost.ToString();
+
         if (_cardData.CardImage != null)
         {
             _image.texture = _cardData.CardImage;
         }
+
         _baseSize = transform.localScale;
     }
 
     public void SetScreenRef(RewardScreen screen)
     {
         _rewardScreen = screen;
-    }
-
-    void Update()
-    {
-
-    }
-
-    public void SetSize()
-    {
-        _baseSize = transform.localScale;
     }
 
     public void OnHover()
@@ -102,17 +96,22 @@ public class UICard : PoolObject
             transform.localScale = _baseSize;
     }
 
-    //what the card does when its clicked
     public void OnClick()
     {
         _rewardScreen.CardSelect(ReferenceCardData);
-        _selected = true;
     }
 
-    public void DeSelect()
+    public void SetSelected(bool isSelected)
     {
-        _selected = false;
-        transform.localScale = _baseSize;
+        _selected = isSelected;
+        if (_selected)
+        {
+            transform.localScale = _baseSize * _hoverSizeIncrease;
+        }
+        else
+        {
+            transform.localScale = _baseSize;
+        }
     }
 
     public bool IsSelected()
@@ -120,22 +119,15 @@ public class UICard : PoolObject
         return _selected;
     }
 
-    public void ToggleSelected()
-    {
-        if (_selected)
-        {
-            DeSelect();
-        }
-        else
-        {
-            _selected = true; 
-            transform.localScale = _baseSize * _hoverSizeIncrease; 
-        }
-    }
-
     public CardData GetCardData()
     {
         return _cardData;
+    }
+
+    public void ToggleSelected()
+    {
+        _selected = !_selected;
+        SetSelected(_selected);
     }
 
     public override void OnDeSpawn()

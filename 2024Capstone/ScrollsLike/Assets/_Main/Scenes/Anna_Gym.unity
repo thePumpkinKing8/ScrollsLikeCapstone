@@ -1529,6 +1529,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1849560325194769628, guid: 2079185cf065c804ea330c2f0cf781f5,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2857717756588499428, guid: 9c4c68da9144e784ebbb05e60668c11e,
+        type: 2}
     - target: {fileID: 1933729358683444169, guid: 2079185cf065c804ea330c2f0cf781f5,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1549,6 +1555,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2590472164424818399, guid: 2079185cf065c804ea330c2f0cf781f5,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2857717756588499428, guid: 9c4c68da9144e784ebbb05e60668c11e,
+        type: 2}
+    - target: {fileID: 3333418841509799173, guid: 2079185cf065c804ea330c2f0cf781f5,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2857717756588499428, guid: 9c4c68da9144e784ebbb05e60668c11e,
+        type: 2}
+    - target: {fileID: 4418659345931655328, guid: 2079185cf065c804ea330c2f0cf781f5,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2857717756588499428, guid: 9c4c68da9144e784ebbb05e60668c11e,
+        type: 2}
+    - target: {fileID: 4706223423953006212, guid: 2079185cf065c804ea330c2f0cf781f5,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2857717756588499428, guid: 9c4c68da9144e784ebbb05e60668c11e,
+        type: 2}
     - target: {fileID: 6767851168644986530, guid: 2079185cf065c804ea330c2f0cf781f5,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2044,11 +2074,6 @@ PrefabInstance:
       propertyPath: restUI
       value: 
       objectReference: {fileID: 1706616133}
-    - target: {fileID: 4209191536236680011, guid: 0fc0bfca45af7fe4b85584ed4e780d3a,
-        type: 3}
-      propertyPath: cardPrefab
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5437360810326449534, guid: 0fc0bfca45af7fe4b85584ed4e780d3a,
         type: 3}
       propertyPath: m_Pivot.x

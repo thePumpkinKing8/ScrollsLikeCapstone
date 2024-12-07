@@ -7,7 +7,7 @@ public class DiscardMenu : MonoBehaviour
 {
     [SerializeField] private GameObject discardMenu;
     [SerializeField] private Transform cardContainer;
-    [SerializeField] private GameObject restUI;
+    [SerializeField] private GameObject restUI; // Reference to the rest UI
     private PlayerDeck playerDeck;
     private List<CardData> availableCards;
 
