@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.8
-  chaseThreshold: 2
+  chaseThreshold: 3
   patrolThreshold: 0.5
   stuckThreshold: 3
   chaseSpeedMultiplier: 1.5
