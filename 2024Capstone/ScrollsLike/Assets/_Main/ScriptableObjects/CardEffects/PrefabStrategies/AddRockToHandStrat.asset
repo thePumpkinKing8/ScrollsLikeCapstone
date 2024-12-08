@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2d96aad1ad394b4e8d71f200a9b81cc, type: 3}
-  m_Name: Attack Effect
+  m_Script: {fileID: 11500000, guid: c93c50bcad9070e4395a5d9897fbad09, type: 3}
+  m_Name: AddRockToHandStrat
   m_EditorClassIdentifier: 
-  CardEffectors:
-  - Type: 0
-    EffectValue: 6
-    TargetSelf: 0
-    Strategy: {fileID: 0}
-  _requireTarget: 1
-  damage: 6
+  _cardEventData: {fileID: 11400000, guid: 8b91a1c7913a69a4cb70de4c1ef30b26, type: 2}
+  _cardData: {fileID: 11400000, guid: 674c2e05454d76c41806a66a857c3b5c, type: 2}

@@ -380,6 +380,19 @@ public class CardGameManager : Singleton<CardGameManager>
         _deckManager.Shuffle();
     }
 
+    public void GetCardFromDeck(CardData card)
+    {
+        if(HandController.Instance.CardsInHand.Count < HandController.Instance.MaxCardsInHand)
+        {
+            CardData foundCard = _deckManager.GetCard(card);
+            if(foundCard != null)
+            {
+                HandController.Instance.AddCardFromData(foundCard);
+            }
+            Debug.Log("card not found");
+        }
+    }
+
    
 
     public void DrawFromDeckFailed() //shuffles discard pile into deck if there are no cards to draw from

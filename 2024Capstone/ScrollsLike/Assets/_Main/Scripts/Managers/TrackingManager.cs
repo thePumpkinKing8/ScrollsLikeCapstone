@@ -8,6 +8,8 @@ public class TrackingManager : Singleton<TrackingManager>
     public int PreviousBlock { get; set; } = 0;
     public int StrikesPlayed { get; private set; } = 0;
 
+    public bool Geology { get; set; } = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,7 @@ public class TrackingManager : Singleton<TrackingManager>
     {
         StrikesPlayed += 1;
     }
+
 
     public void ClearStats()
     {

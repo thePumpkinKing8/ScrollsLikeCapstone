@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DrawDebuff
   m_EditorClassIdentifier: 
   CardEffectors:
-  - Type: 7
+  - Type: 8
     EffectValue: 1
     TargetSelf: 1
     Strategy: {fileID: 11400000, guid: 145474d25e49d8142aaa286e8981ebf2, type: 2}

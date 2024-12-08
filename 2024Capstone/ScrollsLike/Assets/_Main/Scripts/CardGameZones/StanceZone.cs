@@ -30,16 +30,16 @@ public class StanceZone : Singleton<StanceZone>
         foreach(StanceTrigger trigger in _stanceData.TriggeredEffects)
         {
             HealthManager.Instance.AddEffect(trigger);
-        }
-       
+        }      
     }
 
     public void RemoveEffect()
     {
         foreach (StanceTrigger trigger in _stanceData.TriggeredEffects)
         {
-            HealthManager.Instance.AddEffect(trigger);
+            HealthManager.Instance.RemoveEffect(trigger);
         }
+        _stanceData.Deactivate();
     }
 
 }

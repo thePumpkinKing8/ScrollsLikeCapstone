@@ -50,6 +50,7 @@ public class CardEventData : ScriptableObject
     public UnityEvent StanceResolved;
     public UnityEvent PlayerGainsBlock;
     public UnityEvent AttackPlayed;
+    public UnityEvent<StanceData> StanceDone;
     #endregion
 
 

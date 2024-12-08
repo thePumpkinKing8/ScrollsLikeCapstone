@@ -5957,7 +5957,6 @@ MonoBehaviour:
   CardPrefab: {fileID: 7955819338273808490, guid: 821959e803683df4f82f7c9bbca1d3a3,
     type: 3}
   _drawDelay: 0.5
-  _maxCardsInHand: 12
   _cardsDrawnPerTurn: 4
   _startingHandSize: 8
 --- !u!1 &1260716714

@@ -23,8 +23,6 @@ public class CardEffect : ScriptableObject
     }
     public void Effect(HealthManager player, TimeSlot target = null)
     {
-
-
         foreach (CardEffector effect in CardEffectors)
         {
             ICardEffectable effected;
