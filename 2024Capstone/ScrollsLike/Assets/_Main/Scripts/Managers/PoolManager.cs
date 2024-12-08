@@ -59,10 +59,12 @@ public class PoolManager : Singleton<PoolManager>
             objectClone.name = poolObject.name;//make sure all objects have the same name
                                                //  objectClone.GetComponent<SpriteRenderer>().color =// GameManager.Instance.color;
             objectClone.gameObject.SetActive(true);
+            objectClone.OnSpawn();
             return objectClone;
         }
         PoolObject oldPoolObject = objStack.Pop();
         oldPoolObject.gameObject.SetActive(true);
+        oldPoolObject.OnSpawn();
         return oldPoolObject;
     }
     public void DeSpawn(PoolObject poolObject)

@@ -15,9 +15,9 @@ MonoBehaviour:
   _clip:
   - {fileID: 8300000, guid: c7f0d374a5edcdf4caa5efb49b45980a, type: 3}
   Mixer: {fileID: 0}
-  AudioName: CardHover
+  AudioName: CardPlace
   Volume: 0.2
-  _pitch: 1.25
+  _pitch: 1
   Priority: 128
   Loop: 0
   PlayOnAwake: 0

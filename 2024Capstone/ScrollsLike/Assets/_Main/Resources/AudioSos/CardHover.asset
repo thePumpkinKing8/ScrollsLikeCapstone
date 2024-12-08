@@ -16,9 +16,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 72e9fc918b852c64abece27d2b68085b, type: 3}
   Mixer: {fileID: 0}
   AudioName: CardHover
-  Volume: 0.2
+  Volume: 0.05
   _pitch: 1.25
-  Priority: 128
+  Priority: 0
   Loop: 0
   PlayOnAwake: 0
   PlaySource: {fileID: 0}

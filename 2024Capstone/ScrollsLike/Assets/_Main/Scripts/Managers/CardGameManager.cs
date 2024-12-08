@@ -200,7 +200,7 @@ public class CardGameManager : Singleton<CardGameManager>
         {
             Events.AttackPlayed.Invoke();
         }
-        
+
         #endregion
         //go to target mode if needed
         foreach (CardEffect effect in card.ReferenceCardData.CardResolutionEffects)
@@ -243,6 +243,7 @@ public class CardGameManager : Singleton<CardGameManager>
 
     IEnumerator WaitForTargetSelect(GameCard card)
     {
+        BlakesAudioManager.Instance.PlayAudio("CardPickUp");
         CurrentPhase = Phase.TargetMode;
         card.GetComponentInChildren<TargetFade>().IsCard = true;
         _waitForTarget = true;

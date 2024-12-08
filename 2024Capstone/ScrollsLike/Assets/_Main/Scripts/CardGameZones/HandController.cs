@@ -31,6 +31,7 @@ public class HandController : Singleton<HandController>
     //spawns a card in the players hand
     public void CardDrawn(CardData drawnCard)
     {
+        BlakesAudioManager.Instance.PlayAudio("CardDraw");
         GameCard newCard = PoolManager.Instance.Spawn("Card").GetComponent<GameCard>();
         newCard.transform.SetParent(transform, true);
         newCard.SetSize();

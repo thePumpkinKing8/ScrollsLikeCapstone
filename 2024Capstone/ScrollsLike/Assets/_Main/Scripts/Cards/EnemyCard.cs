@@ -40,10 +40,12 @@ public class EnemyCard : PoolObject
         _baseSize = transform.localScale;
     }
 
+    /*
     public override void OnSpawn()
     {
         
     }
+    */
     public void CardSetUp()
     {
         _description.text = _cardData.CardDescription;
