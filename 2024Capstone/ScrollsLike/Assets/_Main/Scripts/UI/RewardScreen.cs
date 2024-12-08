@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RewardScreen : MonoBehaviour
 {
     [SerializeField] private Transform _cardSpot;
 
     private CardData _selectedCard;
-
     private UICard[] rewards = new UICard[3];
 
     private void OnEnable()
-    {     
+    {
         _selectedCard = null;
         var cards = Resources.LoadAll<CardData>("Cards");
 
@@ -22,6 +22,14 @@ public class RewardScreen : MonoBehaviour
             rewards[i].transform.SetParent(_cardSpot);
             rewards[i].transform.position = _cardSpot.position;
             rewards[i].SetScreenRef(this);
+
+            // Adding button click listener for each card
+            Button button = rewards[i].GetComponent<Button>();
+            if (button != null)
+            {
+                int index = i;  // Capture the index for the callback
+                button.onClick.AddListener(() => CardSelect(rewards[index].GetCardData()));
+            }
         }
 
         Cursor.lockState = CursorLockMode.None;
@@ -36,8 +44,8 @@ public class RewardScreen : MonoBehaviour
         {
             card.OnDeSpawn();
         }
-        
     }
+
     public void SkipReward()
     {
         gameObject.SetActive(false);
@@ -45,21 +53,36 @@ public class RewardScreen : MonoBehaviour
 
     public void CardSelect(CardData card)
     {
-        Debug.Log("clicked");
-        if(_selectedCard == card) //if a card is clicked a second time this deselects that card
+        if (_selectedCard == card) // If the same card is clicked again, deselect it
         {
             _selectedCard = null;
+            Debug.Log("Card deselected");
+        }
+        else
+        {
+            _selectedCard = card;
+            Debug.Log($"Card selected: {card.CardName}");
         }
 
-        else
-            _selectedCard = card;
+        // Update visual feedback
+        foreach (var cardUI in rewards)
+        {
+            cardUI.SetSelected(cardUI.GetCardData() == _selectedCard);
+        }
     }
 
     public void ComfirmReward()
     {
-        if(_selectedCard != null)
+        if (_selectedCard != null)
+        {
             GameManager.Instance.PlayersDeck.AddCardToDeck(_selectedCard);
-        
+            Debug.Log($"Card {_selectedCard.CardName} added to deck");
+        }
+        else
+        {
+            Debug.Log("No card selected!");
+        }
+
         gameObject.SetActive(false);
         GameManager.Instance.ResumeGame();
     }

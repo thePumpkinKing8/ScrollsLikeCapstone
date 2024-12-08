@@ -5,6 +5,12 @@ public class RestUI : MonoBehaviour
 {
     [SerializeField] private Button restButton;
     [SerializeField] private GameObject restUI;
+    [SerializeField] private DiscardMenu discardMenu;
+
+    public void OnDiscardButtonPressed()
+    {
+        discardMenu.OpenDiscardMenu();  // Open the discard menu when the player presses the discard button
+    }
 
     void Start()
     {

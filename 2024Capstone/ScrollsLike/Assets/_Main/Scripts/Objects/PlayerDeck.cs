@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [CreateAssetMenu(fileName = "DeckData", menuName = "SOs/DeckData")]
 public class PlayerDeck : ScriptableObject
@@ -17,8 +16,9 @@ public class PlayerDeck : ScriptableObject
         {
             _deck.Add(card);
         }
-        Debug.Log("int");
+        Debug.Log("Deck Initialized");
     }
+
     public void AddCardToDeck(CardData card)
     {
         _deck.Add(card);
@@ -33,5 +33,4 @@ public class PlayerDeck : ScriptableObject
     {
         _deck.Clear();
     }
-
 }
