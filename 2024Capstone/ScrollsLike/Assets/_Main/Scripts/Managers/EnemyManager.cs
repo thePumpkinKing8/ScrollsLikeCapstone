@@ -22,6 +22,7 @@ public class EnemyManager : Singleton<EnemyManager>
     private int _enemyHealth;
 
     [HideInInspector] public int DamageMod;
+    [HideInInspector] public int PoisonMod;
     public int EnemyBlock { get; private set; }
 
     

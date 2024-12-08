@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f936fd6e922ee94597232f3bbc81bed, type: 3}
+  m_Name: Stab
+  m_EditorClassIdentifier: 
+  _energyCost: 0
+  _cardName: Stab
+  _cardType: 0
+  _cardImage: {fileID: 2800000, guid: d1f25ec6612d11f41a025f775dae14ea, type: 3}
+  _cardDescription: Deal 8 Damage
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: 88872375b1ab0a2428fe8a8f6e4b40ab, type: 2}
+  _cardOnDrawEffects: []
+  _cardOnDiscardEffects: []

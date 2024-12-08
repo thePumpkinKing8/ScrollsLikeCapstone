@@ -226,7 +226,9 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         DiscardCard(card.ReferenceCardData);
         HealthManager.Instance.ChangeEnergy(1);
-        HandController.Instance.RemoveCard(card);        
+        HandController.Instance.RemoveCard(card);
+        Events.CardDiscardedEvent.Invoke(card.ReferenceCardData);
+        Events.CardDiscarded.Invoke();
     }
 
     public void EndTurn()

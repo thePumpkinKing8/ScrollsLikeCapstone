@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GeologyStrategy", menuName = "SOs/CardStrategy/GeologyStrategy")]
-public class GeologyStrat : CardEffectStrategy
+[CreateAssetMenu(fileName = "LGStrategy", menuName = "SOs/CardStrategy/LGStrategy")]
+public class LowGuardStrat : CardEffectStrategy
 {
     [SerializeField] private StanceData _cardData;
     public override void ApplyEffect(ICardEffectable target, int value, CardData card)
     {
-        TrackingManager.Instance.Geology = true;
+        EnemyManager.Instance.DamageMod += 2;
         _cardEventData.StanceDone.AddListener(DeactivateEffect);
     }
 
     public void DeactivateEffect(StanceData data)
     {
-        if(data = _cardData)
+        if (data = _cardData)
         {
-            TrackingManager.Instance.Geology = false;
+            EnemyManager.Instance.DamageMod += 2;
             _cardEventData.StanceDone.RemoveListener(DeactivateEffect);
-        }          
+        }
     }
 }

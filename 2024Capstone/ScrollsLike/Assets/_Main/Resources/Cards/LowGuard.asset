@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80d32613cecea49498c61eb38f624402, type: 3}
-  m_Name: GeologyMajor
+  m_Name: LowGuard
   m_EditorClassIdentifier: 
   _energyCost: 1
-  _cardName: Geology Major
+  _cardName: Low Guard
   _cardType: 3
-  _cardImage: {fileID: 2800000, guid: dbcc0383a50b34e4a8b465e943a8b257, type: 3}
-  _cardDescription: Rocks deal 6 damage instead of 2.
+  _cardImage: {fileID: 2800000, guid: cfe5228d81d173e43a64f8b3b86c9a7d, type: 3}
+  _cardDescription: Strikes deal 2 extra damage
   _cardResolutionEffects:
   - {fileID: 11400000, guid: 60218babeec82b64fae388728cd7d5d0, type: 2}
+  - {fileID: 11400000, guid: ac948abc59c186f4aa50387b18d9f749, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
   _staticEffects: []
