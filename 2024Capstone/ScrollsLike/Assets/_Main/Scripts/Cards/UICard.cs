@@ -78,6 +78,7 @@ public class UICard : PoolObject
         }
 
         _baseSize = transform.localScale;
+        GetComponent<Canvas>().overrideSorting = false;
     }
 
     public void SetScreenRef(RewardScreen screen)

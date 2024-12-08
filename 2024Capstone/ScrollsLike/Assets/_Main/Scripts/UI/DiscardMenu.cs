@@ -29,21 +29,25 @@ public class DiscardMenu : MonoBehaviour
             return;
         }
 
+
+        /*
         discardMenu.SetActive(true);
         availableCards = new List<CardData>(playerDeck.Deck);
 
-        List<CardData> selectedCards = SelectUniqueCards(availableCards, 4);
+        //List<CardData> selectedCards = SelectUniqueCards(availableCards, 4);
 
         foreach (Transform child in cardContainer)
         {
-            Destroy(child.gameObject);
+            child.GetComponent<PoolObject>().OnDeSpawn();
         }
 
-        foreach (var card in selectedCards)
+        foreach (var card in availableCards)
         {
-            PoolObject cardObject = PoolManager.Instance.Spawn("UICard");
+            PoolObject cardObject = PoolManager.Instance.Spawn("Card");
             GameObject cardGO = cardObject.gameObject;
-            UICard cardUI = cardGO.GetComponent<UICard>();
+            GameCard cardUI = cardGO.GetComponent<GameCard>();
+
+
 
             if (cardUI == null)
             {
@@ -52,14 +56,57 @@ public class DiscardMenu : MonoBehaviour
             }
 
             cardUI.ReferenceCardData = card;
-            cardGO.transform.SetParent(cardContainer);
+            cardGO.transform.SetParent(cardContainer, false);
+            cardUI.SetUpCard();
             cardGO.transform.localPosition = Vector3.zero;
 
             Button button = cardGO.GetComponent<Button>();
             if (button != null)
             {
-                button.onClick.AddListener(() => SelectCardForDiscard(cardUI));
+                //button.onClick.AddListener(() => SelectCardForDiscard(cardUI));
             }
+        }
+        */
+    }
+
+    public void PopulateDeckUI(List<CardData> cardsToDisplay = null)
+    {
+        ClearExistingCards();
+
+
+
+        if (GameManager.Instance != null)
+        {
+            List<CardData> deck = new List<CardData>();
+            if (cardsToDisplay != null)
+                deck = cardsToDisplay;
+            else
+                deck = GameManager.Instance.PlayersDeck.Deck;
+            Debug.Log(deck.Count);
+            foreach (CardData card in deck)
+            {
+                UICard gameCard = PoolManager.Instance.Spawn("UICard").GetComponent<UICard>();
+                gameCard.ReferenceCardData = card;
+                gameCard.transform.SetParent(cardContainer);
+                gameCard.GetComponent<Canvas>().overrideSorting = false;
+
+                Button button = gameCard.GetComponent<Button>();
+                if (button != null)
+                {
+                    button.onClick.AddListener(() => SelectCardForDiscard(gameCard));
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("GameManager instance not found in the scene.");
+        }
+    }
+    private void ClearExistingCards()
+    {
+        foreach (PoolObject child in cardContainer.GetComponentsInChildren<PoolObject>())
+        {
+            child.OnDeSpawn();
         }
     }
 

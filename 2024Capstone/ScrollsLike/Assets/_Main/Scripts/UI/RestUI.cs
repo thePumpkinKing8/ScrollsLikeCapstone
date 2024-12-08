@@ -10,7 +10,7 @@ public class RestUI : MonoBehaviour
     public void OnDiscardButtonPressed()
     {
         discardMenu.gameObject.SetActive(true);  // Open the discard menu when the player presses the discard button
-        discardMenu.OpenDiscardMenu();
+        discardMenu.PopulateDeckUI();
     }
 
     void Start()
