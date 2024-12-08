@@ -78,6 +78,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
             ClearSlot();
             ToggleActive(false);
             _text.text = "dead";
+            SlotHealth = 0;
         }
     }
     public void SetUp(int health)

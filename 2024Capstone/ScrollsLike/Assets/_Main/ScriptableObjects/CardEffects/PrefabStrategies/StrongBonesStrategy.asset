@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2d96aad1ad394b4e8d71f200a9b81cc, type: 3}
-  m_Name: Attack Effect
+  m_Script: {fileID: 11500000, guid: d619f85619e8d664db64ff97ef6fb536, type: 3}
+  m_Name: StrongBonesStrategy
   m_EditorClassIdentifier: 
-  CardEffectors:
-  - Type: 0
-    EffectValue: 6
-    TargetSelf: 0
-    Strategy: {fileID: 0}
-  _requireTarget: 1
-  damage: 6
+  _cardEventData: {fileID: 11400000, guid: 8b91a1c7913a69a4cb70de4c1ef30b26, type: 2}

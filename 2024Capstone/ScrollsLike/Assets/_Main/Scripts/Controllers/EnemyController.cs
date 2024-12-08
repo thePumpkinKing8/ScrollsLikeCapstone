@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float speed = 1f;
-    [SerializeField] private float chaseThreshold = 5f;  // Distance at which the enemy starts chasing
-    [SerializeField] private float patrolThreshold = 0.5f;  // Threshold to reach patrol point
+    [SerializeField] private float chaseThreshold = 5f;
+    [SerializeField] private float patrolThreshold = 0.5f;  
     private List<Vector3> patrolPoints;
     private Vector3 targetPosition;
     private Rigidbody rb;
@@ -37,45 +37,46 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        if (patrolPoints.Count == 0 || GameManager.Instance.State != GameState.Dungeon) return;
-
-        CheckIfStuck();
-
-        if (IsPlayerInChaseRange())
+        if (GameManager.Instance.State == GameState.Dungeon)
         {
-            ChasePlayer();
-        }
-        else
-        {
-            MoveTowardsPatrolPoint();
+            if (patrolPoints.Count == 0 || GameManager.Instance.State != GameState.Dungeon) return;
+
+            CheckIfStuck();
+
+            if (IsPlayerInChaseRange())
+            {
+                ChasePlayer();
+            }
+            else
+            {
+                MoveTowardsPatrolPoint();
+            }
         }
     }
 
     private bool IsPlayerInChaseRange()
     {
-        // Check the distance between the enemy and the player
         float distanceToPlayer = Vector3.Distance(transform.position, GameManager.Instance.Player.position);
         return distanceToPlayer <= chaseThreshold;
     }
 
     private void ChasePlayer()
     {
-        // Increase the speed when chasing
         targetPosition = GameManager.Instance.Player.position;
 
         Vector3 direction = (targetPosition - transform.position).normalized;
         Vector3 velocity = direction * speed * chaseSpeedMultiplier;
 
-        rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
+        Vector3 nextPosition = transform.position + velocity * Time.deltaTime;
+        rb.MovePosition(nextPosition);
     }
 
 
     private void MoveTowardsPatrolPoint()
     {
-        if (Vector3.Distance(transform.position, targetPosition) < patrolThreshold)  // Increased threshold for reaching patrol points
+        if (Vector3.Distance(transform.position, targetPosition) < patrolThreshold)  
         {
-            // Reaching the patrol point
-            targetPosition = GetRandomPatrolPoint();  // Get a new target point
+            targetPosition = GetRandomPatrolPoint(); 
         }
 
         Vector3 direction = (targetPosition - transform.position).normalized;
@@ -98,14 +99,12 @@ public class EnemyController : MonoBehaviour
             stuckTimer += Time.deltaTime;
             if (stuckTimer >= stuckThreshold)
             {
-                // Enemy is considered stuck; select a new patrol point
                 targetPosition = GetRandomPatrolPoint();
                 ResetStuckTimer();
             }
         }
         else
         {
-            // Reset the stuck timer if the enemy is moving normally
             ResetStuckTimer();
         }
 

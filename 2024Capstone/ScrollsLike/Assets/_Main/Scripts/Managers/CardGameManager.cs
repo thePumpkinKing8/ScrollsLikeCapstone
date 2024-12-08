@@ -24,6 +24,9 @@ public class CardGameManager : Singleton<CardGameManager>
     public TimeSlot EffectTarget { get; private set; }
     private bool _waitForTarget = false;
 
+    #region public info
+    public int CardsInDiscard { get { return _discardPile.DiscardedCards.Count; } }
+    #endregion
     protected override void Awake()
     {
         if (GameManager.Instance.State != GameState.CardGame)
@@ -245,6 +248,7 @@ public class CardGameManager : Singleton<CardGameManager>
         card.CancelPlayEvent.AddListener(action.Invoke);
         yield return new WaitUntil(() => _waitForTarget == false);
         Debug.Log("target selected");
+        HandController.Instance.RemoveCard(card);
         EffectManager.Instance.ActivateEffect(card.ReferenceCardData.CardResolutionEffects, EffectTarget);
         DiscardCard(card.ReferenceCardData);
         card.OnDeSpawn();
@@ -376,10 +380,25 @@ public class CardGameManager : Singleton<CardGameManager>
         _deckManager.Shuffle();
     }
 
+    public void GetCardFromDeck(CardData card)
+    {
+        if(HandController.Instance.CardsInHand.Count < HandController.Instance.MaxCardsInHand)
+        {
+            CardData foundCard = _deckManager.GetCard(card);
+            if(foundCard != null)
+            {
+                HandController.Instance.AddCardFromData(foundCard);
+            }
+            Debug.Log("card not found");
+        }
+    }
+
    
 
     public void DrawFromDeckFailed() //shuffles discard pile into deck if there are no cards to draw from
     {
+        if (_discardPile.DiscardedCards.Count < 1)
+            return;
         _deckManager.ShuffleCardsIn(_discardPile.DiscardedCards);
         _discardPile.ShuffleCardsToDeck();
     }

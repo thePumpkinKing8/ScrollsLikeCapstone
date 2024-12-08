@@ -50,7 +50,7 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             _cards.Add(enemyCard);
         }
-        EnemyHealth = deck.Health;
+        EnemyHealth = deck.Health + (GameManager.Instance.LevelIndex * 2);
     }
     // Update is called once per frame
     void Update()

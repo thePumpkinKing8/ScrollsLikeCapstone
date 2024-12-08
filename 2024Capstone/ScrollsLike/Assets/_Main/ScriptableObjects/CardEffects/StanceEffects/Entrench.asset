@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Entrench
   m_EditorClassIdentifier: 
   CardEffectors:
-  - Type: 7
+  - Type: 8
     EffectValue: 0
     TargetSelf: 1
     Strategy: {fileID: 11400000, guid: e37ce47deb3f0984bbeefe913d103458, type: 2}

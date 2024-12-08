@@ -53,6 +53,18 @@ public class DeckManager : MonoBehaviour
         return drawnCard;
     }
 
+    public CardData GetCard(CardData card)
+    {
+        CardData foundCard = _deck.Find(x => x == card);
+        if(foundCard != null)
+        {
+            _deck.Remove(foundCard);
+            return foundCard;
+        }
+        else
+            return null;
+    }
+
     public CardData MillCard()
     {
         if(_deck.Count < 1)

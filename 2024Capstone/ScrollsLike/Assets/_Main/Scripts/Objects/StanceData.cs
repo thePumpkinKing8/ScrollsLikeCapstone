@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 [CreateAssetMenu(fileName = "CardData", menuName = "Stance")]
 public class StanceData : CardData
 {
     public bool IsActive { get; private set; }
+
 
     public void Activate()
     {
@@ -17,6 +19,7 @@ public class StanceData : CardData
     public void Deactivate()
     {
         IsActive = false;
+        CardGameManager.Instance.Events.StanceDone.Invoke(this);
     }
 
     public void SetUp()
@@ -26,7 +29,8 @@ public class StanceData : CardData
             effect.GetData(this);
         }
     }
-    /*
+    
+    
     public List<StanceEffect> StaticEffects //effects that are passivly active
     {
         get
@@ -39,7 +43,9 @@ public class StanceData : CardData
         }
     }
     [SerializeField] private List<StanceEffect> _staticEffects = new List<StanceEffect>();
-    */
+    
+
+    
     public List<StanceTrigger> TriggeredEffects //effects that are passivly active
     {
         get

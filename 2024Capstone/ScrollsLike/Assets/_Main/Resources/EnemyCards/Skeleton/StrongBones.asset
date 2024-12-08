@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5101027089f35674fa670d84b0071742, type: 3}
+  m_Name: StrongBones
+  m_EditorClassIdentifier: 
+  _energyCost: 0
+  _cardName: 
+  _cardType: 1
+  _cardImage: {fileID: 2800000, guid: bc940a74edfe26e49924e0826985eab7, type: 3}
+  _cardDescription: Top 2 cards of your deck go to discard. Gains block = to cards
+    in discard pile
+  _cardResolutionEffects:
+  - {fileID: 11400000, guid: 60d156f11b7ae7948ba8273ed27df199, type: 2}
+  _cardOnDrawEffects: []
+  _cardOnDiscardEffects: []
+  _cardUses: 0
