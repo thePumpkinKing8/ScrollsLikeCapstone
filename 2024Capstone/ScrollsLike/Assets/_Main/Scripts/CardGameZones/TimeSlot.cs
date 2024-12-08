@@ -104,6 +104,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         EnemyData.transform.SetParent(transform);
         EnemyData.ReferenceCardData = card;
         EnemyData.CardSetUp();
+        BlakesAudioManager.Instance.PlayAudio("CardPlace");
     }
 
     public void EnemyHit(int damage)

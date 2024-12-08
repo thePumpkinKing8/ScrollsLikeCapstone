@@ -107,6 +107,8 @@ public class GameCard : PoolObject
         if (_inHand && !_playMode)
         {          
             transform.localScale = _baseSize * _hoverSizeIncrease;
+            BlakesAudioManager.Instance.StopAudio("CardHover");
+            BlakesAudioManager.Instance.PlayAudio("CardHover");
             GetComponent<Canvas>().overrideSorting = true;
         }
         

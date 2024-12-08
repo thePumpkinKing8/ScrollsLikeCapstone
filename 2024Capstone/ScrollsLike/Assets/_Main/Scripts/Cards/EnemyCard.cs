@@ -64,7 +64,9 @@ public class EnemyCard : PoolObject
 
     public void OnHover()
     {
-        transform.localScale = _baseSize * _hoverSizeIncrease;        
+        transform.localScale = _baseSize * _hoverSizeIncrease;
+        BlakesAudioManager.Instance.StopAudio("CardHover");
+        BlakesAudioManager.Instance.PlayAudio("CardHover");
     }
 
     public void OnHoverExit()

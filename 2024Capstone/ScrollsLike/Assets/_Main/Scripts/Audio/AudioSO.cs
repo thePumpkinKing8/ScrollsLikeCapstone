@@ -20,7 +20,8 @@ public class AudioSO : ScriptableObject
 
     public string AudioName;
     public float Volume = 1f;
-    public float Pitch { get { return Random.Range(.95f, 1.05f); } } //randomises pitch
+    public float Pitch { get { return Random.Range(_pitch - .1f, _pitch + .1f); } } //randomises pitch
+    [SerializeField] private float _pitch = 1;
     public int Priority = 128;
     public bool Loop;
     public bool PlayOnAwake = false;
