@@ -1242,6 +1242,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DiscardMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 4209191536236680011, guid: 0fc0bfca45af7fe4b85584ed4e780d3a,
+        type: 3}
+      propertyPath: restUI
+      value: 
+      objectReference: {fileID: 1706616133}
     - target: {fileID: 5437360810326449534, guid: 0fc0bfca45af7fe4b85584ed4e780d3a,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1366,6 +1371,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7542688498571578597, guid: 0fc0bfca45af7fe4b85584ed4e780d3a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8866354262764926501, guid: 0fc0bfca45af7fe4b85584ed4e780d3a,
         type: 3}
