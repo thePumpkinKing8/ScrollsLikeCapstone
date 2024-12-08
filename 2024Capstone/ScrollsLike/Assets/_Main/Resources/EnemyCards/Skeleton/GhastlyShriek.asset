@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GhastlyShriek
   m_EditorClassIdentifier: 
   _energyCost: 1
-  _cardName: 
+  _cardName: Ghastly Shriek
   _cardType: 0
-  _cardImage: {fileID: 0}
-  _cardDescription: 
+  _cardImage: {fileID: 2800000, guid: 53a12b3f2a176954b809f63a7415fffd, type: 3}
+  _cardDescription: Deals damage = to 4 +the number of cards in discard pile/
   _cardResolutionEffects: []
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []

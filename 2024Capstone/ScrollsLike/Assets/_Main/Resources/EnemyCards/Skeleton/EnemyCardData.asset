@@ -9,7 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34ac68baa0914354085fc1dc5bd63a1e, type: 3}
-  m_Name: ShriekStrategy
+  m_Script: {fileID: 11500000, guid: 5101027089f35674fa670d84b0071742, type: 3}
+  m_Name: EnemyCardData
   m_EditorClassIdentifier: 
-  _cardEventData: {fileID: 11400000, guid: 8b91a1c7913a69a4cb70de4c1ef30b26, type: 2}
+  _energyCost: 1
+  _cardName: 
+  _cardType: 0
+  _cardImage: {fileID: 0}
+  _cardDescription: 
+  _cardResolutionEffects: []
+  _cardOnDrawEffects: []
+  _cardOnDiscardEffects: []
+  _cardUses: 0

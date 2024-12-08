@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5101027089f35674fa670d84b0071742, type: 3}
-  m_Name: EmptyStare
+  m_Name: StrongBones
   m_EditorClassIdentifier: 
   _energyCost: 0
-  _cardName: Empty Stare
+  _cardName: 
   _cardType: 1
-  _cardImage: {fileID: 2800000, guid: e8b523040b3df6a4baeed5a970cc2142, type: 3}
-  _cardDescription: Put top 5 cards of deck into discard
+  _cardImage: {fileID: 2800000, guid: bc940a74edfe26e49924e0826985eab7, type: 3}
+  _cardDescription: Top 2 cards of your deck go to discard. Gains block = to cards
+    in discard pile
   _cardResolutionEffects:
-  - {fileID: 11400000, guid: 750bece0de35a6d4fafb793af4b23556, type: 2}
+  - {fileID: 11400000, guid: 60d156f11b7ae7948ba8273ed27df199, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
   _cardUses: 0
