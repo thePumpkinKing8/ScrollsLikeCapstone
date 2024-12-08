@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour
 
         foreach (var item in returnButtons)
         {
-            item.onClick.AddListener(EnableMainMenu);
+            item?.onClick?.AddListener(EnableMainMenu);
         }
     }
 
@@ -51,6 +51,7 @@ public class MainMenu : MonoBehaviour
 
     public void EnableMainMenu()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
         mainMenu.SetActive(true);
         tutorial.SetActive(false);
         options.SetActive(false);
@@ -66,6 +67,7 @@ public class MainMenu : MonoBehaviour
     public void Tutorial()
     {
         BlakesAudioManager.Instance.PlayAudio("Button");
+        tutorial.GetComponent<TutorialController>().StartTutorial();
         mainMenu.SetActive(false);
         tutorial.SetActive(true);
         options.SetActive(false);
