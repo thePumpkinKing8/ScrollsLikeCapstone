@@ -10,6 +10,7 @@ public class LowGuardStrat : CardEffectStrategy
     {
         EnemyManager.Instance.DamageMod += 2;
         _cardEventData.StanceDone.AddListener(DeactivateEffect);
+        CardGameManager.Instance.EffectDone();
     }
 
     public void DeactivateEffect(StanceData data)
