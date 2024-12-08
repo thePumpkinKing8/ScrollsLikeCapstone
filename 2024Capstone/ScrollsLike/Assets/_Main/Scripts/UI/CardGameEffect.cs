@@ -18,7 +18,7 @@ public class CardGameEffect : PoolObject
         base.OnSpawn();
         BlakesAudioManager.Instance.PlayAudio(_sound.AudioName);
         _animator.Play("Effect");
-        CardGameManager.Instance.WaitForEffects();
+       // CardGameManager.Instance.WaitForEffects();
     }
 
     public void Finished()
