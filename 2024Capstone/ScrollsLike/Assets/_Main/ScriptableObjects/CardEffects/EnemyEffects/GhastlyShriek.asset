@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GhastlyShriek
   m_EditorClassIdentifier: 
   CardEffectors:
-  - Type: 0
+  - Type: 8
     EffectValue: 4
     TargetSelf: 1
     Strategy: {fileID: 11400000, guid: 0c25a857def112041adb40ffb010ba50, type: 2}

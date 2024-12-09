@@ -101,7 +101,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 08046f57d9f24f345b0fc9863518a67b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bbacb2f28286c7b4193d170f110691e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d5a68d8bd3e5c64bb01dd3f98f71f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDeck: {fileID: 11400000, guid: 2c2afdb94a398d943b0a60211a05757c, type: 2}
+  _enemyDeck: {fileID: 11400000, guid: f808ccba08177ff4a8559f9983c98cab, type: 2}
 --- !u!114 &-8611065650357355744
 MonoBehaviour:
   m_ObjectHideFlags: 0

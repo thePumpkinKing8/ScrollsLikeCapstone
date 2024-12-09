@@ -361,11 +361,16 @@ public class CardGameManager : Singleton<CardGameManager>
         }
     }
 
+    public void Mill(int num)
+    {
+        StartCoroutine(MillCard(num));
+    }
     public IEnumerator MillCard(int num)
     {
         for (int i = 0; i <= num; i++)
         {
             CardData card = _deckManager.MillCard();
+            Debug.Log(card);
             if (card == null)
             {
                 break;
