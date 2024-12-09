@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff733bbe3f88c44b811bf315fd7d71b, type: 3}
   m_Name: LoseBGM
   m_EditorClassIdentifier: 
-  _clip: []
+  _clip:
+  - {fileID: 8300000, guid: 7e7c401c7e7f237438599e6a1faa9b23, type: 3}
   Mixer: {fileID: 0}
   AudioName: LoseBGM
   Volume: 0.15

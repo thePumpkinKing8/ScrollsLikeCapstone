@@ -137,7 +137,7 @@ public class GameManager : Singleton<GameManager>
     {
         State = GameState.Dead;
         SceneManager.LoadScene("LoseScreen");
-        Destroy(gameObject);
+        Destroy(gameObject,1);
     }
 
     public void CardRewards()
