@@ -24,6 +24,7 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
 
     private int _poolSize;
 
+    public bool Muted { get; private set; } = false;
 
     protected override void Awake()
     {
@@ -92,6 +93,8 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
 
     public void PlayAudio(string audioName)
     {
+        if (Muted)
+            return;
         if (_audioPairs.TryGetValue(audioName, out var audioData))
         {
             _audioSource = GetAudioSource();
@@ -131,7 +134,7 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
 
             // Gives the parameters from the scriptable object to the audio clip in question
             _audioSource.clip = audioData.Clip;
-            _audioSource.volume = audioData.Volume;
+            _audioSource.volume = !Muted ? audioData.Volume : 0;
             _audioSource.pitch = audioData.Pitch;
             _audioSource.priority = audioData.Priority;
             _audioSource.loop = true;
@@ -186,6 +189,22 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
                 }
             }
         }
+    }
+
+    public void Mute()
+    {
+        Muted = true;
+        foreach(AudioSource source in _audioPool)
+        {
+            source.volume = 0;
+        }
+        _musicSource.Pause();
+    }
+    public void UnMute()
+    {
+        Muted = false;
+        _musicSource.volume = .15f;
+        _musicSource.UnPause();
     }
 
 }
