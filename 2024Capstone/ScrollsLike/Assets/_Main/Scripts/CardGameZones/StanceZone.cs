@@ -10,6 +10,7 @@ public class StanceZone : Singleton<StanceZone>
     private Action _action;
     public void AddStance(StanceData data)
     {
+        BlakesAudioManager.Instance.PlayAudio("CardPlace");
         if(_stance != null)
         {
             RemoveEffect();

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyBlock
   m_EditorClassIdentifier: 
   _energyCost: 0
-  _cardName: 
+  _cardName: Defend
   _cardType: 1
   _cardImage: {fileID: 2800000, guid: a3cf5348ef291ca47b2957cc81c94457, type: 3}
   _cardDescription: gains 10 block

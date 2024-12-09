@@ -23,6 +23,9 @@ public class GameManager : Singleton<GameManager>
                 case GameState.Rest:
                     BlakesAudioManager.Instance.PlayMusic("RestBGM");
                     break;
+                case GameState.Dead:
+                    BlakesAudioManager.Instance.PlayMusic("LoseBGM");
+                    break;
             }
         } 
     }
@@ -107,6 +110,7 @@ public class GameManager : Singleton<GameManager>
         if (_levelIndex > 2)
         {
             Debug.Log("Game won");
+            SceneManager.LoadScene("EndScreen");
         }
         else
         {

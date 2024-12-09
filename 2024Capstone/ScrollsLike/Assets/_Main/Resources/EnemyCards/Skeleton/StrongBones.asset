@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StrongBones
   m_EditorClassIdentifier: 
   _energyCost: 0
-  _cardName: 
+  _cardName: Strong Bones
   _cardType: 1
   _cardImage: {fileID: 2800000, guid: bc940a74edfe26e49924e0826985eab7, type: 3}
   _cardDescription: Top 2 cards of your deck go to discard. Gains block = to cards

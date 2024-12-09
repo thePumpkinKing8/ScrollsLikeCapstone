@@ -7,6 +7,6 @@ public class GhastlyShriekStrat : CardEffectStrategy
 {
     public override void ApplyEffect(ICardEffectable target, int value, CardData card)
     {
-        target.ApplyEffect(CardEffectType.Damage, value + CardGameManager.Instance.CardsInDiscard, card);
+        HealthManager.Instance.ApplyEffect(CardEffectType.Damage, value + CardGameManager.Instance.CardsInDiscard, card);
     }
 }

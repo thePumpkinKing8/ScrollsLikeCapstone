@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d32613cecea49498c61eb38f624402, type: 3}
   m_Name: LowGuard
   m_EditorClassIdentifier: 
-  _energyCost: 1
+  _energyCost: 2
   _cardName: Low Guard
   _cardType: 3
   _cardImage: {fileID: 2800000, guid: cfe5228d81d173e43a64f8b3b86c9a7d, type: 3}

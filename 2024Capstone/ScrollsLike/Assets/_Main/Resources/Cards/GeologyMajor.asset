@@ -19,6 +19,7 @@ MonoBehaviour:
   _cardDescription: Rocks deal 6 damage instead of 2.
   _cardResolutionEffects:
   - {fileID: 11400000, guid: 60218babeec82b64fae388728cd7d5d0, type: 2}
+  - {fileID: 11400000, guid: e368620d21b39f24ba4fe294ae43a355, type: 2}
   _cardOnDrawEffects: []
   _cardOnDiscardEffects: []
   _staticEffects: []

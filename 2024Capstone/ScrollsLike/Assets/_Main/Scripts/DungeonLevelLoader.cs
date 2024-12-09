@@ -20,7 +20,7 @@ public class DungeonLevelLoader : MonoBehaviour
 
     public void LoadLevel(string fileName)
     {
-        string path = Path.Combine("Assets", fileName);
+        string path = System.IO.Path.Combine(Application.streamingAssetsPath, fileName); ;
         if (File.Exists(path))
         {
             string levelJson = File.ReadAllText(path);

@@ -147,7 +147,7 @@ public class LevelEditor : EditorWindow
 
     private void LoadLevelData()
     {
-        string path = "Assets/" + levelFileName;
+        string path = "Assets/StreamingAssets/" + levelFileName;
 
         if (File.Exists(path))
         {
