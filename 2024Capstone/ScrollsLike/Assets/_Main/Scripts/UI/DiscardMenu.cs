@@ -182,26 +182,12 @@ public class DiscardMenu : MonoBehaviour
 
         CloseMenu();
 
-        DungeonLevelLoader dungeonLevelLoader = FindObjectOfType<DungeonLevelLoader>();
-        if (dungeonLevelLoader != null)
-        {
-            dungeonLevelLoader.LoadNextLevel();
-        }
-        else
-        {
-            Debug.LogError("DungeonLevelLoader not found!");
-        }
-
-        if (restUI != null)
-        {
-            restUI.SetActive(false);
-        }
-
-        GameManager.Instance.ResumeGame();
+        GameManager.Instance.HideRestUI();
     }
 
     private void CloseMenu()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
         discardMenu.SetActive(false);
     }
 }

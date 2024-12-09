@@ -138,7 +138,9 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
             _audioSource.playOnAwake = audioData.PlayOnAwake;
             _audioSource.outputAudioMixerGroup = audioData.Mixer;
             audioData.PlaySource = _audioSource;
-            _audioSource.PlayOneShot(audioData.Clip);
+
+            _audioSource.clip = audioData.Clip;
+            _audioSource.Play();
 
         }
         else

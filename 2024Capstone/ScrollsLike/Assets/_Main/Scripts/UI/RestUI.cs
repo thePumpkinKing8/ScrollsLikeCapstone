@@ -9,6 +9,7 @@ public class RestUI : MonoBehaviour
 
     public void OnDiscardButtonPressed()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
         discardMenu.gameObject.SetActive(true);  // Open the discard menu when the player presses the discard button
         discardMenu.PopulateDeckUI();
     }
@@ -20,6 +21,7 @@ public class RestUI : MonoBehaviour
 
     public void OnRestButtonClicked()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
         GameManager.Instance.FullyRegenerateHealth();
         GameManager.Instance.HideRestUI();
     }
