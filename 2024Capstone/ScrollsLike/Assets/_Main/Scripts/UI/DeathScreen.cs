@@ -5,7 +5,7 @@ public class DeathScreen : MonoBehaviour
 {
     private void Start()
     {
-        BlakesAudioManager.Instance.PlayAudio("LoseBGM");
+        BlakesAudioManager.Instance.PlayMusic("LoseBGM");
     }
     public void MainMenu()
     {

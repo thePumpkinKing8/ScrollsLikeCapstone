@@ -31,7 +31,7 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
        base.Awake();
         DontDestroyOnLoad(gameObject);
         _audioSOs = Resources.LoadAll<AudioSO>("AudioSOs");
-        _audioSource = gameObject.GetComponent<AudioSource>();
+        _audioSource = gameObject.AddComponent<AudioSource>();
         _audioPairs = new Dictionary<string, AudioSO>();
         _poolSize = _audioSOs.Length; // Amount of audio sources we will instantiate depends on how many clips we have
 
@@ -121,29 +121,21 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
     {
         if (_audioPairs.TryGetValue(audioName, out var audioData))
         {
-            if (audioData.PlaySource != null)//prevents same music from being restarted repeatedly
-            {
-                if (audioData.PlaySource.clip == audioData.Clip)
-                {
-                    return;
-                }
-            }
 
-            StopMusic();
-            _audioSource = _musicSource;
+            _musicSource.clip = null;
+            
 
             // Gives the parameters from the scriptable object to the audio clip in question
-            _audioSource.clip = audioData.Clip;
-            _audioSource.volume = !Muted ? audioData.Volume : 0;
-            _audioSource.pitch = audioData.Pitch;
-            _audioSource.priority = audioData.Priority;
-            _audioSource.loop = true;
-            _audioSource.playOnAwake = audioData.PlayOnAwake;
-            _audioSource.outputAudioMixerGroup = audioData.Mixer;
-            audioData.PlaySource = _audioSource;
+            _musicSource.clip = audioData.Clip;
+            _musicSource.volume = !Muted ? audioData.Volume : 0;
+            _musicSource.pitch = 1;
+            _musicSource.priority = audioData.Priority;
+            _musicSource.loop = true;
+            _musicSource.playOnAwake = audioData.PlayOnAwake;
+            _musicSource.outputAudioMixerGroup = audioData.Mixer;
+            //audioData.PlaySource = _musicSource;
 
-            _audioSource.clip = audioData.Clip;
-            _audioSource.Play();
+            _musicSource.Play();
 
         }
         else

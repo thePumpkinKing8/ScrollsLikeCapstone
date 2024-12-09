@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        Debug.Log("spawn");
+        transform.position = new Vector3(transform.position.x, .75f, transform.position.z);
     }
 
     private void Update()
@@ -18,6 +19,10 @@ public class Enemy : MonoBehaviour
         if (GameManager.Instance.Player != null)
         {
             transform.LookAt(GameManager.Instance.Player.position);
+        }
+        if(transform.position.y < .75f)
+        {
+            transform.position = new Vector3(transform.position.x, .75f, transform.position.z);
         }
     }
 

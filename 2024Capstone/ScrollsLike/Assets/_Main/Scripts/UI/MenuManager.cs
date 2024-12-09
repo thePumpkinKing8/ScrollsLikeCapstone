@@ -13,7 +13,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        BlakesAudioManager.Instance.PlayAudio("MenuBGM");
+        BlakesAudioManager.Instance.PlayMusic("MenuBGM");
     }
 
 

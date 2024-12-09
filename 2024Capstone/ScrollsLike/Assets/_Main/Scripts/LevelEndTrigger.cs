@@ -11,6 +11,10 @@ public class LevelEndTrigger : MonoBehaviour
             GameManager.Instance.ShowRestUI();
         }
     }
+    private void Start()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
+    }
     private void Update()
     {
         if (GameManager.Instance.Player != null)
