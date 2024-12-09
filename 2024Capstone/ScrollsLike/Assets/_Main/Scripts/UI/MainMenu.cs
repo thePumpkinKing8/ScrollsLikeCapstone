@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         BlakesAudioManager.Instance.PlayMusic("MenuBGM");
         EnableMainMenu();
 
