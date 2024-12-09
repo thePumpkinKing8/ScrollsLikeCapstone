@@ -53,19 +53,9 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
     {
         if(PlayerHealth <= 0)
         {
-            Wounds--;
-            if (Wounds <= 0 && !isDead)
-            {
-                Debug.Log("Lose");
-                StartCoroutine(EndGame("Lose"));
-            }
-            else
-            {
-                var overDamage = PlayerHealth; //the damage that knocked the player below 0
-                PlayerHealth = _startingHealth;
-                PlayerHealth -= overDamage;
-            }
-                
+            
+            Debug.Log("Lose");
+            StartCoroutine(EndGame("Lose"));             
         }
 
         if(PlayerBlock > 0)

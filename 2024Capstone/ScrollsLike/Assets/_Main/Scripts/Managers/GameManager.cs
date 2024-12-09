@@ -37,7 +37,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private int _maxWounds = 3;
 
     public int HealthRemaining { get; private set; }
-    [SerializeField] private int _maxHealth = 14;
+    [SerializeField] private int _maxHealth = 25;
     public PlayerDeck PlayersDeck { get { return _playerDeck; } }
     [SerializeField] private PlayerDeck _playerDeck;
     [SerializeField] private EnemyDeck _opponent;
@@ -98,6 +98,7 @@ public class GameManager : Singleton<GameManager>
     public void CardGameStart()
     {
         EnemyManager.Instance.SetUp(_opponent);
+        HealthManager.Instance.PlayerHealth = HealthRemaining;
     }
 
     public void NextLevel()
