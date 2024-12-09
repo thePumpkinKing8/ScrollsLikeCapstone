@@ -13,9 +13,8 @@ public class LevelEditor : EditorWindow
     float gridPadding = 2;
     int currentOption = 1;
 
-    Color[] options = { Color.black, Color.white, Color.blue, Color.red, Color.grey, Color.magenta, Color.green, Color.yellow };
-    string[] names = { "Blank", "Wall", "Player", "Manticore", "Knight", "Skeleton", "Patrol Point", "LevelExit" };
-
+    Color[] options = { Color.black, Color.white, Color.blue, Color.red, Color.grey, Color.magenta, Color.green, Color.yellow, Color.cyan }; // Add treasure chest color
+    string[] names = { "Blank", "Wall", "Player", "Manticore", "Knight", "Skeleton", "Patrol Point", "LevelExit", "TreasureChest" }; // Add treasure chest name
 
 
     private LevelData myData;

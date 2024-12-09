@@ -74,13 +74,24 @@ public class DungeonLevelLoader : MonoBehaviour
                 }
                 else
                 {
-                    // Slightly raise walls or other objects above the ground
-                    float yOffset = objectType == 1 ? 0.5f : 0f; // Example: Raise walls
+                    float yOffset = 0f; // Default offset for most objects
+
+                    // Raise treasure chest a bit
+                    if (objectType == 8)
+                    {
+                        yOffset = 0.5f; 
+                    }
+                    else if (objectType == 1) // Raise walls slightly
+                    {
+                        yOffset = 0.5f;
+                    }
+
                     Instantiate(objectPrefabs[objectType], spawnPosition + Vector3.up * yOffset, Quaternion.identity, transform);
                 }
             }
         }
     }
+
 
     void InstantiateRoof()
     {
