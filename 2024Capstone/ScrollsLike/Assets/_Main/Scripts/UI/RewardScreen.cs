@@ -12,6 +12,7 @@ public class RewardScreen : MonoBehaviour
 
     private void OnEnable()
     {
+        Time.timeScale = 1;
         _selectedCard = null;
         var cards = Resources.LoadAll<CardData>("Cards");
 
@@ -35,6 +36,10 @@ public class RewardScreen : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
+    private void Start()
+    {
+        //gameObject.SetActive(true);
+    }
 
     private void OnDisable()
     {
@@ -56,7 +61,7 @@ public class RewardScreen : MonoBehaviour
         if (_selectedCard == card) // If the same card is clicked again, deselect it
         {
             _selectedCard = null;
-            Debug.Log("Card deselected");
+            Debug.Log(Time.timeScale);
         }
         else
         {
@@ -73,6 +78,7 @@ public class RewardScreen : MonoBehaviour
 
     public void ComfirmReward()
     {
+        Debug.Log("cock");
         if (_selectedCard != null)
         {
             GameManager.Instance.PlayersDeck.AddCardToDeck(_selectedCard);

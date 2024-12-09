@@ -3,7 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class DeathScreen : MonoBehaviour
 {
-
+    private void Start()
+    {
+        BlakesAudioManager.Instance.PlayAudio("LoseBGM");
+    }
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");

@@ -45,7 +45,7 @@ public class GameManager : Singleton<GameManager>
     public int LevelIndex { get { return _levelIndex; } }
     private int _levelIndex = 0;
 
-    [SerializeField] private RewardScreen _rewardScreen;
+    [SerializeField] private GameObject _rewardScreen;
     [SerializeField] private GameObject restUIPrefab;
 
     public bool LevelActive { get; private set; }
@@ -53,7 +53,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
 
         WoundsRemaining = _maxWounds;
         HealthRemaining = _maxHealth;
@@ -63,6 +63,9 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        _rewardScreen = FindObjectOfType<RewardScreen>().gameObject;
+        _rewardScreen.SetActive(false);
+        restUIPrefab = FindObjectOfType<RestUI>().gameObject;
         PlayersDeck.Initialize();
         State = GameState.Dungeon;
     }
@@ -73,6 +76,7 @@ public class GameManager : Singleton<GameManager>
         {
             PlayerWins();
         }
+
     }
 
     public void GoToCombat(EnemyDeck opponent, GameObject obj)
@@ -133,6 +137,7 @@ public class GameManager : Singleton<GameManager>
 
     public void CardRewards()
     {
+        State = GameState.Rewards;
         LevelActive = false;
         _rewardScreen.gameObject.SetActive(true);
     }
@@ -151,7 +156,7 @@ public class GameManager : Singleton<GameManager>
     public void SetPause()
     {
         State = GameState.Pause;
-        Time.timeScale = 0f;
+       // Time.timeScale = 0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None; 
     }
@@ -189,5 +194,6 @@ public enum GameState
     CardGame,
     Pause,
     Rest,
+    Rewards,
     Dead
 }

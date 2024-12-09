@@ -52,7 +52,7 @@ public class PauseMenu : MonoBehaviour
     public void RestartLevel()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Anna_Gym");
     }
 
     public void ExitToMenu()

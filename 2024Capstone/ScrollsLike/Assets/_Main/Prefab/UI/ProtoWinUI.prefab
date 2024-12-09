@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5437360810326449534}
   - component: {fileID: 1927968177941253614}
+  - component: {fileID: 6157884203251147210}
   m_Layer: 5
   m_Name: ProtoWinUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5437360810326449534
 RectTransform:
   m_ObjectHideFlags: 0
@@ -53,6 +54,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardSpot: {fileID: 7482548363540964990}
+--- !u!223 &6157884203251147210
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182832885438303555}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &3844721586559059067
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4a515a54744fa8949b509d4747f3cd20, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 92091a52a2b7b25439efafdc198840da, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -196,7 +220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4c32447e98a90e04ea0bf4fc98d5a8a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9c341eef1d5dc4c44ae5e22ac70f7276, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -228,7 +252,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
+    m_HighlightedColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.31132078, g: 0.3098523, b: 0.3098523, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -330,7 +354,7 @@ MonoBehaviour:
   m_text: WIN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c4c68da9144e784ebbb05e60668c11e, type: 2}
-  m_sharedMaterial: {fileID: -401976670097298797, guid: 9c4c68da9144e784ebbb05e60668c11e,
+  m_sharedMaterial: {fileID: -2857717756588499428, guid: 9c4c68da9144e784ebbb05e60668c11e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -465,7 +489,7 @@ MonoBehaviour:
   m_text: CONTINUE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c4c68da9144e784ebbb05e60668c11e, type: 2}
-  m_sharedMaterial: {fileID: -401976670097298797, guid: 9c4c68da9144e784ebbb05e60668c11e,
+  m_sharedMaterial: {fileID: -2857717756588499428, guid: 9c4c68da9144e784ebbb05e60668c11e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

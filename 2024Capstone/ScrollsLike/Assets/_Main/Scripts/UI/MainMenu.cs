@@ -33,7 +33,7 @@ public class MainMenu : MonoBehaviour
         EnableMainMenu();
 
         startButton.onClick.AddListener(StartGame);
-        optionsButton.onClick.AddListener(EnableOptions);
+        //optionsButton.onClick.AddListener(EnableOptions);
         tutorialButton.onClick.AddListener(Tutorial);
         exitButton.onClick.AddListener(OnExitGame);
 
