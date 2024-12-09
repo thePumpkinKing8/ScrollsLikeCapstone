@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff733bbe3f88c44b811bf315fd7d71b, type: 3}
-  m_Name: SmallHit
+  m_Script: {fileID: 11500000, guid: b87dd08995229ed479a77f8be654c60a, type: 3}
+  m_Name: RandomBS
   m_EditorClassIdentifier: 
-  _clip: []
-  Mixer: {fileID: 0}
-  AudioName: 
-  Volume: 1
-  Priority: 128
-  Loop: 0
-  PlayOnAwake: 0
-  PlaySource: {fileID: 0}
+  CardEffectors:
+  - Type: 8
+    EffectValue: 0
+    TargetSelf: 0
+    Strategy: {fileID: 11400000, guid: 7205c6bd231ba3046a11597355b1aed1, type: 2}
+  _requireTarget: 0
+  _isAOE: 1

@@ -224,7 +224,8 @@ public class HealthManager : Singleton<HealthManager>, ICardEffectable
                 DamageMod += value;
                 break;
             case CardEffectType.Mill:
-                CardGameManager.Instance.MillCard(value);
+                Debug.Log("mill");
+                CardGameManager.Instance.Mill(value);
                 break;
             case CardEffectType.None:
                 break;

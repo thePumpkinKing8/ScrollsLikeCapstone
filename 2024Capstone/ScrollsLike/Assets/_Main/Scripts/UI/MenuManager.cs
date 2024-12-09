@@ -11,6 +11,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject splashScreen;
     [SerializeField] private GameObject mainMenu;
 
+    private void Start()
+    {
+        BlakesAudioManager.Instance.PlayAudio("MenuBGM");
+    }
 
 
     void Update()

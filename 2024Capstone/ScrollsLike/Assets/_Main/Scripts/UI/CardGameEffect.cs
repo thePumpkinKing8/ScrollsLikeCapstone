@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CardGameEffect : PoolObject
 {
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSO _sound;
+
 
     private void Start()
     {
@@ -12,9 +14,11 @@ public class CardGameEffect : PoolObject
     }
     public override void OnSpawn()
     {
+        Debug.Log("spawned");
         base.OnSpawn();
-        animator.Play("Effect");
-        CardGameManager.Instance.WaitForEffects();
+        BlakesAudioManager.Instance.PlayAudio(_sound.AudioName);
+        _animator.Play("Effect");
+       // CardGameManager.Instance.WaitForEffects();
     }
 
     public void Finished()

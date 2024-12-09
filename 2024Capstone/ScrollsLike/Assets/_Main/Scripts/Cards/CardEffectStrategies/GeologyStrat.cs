@@ -10,6 +10,7 @@ public class GeologyStrat : CardEffectStrategy
     {
         TrackingManager.Instance.Geology = true;
         _cardEventData.StanceDone.AddListener(DeactivateEffect);
+        CardGameManager.Instance.EffectDone();
     }
 
     public void DeactivateEffect(StanceData data)
@@ -18,7 +19,6 @@ public class GeologyStrat : CardEffectStrategy
         {
             TrackingManager.Instance.Geology = false;
             _cardEventData.StanceDone.RemoveListener(DeactivateEffect);
-        }
-           
+        }          
     }
 }

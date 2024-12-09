@@ -3,7 +3,31 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public GameState State { get; private set; }
+    public GameState State 
+    {
+        get 
+        {
+            return _state;
+        }
+        private set 
+        { 
+            _state = value;
+            switch(value)
+            {
+                case GameState.Dungeon:
+                    BlakesAudioManager.Instance.PlayMusic("DungeonBGM");
+                    break;
+                case GameState.CardGame:
+                    BlakesAudioManager.Instance.PlayMusic("CombatBGM");
+                    break;
+                case GameState.Rest:
+                    BlakesAudioManager.Instance.PlayMusic("RestBGM");
+                    break;
+            }
+        } 
+    }
+
+    private GameState _state;
     public Transform Player { get { return _player; } set { _player = value; } }
     private Transform _player;
 
@@ -34,12 +58,13 @@ public class GameManager : Singleton<GameManager>
         WoundsRemaining = _maxWounds;
         HealthRemaining = _maxHealth;
         LevelActive = true;
-        State = GameState.Dungeon;
+        
     }
 
     private void Start()
     {
         PlayersDeck.Initialize();
+        State = GameState.Dungeon;
     }
 
     private void Update()
@@ -61,6 +86,11 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene("CardGame", LoadSceneMode.Additive);
     }
 
+    public void EndRest()
+    {
+
+    }
+
     public void CardGameStart()
     {
         EnemyManager.Instance.SetUp(_opponent);
@@ -72,6 +102,14 @@ public class GameManager : Singleton<GameManager>
         if (_levelIndex >= 2)
         {
             Debug.Log("Game won");
+        }
+        else
+        {
+            DungeonLevelLoader levelLoader = FindObjectOfType<DungeonLevelLoader>();
+            if (levelLoader != null)
+            {
+                levelLoader.LoadNextLevel();
+            }
         }
     }
 
@@ -123,6 +161,7 @@ public class GameManager : Singleton<GameManager>
         if (restUIPrefab != null)
         {
             restUIPrefab.SetActive(true);
+            State = GameState.Rest;
             SetPause(); 
         }
     }
@@ -132,6 +171,7 @@ public class GameManager : Singleton<GameManager>
         if (restUIPrefab != null)
         {
             restUIPrefab.SetActive(false);
+            NextLevel();
             ResumeGame();
         }
     }
@@ -148,5 +188,6 @@ public enum GameState
     Dungeon,
     CardGame,
     Pause,
+    Rest,
     Dead
 }

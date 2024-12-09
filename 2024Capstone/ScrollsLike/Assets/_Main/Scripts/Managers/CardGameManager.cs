@@ -200,7 +200,7 @@ public class CardGameManager : Singleton<CardGameManager>
         {
             Events.AttackPlayed.Invoke();
         }
-        
+
         #endregion
         //go to target mode if needed
         foreach (CardEffect effect in card.ReferenceCardData.CardResolutionEffects)
@@ -226,7 +226,9 @@ public class CardGameManager : Singleton<CardGameManager>
     {
         DiscardCard(card.ReferenceCardData);
         HealthManager.Instance.ChangeEnergy(1);
-        HandController.Instance.RemoveCard(card);        
+        HandController.Instance.RemoveCard(card);
+        Events.CardDiscardedEvent.Invoke(card.ReferenceCardData);
+        Events.CardDiscarded.Invoke();
     }
 
     public void EndTurn()
@@ -241,6 +243,7 @@ public class CardGameManager : Singleton<CardGameManager>
 
     IEnumerator WaitForTargetSelect(GameCard card)
     {
+        BlakesAudioManager.Instance.PlayAudio("CardPickUp");
         CurrentPhase = Phase.TargetMode;
         card.GetComponentInChildren<TargetFade>().IsCard = true;
         _waitForTarget = true;
@@ -358,11 +361,16 @@ public class CardGameManager : Singleton<CardGameManager>
         }
     }
 
+    public void Mill(int num)
+    {
+        StartCoroutine(MillCard(num));
+    }
     public IEnumerator MillCard(int num)
     {
         for (int i = 0; i <= num; i++)
         {
             CardData card = _deckManager.MillCard();
+            Debug.Log(card);
             if (card == null)
             {
                 break;

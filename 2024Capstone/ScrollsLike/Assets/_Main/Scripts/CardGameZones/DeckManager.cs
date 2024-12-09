@@ -68,7 +68,11 @@ public class DeckManager : MonoBehaviour
     public CardData MillCard()
     {
         if(_deck.Count < 1)
+        {
+            Debug.Log("null mill");
             return null;
+        }
+            
 
         var milledCard = _deck[0];
         _deck.Remove(milledCard);

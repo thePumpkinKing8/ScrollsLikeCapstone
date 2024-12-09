@@ -40,10 +40,12 @@ public class EnemyCard : PoolObject
         _baseSize = transform.localScale;
     }
 
+    /*
     public override void OnSpawn()
     {
         
     }
+    */
     public void CardSetUp()
     {
         _description.text = _cardData.CardDescription;
@@ -64,7 +66,9 @@ public class EnemyCard : PoolObject
 
     public void OnHover()
     {
-        transform.localScale = _baseSize * _hoverSizeIncrease;        
+        transform.localScale = _baseSize * _hoverSizeIncrease;
+        BlakesAudioManager.Instance.StopAudio("CardHover");
+        BlakesAudioManager.Instance.PlayAudio("CardHover");
     }
 
     public void OnHoverExit()

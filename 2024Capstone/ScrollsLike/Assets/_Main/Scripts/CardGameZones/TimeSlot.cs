@@ -104,6 +104,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         EnemyData.transform.SetParent(transform);
         EnemyData.ReferenceCardData = card;
         EnemyData.CardSetUp();
+        BlakesAudioManager.Instance.PlayAudio("CardPlace");
     }
 
     public void EnemyHit(int damage)
@@ -191,7 +192,7 @@ public class TimeSlot : MonoBehaviour, ICardEffectable
         switch (effectType)
         {
             case CardEffectType.Damage:
-                ApplyDamage(value);
+                ApplyDamage(value + EnemyManager.Instance.DamageMod);
                 break;
             case CardEffectType.Heal:
                 EnemyHeal(value);

@@ -16,14 +16,20 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
 
     private AudioSource _audioSource;
 
+    [SerializeField] private AudioSource _musicSource;
+
     private Dictionary<string, AudioSO> _audioPairs;
 
     private List<AudioSource> _audioPool;
 
     private int _poolSize;
 
+    public bool Muted { get; private set; } = false;
+
     protected override void Awake()
     {
+       base.Awake();
+        DontDestroyOnLoad(gameObject);
         _audioSOs = Resources.LoadAll<AudioSO>("AudioSOs");
         _audioSource = gameObject.GetComponent<AudioSource>();
         _audioPairs = new Dictionary<string, AudioSO>();
@@ -48,6 +54,7 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
         for (int i = 0; i < _poolSize; i++)
         {
             AudioSource pooledAudioSource = this.gameObject.AddComponent<AudioSource>();
+            pooledAudioSource.playOnAwake = false;
             _audioPool.Add(pooledAudioSource);
         }
 
@@ -86,6 +93,8 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
 
     public void PlayAudio(string audioName)
     {
+        if (Muted)
+            return;
         if (_audioPairs.TryGetValue(audioName, out var audioData))
         {
             _audioSource = GetAudioSource();
@@ -106,6 +115,56 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
         {
             Debug.Log("The clip" + audioName + "cannot be found.");
         }
+    }
+
+    public void PlayMusic(string audioName)
+    {
+        if (_audioPairs.TryGetValue(audioName, out var audioData))
+        {
+            if (audioData.PlaySource != null)//prevents same music from being restarted repeatedly
+            {
+                if (audioData.PlaySource.clip == audioData.Clip)
+                {
+                    return;
+                }
+            }
+
+            StopMusic();
+            _audioSource = _musicSource;
+
+            // Gives the parameters from the scriptable object to the audio clip in question
+            _audioSource.clip = audioData.Clip;
+            _audioSource.volume = !Muted ? audioData.Volume : 0;
+            _audioSource.pitch = audioData.Pitch;
+            _audioSource.priority = audioData.Priority;
+            _audioSource.loop = true;
+            _audioSource.playOnAwake = audioData.PlayOnAwake;
+            _audioSource.outputAudioMixerGroup = audioData.Mixer;
+            audioData.PlaySource = _audioSource;
+
+            _audioSource.clip = audioData.Clip;
+            _audioSource.Play();
+
+        }
+        else
+        {
+            Debug.Log("The clip" + audioName + "cannot be found.");
+        }
+    }
+
+    public void StopMusic()
+    {
+        _musicSource.Stop();
+    }
+
+    public void PauseMusic()
+    {
+        _musicSource.Pause();
+    }
+
+    public void UnPauseMusic()
+    {
+        _musicSource.UnPause();
     }
 
     public void PauseAudio(string audioName)
@@ -130,6 +189,22 @@ public class BlakesAudioManager : Singleton<BlakesAudioManager>
                 }
             }
         }
+    }
+
+    public void Mute()
+    {
+        Muted = true;
+        foreach(AudioSource source in _audioPool)
+        {
+            source.volume = 0;
+        }
+        _musicSource.Pause();
+    }
+    public void UnMute()
+    {
+        Muted = false;
+        _musicSource.volume = .15f;
+        _musicSource.UnPause();
     }
 
 }

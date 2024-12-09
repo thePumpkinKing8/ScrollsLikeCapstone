@@ -9,7 +9,9 @@ public class RestUI : MonoBehaviour
 
     public void OnDiscardButtonPressed()
     {
-        discardMenu.OpenDiscardMenu();  // Open the discard menu when the player presses the discard button
+        BlakesAudioManager.Instance.PlayAudio("Button");
+        discardMenu.gameObject.SetActive(true);  // Open the discard menu when the player presses the discard button
+        discardMenu.PopulateDeckUI();
     }
 
     void Start()
@@ -19,17 +21,9 @@ public class RestUI : MonoBehaviour
 
     public void OnRestButtonClicked()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
         GameManager.Instance.FullyRegenerateHealth();
         GameManager.Instance.HideRestUI();
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        DungeonLevelLoader levelLoader = FindObjectOfType<DungeonLevelLoader>();
-        if (levelLoader != null)
-        {
-            levelLoader.LoadNextLevel();
-        }
     }
 
 }

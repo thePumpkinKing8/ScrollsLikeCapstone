@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        BlakesAudioManager.Instance.PlayMusic("MenuBGM");
         EnableMainMenu();
 
         startButton.onClick.AddListener(StartGame);
@@ -38,17 +39,19 @@ public class MainMenu : MonoBehaviour
 
         foreach (var item in returnButtons)
         {
-            item.onClick.AddListener(EnableMainMenu);
+            item?.onClick?.AddListener(EnableMainMenu);
         }
     }
 
     public void StartGame()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
         SceneManager.LoadScene("Anna_Gym");
     }
 
     public void EnableMainMenu()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
         mainMenu.SetActive(true);
         tutorial.SetActive(false);
         options.SetActive(false);
@@ -56,12 +59,15 @@ public class MainMenu : MonoBehaviour
 
     public void EnableOptions()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
         mainMenu.SetActive(true);
         tutorial.SetActive(false);
         options.SetActive(true);
     }
     public void Tutorial()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
+        tutorial.GetComponent<TutorialController>().StartTutorial();
         mainMenu.SetActive(false);
         tutorial.SetActive(true);
         options.SetActive(false);
@@ -69,6 +75,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnExitGame()
     {
+        BlakesAudioManager.Instance.PlayAudio("Button");
         Debug.Log("Quitting game");
         Application.Quit();
     }
