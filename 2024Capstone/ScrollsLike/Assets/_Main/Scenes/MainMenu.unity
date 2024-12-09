@@ -6300,7 +6300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1630906945
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7618,7 +7618,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CARD SCROLL
+  m_text: SCROLL CARD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e2c13e3000e6d5f4fa6b856ded86c911, type: 2}
   m_sharedMaterial: {fileID: 3663499163091174820, guid: e2c13e3000e6d5f4fa6b856ded86c911,
