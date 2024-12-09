@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CoatedManeTriggerEffect
   m_EditorClassIdentifier: 
   CardEffectors:
-  - Type: 7
+  - Type: 8
     EffectValue: 0
     TargetSelf: 0
     Strategy: {fileID: 11400000, guid: 26d5bcee169268a4aa129d469110b516, type: 2}

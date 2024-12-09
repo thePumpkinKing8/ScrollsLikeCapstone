@@ -17,9 +17,5 @@ MonoBehaviour:
     EffectValue: 2
     TargetSelf: 1
     Strategy: {fileID: 0}
-  - Type: 5
-    EffectValue: 2
-    TargetSelf: 0
-    Strategy: {fileID: 0}
   _requireTarget: 0
   _isAOE: 0

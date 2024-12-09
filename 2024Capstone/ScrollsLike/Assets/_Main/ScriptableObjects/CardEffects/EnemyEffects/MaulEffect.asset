@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MaulEffect
   m_EditorClassIdentifier: 
   CardEffectors:
-  - Type: 6
+  - Type: 8
     EffectValue: 0
     TargetSelf: 1
     Strategy: {fileID: 11400000, guid: 6db09e90b37ccbe44be27efb33e61bac, type: 2}
